@@ -30,7 +30,6 @@ function Case:draw()
 				self.box.y, 
 				self.box.w, 
 				self.box.h)
-
 			end
 
 			if self.t == 0 then
@@ -58,7 +57,6 @@ function Case:draw()
 				self.box.w, 
 				self.box.h)
 			end
-
 end
 
 return Case

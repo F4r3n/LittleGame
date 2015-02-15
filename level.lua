@@ -7,13 +7,15 @@ local Level = {
 	levelBase = nil,
 	player = nil,
 	cases = {},
-	bullets = {}
+	bullets = {},
+	bonus = {}
 }
 
 Level.__index = Level
 LevelBase = require 'levelBase'
 Case = require 'case'
 Bullet = require 'bullet'
+Bonus = require 'bonus'
 
 function Level.new(n,player)
 	local self = setmetatable({},Level)
@@ -66,6 +68,7 @@ function Level:update(dt)
 						self.cases[i][j]:dommaged(v.dmg)
 						if self.cases[i][j].dead == true then
 							self.cases[i][j].t = 0
+							table.insert(self.bonus,Bonus.new(a.x+x+a.w/2,a.y+y+a.h-10))
 						end
 						table.remove(self.bullets,bullet)
 					end
@@ -84,6 +87,11 @@ function Level:update(dt)
 	end
 
 
+	for bonus,v in ipairs(self.bonus) do
+		v:update(dt,x,y)
+	end
+
+
 
 end
 
@@ -98,6 +106,12 @@ function Level:draw()
 	for bullet,v in ipairs(self.bullets) do
 		v:draw()
 	end
+
+
+	for bonus,v in ipairs(self.bonus) do
+		v:draw()
+	end
+
 	self.player:draw()
 end
 
