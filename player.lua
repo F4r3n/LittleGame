@@ -48,18 +48,15 @@ function Player:update(dt,level)
 	end
 
 	if keyBoardInput["right"] then
-		table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,1,0))
-	end
+		table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,1,0,5))
 
-	if keyBoardInput["left"] then
-		table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,-1,0))
-	end
-	if keyBoardInput["up"] then
-		table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,0,-1))
-	end
+	elseif keyBoardInput["left"] then
+		table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,-1,0,5))
+	elseif keyBoardInput["up"] then
+		table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,0,-1,5))
 
-	if keyBoardInput["down"] then
-		table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,0,1))
+	elseif keyBoardInput["down"] then
+		table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,0,1,5))
 	end
 
 	if keyBoardInput["q"] then
@@ -74,11 +71,11 @@ function Player:update(dt,level)
 		self.vy = -self.speed
 		jump = true
 	end
-	
---	self.x = self.x + self.vx*dt
---	self.y = self.y + self.vy*dt
---	print(self.x)
---	print(self.vx)
+
+	--	self.x = self.x + self.vx*dt
+	--	self.y = self.y + self.vy*dt
+	--	print(self.x)
+	--	print(self.vx)
 
 
 	for i=1,#level.cases do
@@ -87,26 +84,20 @@ function Player:update(dt,level)
 			if case.t == 1 then
 
 				if self.boxY:AABB(case.box) then
-		--			print(case.box.y,self.y+self.h)
+					--			print(case.box.y,self.y+self.h)
 					local d =(self.boxY.y+self.boxY.h)-case.box.y
 					self.vy = -gravity*dt*2
 					jump = false
 				end
-				--		if self.boxX:AABB(case.box) then
-				---			print(case.box.x + case.box.w - self.boxX.x-5)
-				---			if self.boxX.x + self.boxX.w - case.box.x > 5 then
-				--	self.vx = 0
-				--	self.x = self.x-5
-				--				print("r")
+				if self.boxX:AABB(case.box) then
+					if self.boxX.x + self.boxX.w/2 - case.box.x > 5 then
+						self.vx = self.speed*dt*4
 
-				--			end
-				--			if case.box.x + case.box.w > self.boxX.x+5 then
-				--	self.vx = 0
-				--	self.x = self.x+5
-				--				print("l")
-				--			end
+					elseif case.box.x + case.box.w > self.boxX.x+5 then
+						self.vx = -self.speed*dt*4
+					end
 
-				--		end
+				end
 
 
 			end

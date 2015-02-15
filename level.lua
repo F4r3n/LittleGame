@@ -44,11 +44,22 @@ function Level:update(dt)
 			local a = self.cases[i][j].box
 			self.cases[i][j].box.x = a.x+x
 			self.cases[i][j].box.y = a.y+y
+
+			if self.cases[i][j].t == 1 then
+				for bullet,v in ipairs(self.bullets) do
+					if  v.box:AABB(self.cases[i][j].box) then
+						print(v.dmg)
+						self.cases[i][j]:dommaged(v.dmg)
+						if self.cases[i][j].dead == true then
+							self.cases[i][j].t = 0
+						end
+						table.remove(self.bullets,bullet)
+					end
+				end
+			end
 		end
 	end
 
-	local x = -self.player.vx
-	local y = -self.player.vy
 
 	for bullet,v in ipairs(self.bullets) do
 		v:update(dt,x,y)
@@ -58,7 +69,7 @@ function Level:update(dt)
 
 	end
 
-	
+
 
 end
 
@@ -69,29 +80,29 @@ function Level:draw()
 			if self.cases[i][j].t == 1 then
 				love.graphics.setColor(255,0,0)
 				love.graphics.rectangle("fill",
-										self.cases[i][j].box.x,
-										self.cases[i][j].box.y, 
-										self.cases[i][j].box.w, 
-										self.cases[i][j].box.h)
+				self.cases[i][j].box.x,
+				self.cases[i][j].box.y, 
+				self.cases[i][j].box.w, 
+				self.cases[i][j].box.h)
 
 			end
 
 			if self.cases[i][j].t == 0 then
 				love.graphics.setColor(0,0,255)
 				love.graphics.rectangle("fill",
-										self.cases[i][j].box.x,
-										self.cases[i][j].box.y, 
-										self.cases[i][j].box.w, 
-										self.cases[i][j].box.h)
+				self.cases[i][j].box.x,
+				self.cases[i][j].box.y, 
+				self.cases[i][j].box.w, 
+				self.cases[i][j].box.h)
 			end
 
 			if self.cases[i][j].t == 2 then
 				love.graphics.setColor(0,255,0)
 				love.graphics.rectangle("fill",
-										self.cases[i][j].box.x,
-										self.cases[i][j].box.y, 
-										self.cases[i][j].box.w, 
-										self.cases[i][j].box.h)
+				self.cases[i][j].box.x,
+				self.cases[i][j].box.y, 
+				self.cases[i][j].box.w, 
+				self.cases[i][j].box.h)
 
 
 			end
