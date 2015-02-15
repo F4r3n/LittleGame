@@ -72,19 +72,12 @@ function Player:update(dt,level)
 		jump = true
 	end
 
-	--	self.x = self.x + self.vx*dt
-	--	self.y = self.y + self.vy*dt
-	--	print(self.x)
-	--	print(self.vx)
-
 
 	for i=1,#level.cases do
-		for j=1,#level.cases do
+		for j=1,#level.cases[i] do
 			local case = level.cases[i][j]
-			if case.t == 1 then
-
+			if case.t == 1 or case.t ==-1 then
 				if self.boxY:AABB(case.box) then
-					--			print(case.box.y,self.y+self.h)
 					local d =(self.boxY.y+self.boxY.h)-case.box.y
 					self.vy = -gravity*dt*2
 					jump = false

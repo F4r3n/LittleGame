@@ -15,6 +15,10 @@ function Game.new()
 	return self
 end
 
+function Game:reload()
+	self.level:reload()
+end
+
 function Game:draw()
 	self.level:draw()
 end

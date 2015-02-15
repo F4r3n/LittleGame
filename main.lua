@@ -24,6 +24,14 @@ end
 
 function love.keypressed(key,isrepeat)
 	keyBoardInput[key] = true
+	if key == "p" then
+		game = Game.new()
+	end
+
+
+	if key == "l" then
+		game:reload()
+	end
 end
 
 
