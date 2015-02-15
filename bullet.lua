@@ -1,6 +1,6 @@
 local Bullet = {
 	dmg = 10,
-	speed = 100,
+	speed = 300,
 	owner = 0,
 	dirX = 0,
 	dirY = 0,
@@ -23,14 +23,16 @@ function Bullet.new(owner,x,y,dirX,dirY)
 	return self
 end
 
-function Bullet:draw(x,y)
+function Bullet:draw()
 	love.graphics.setColor(0,0,0)
-	love.graphics.rectangle("fill",self.x+x,self.y+y,self.w,self.h)
+	love.graphics.rectangle("fill",self.x,self.y,self.w,self.h)
 end
 
-function Bullet:update(dt)
-	self.x = self.x + self.speed * self.dirX * dt
-	self.y = self.y + self.speed * self.dirY * dt
+function Bullet:update(dt,x,y)
+	self.x = self.x + self.speed * self.dirX * dt+x
+	self.y = self.y + self.speed * self.dirY * dt+y
 end
+
+
 
 return Bullet

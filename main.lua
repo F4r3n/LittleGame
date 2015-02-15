@@ -2,7 +2,7 @@
 local Game = require 'game'
 
 keyBoardInput = {}
-gravity = 300
+gravity = 10
 width = 800
 height = 600
 
