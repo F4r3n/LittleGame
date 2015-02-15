@@ -2,10 +2,12 @@
 local Game = require 'game'
 
 keyBoardInput = {}
-gravity = 200
+gravity = 300
+width = 800
+height = 600
 
 function love.load()
-	love.window.setMode(600,800)
+	love.window.setMode(width,height)
 	love.window.setTitle("Yop");
 	love.graphics.setBackgroundColor({0,0,0,255});
 	game = Game.new();
