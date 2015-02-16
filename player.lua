@@ -8,7 +8,7 @@ local Player = {
 	speed = 10,
 	boxY = nil,
 	boxX = nil,
-	jump = false,
+	jumping = false,
 	initX = 400,
 	initY = 400,
 }
@@ -67,9 +67,9 @@ function Player:update(dt,level)
 		self.vy = self.speed
 	end
 
-	if keyBoardInput[" "] and jump == false then
+	if keyBoardInput[" "] and self.jumping == false then
 		self.vy = -self.speed
-		jump = true
+		self.jumping = true
 	end
 
 
@@ -80,7 +80,7 @@ function Player:update(dt,level)
 				if self.boxY:AABB(case.box) then
 					local d =(self.boxY.y+self.boxY.h)-case.box.y
 					self.vy = -gravity*dt*2
-					jump = false
+					self.jumping = false
 				end
 				if self.boxX:AABB(case.box) then
 					if self.boxX.x + self.boxX.w/2 - case.box.x > 5 then

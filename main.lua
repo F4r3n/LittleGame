@@ -5,6 +5,8 @@ keyBoardInput = {}
 gravity = 10
 width = 800
 height = 600
+black = {0,0,0,255}
+white = {255,255,255,255}
 
 function love.load()
 	love.window.setMode(width,height)

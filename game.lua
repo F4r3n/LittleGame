@@ -11,7 +11,7 @@ local Level = require 'level'
 function Game.new() 
 	local self = setmetatable({},Game)
 	self.player = Player.new({400,400})
-	self.level = Level.new(1,self.player)
+	self.level = Level.new(0,self.player)
 	return self
 end
 
