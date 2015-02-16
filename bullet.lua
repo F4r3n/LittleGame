@@ -1,6 +1,6 @@
 local Bullet = {
 	dmg = 10,
-	speed = 300,
+	speed = 500,
 	owner = 0,
 	dirX = 0,
 	dirY = 0,

@@ -5,11 +5,12 @@ local Enemy = {
 	dmg=5,
 	x = 0,
 	y = 0,
-	w = 20,
-	h = 20,
+	w = 40,
+	h = 40,
 	vx = 0,
 	vy = 0,
-	speed = 20
+	speed = 20,
+	dead = false
 
 }
 
@@ -32,14 +33,13 @@ function Enemy:draw()
 end
 
 function Enemy:update(dt,level,x,y)
-	self.vy = self.vy + gravity*dt*4
 
 	for i=1,#level.cases do
 		for j=1,#level.cases[i] do
 			local case = level.cases[i][j]
 			if case.t == 1 or case.t ==-1 then
 				if self.boxY:AABB(case.box) then
-					self.vy = -gravity*dt*4
+					self.vy = -10
 					jump = false
 				end
 				if self.boxX:AABB(case.box) then
@@ -56,6 +56,8 @@ function Enemy:update(dt,level,x,y)
 			end
 		end
 	end
+
+	self.vy = self.vy + gravity*dt*10
 	self.boxX.x = self.boxX.x + self.vx*dt +x
 	self.boxX.y = self.boxX.y + self.vy*dt +y
 
@@ -63,6 +65,14 @@ function Enemy:update(dt,level,x,y)
 	self.boxY.y = self.boxY.y + self.vy*dt +y
 
 
+end
+
+
+function Enemy:dommaged(d)
+	self.life = self.life - d
+	if self.life <= 0 then
+		self.dead = true
+	end
 end
 
 return Enemy

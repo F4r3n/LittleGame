@@ -83,7 +83,9 @@ function Level:update(dt)
 						self.cases[i][j]:dommaged(v.dmg)
 						if self.cases[i][j].dead == true then
 							self.cases[i][j].t = 0
-							table.insert(self.bonus,Bonus.new(a.x+x+a.w/2,a.y+y+a.h-10))
+							if math.random(100) < 50 then
+								table.insert(self.bonus,Bonus.new(a.x+x+a.w/2,a.y+y+a.h-10))
+							end
 						end
 						table.remove(self.bullets,bullet)
 					end
@@ -98,8 +100,8 @@ function Level:update(dt)
 		if v.box.x > width*2 or v.box.x < -200 or v.box.y < 0 then
 			table.remove(self.bullets,bullet)
 		end
-
 	end
+
 
 
 	for bonus,v in ipairs(self.bonus) do
@@ -108,6 +110,15 @@ function Level:update(dt)
 
 	for enemy,v in ipairs(self.enemies) do
 		v:update(dt,self,x,y)
+		for bullet,b in ipairs(self.bullets) do
+			if b.box:AABB(v.boxX) then
+				v:dommaged(b.dmg)	
+				if v.dead then
+					table.remove(self.enemies,enemy)
+				end
+				table.remove(self.bullets,bullet)
+			end
+		end
 	end
 
 

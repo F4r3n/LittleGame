@@ -11,6 +11,8 @@ local Player = {
 	jumping = false,
 	initX = 400,
 	initY = 400,
+	coolDown = 0.1,
+	time = 0
 }
 
 Box = require 'box'
@@ -43,20 +45,27 @@ function Player:draw()
 end
 
 function Player:update(dt,level)
+	self.time = self.time+dt
 	if keyBoardInput["d"] then
 		self.vx = self.speed
 	end
+	if self.time > self.coolDown then
+		if keyBoardInput["right"] then
 
-	if keyBoardInput["right"] then
-		table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,1,0,5))
+			self.time = 0
+			table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,1,0,5))
 
-	elseif keyBoardInput["left"] then
-		table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,-1,0,5))
-	elseif keyBoardInput["up"] then
-		table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,0,-1,5))
+		elseif keyBoardInput["left"] then
+			self.time = 0
+			table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,-1,0,5))
+		elseif keyBoardInput["up"] then
+			self.time = 0
+			table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,0,-1,5))
 
-	elseif keyBoardInput["down"] then
-		table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,0,1,5))
+		elseif keyBoardInput["down"] then
+			self.time = 0
+			table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,0,1,5))
+		end
 	end
 
 	if keyBoardInput["q"] then
