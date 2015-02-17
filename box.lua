@@ -16,6 +16,15 @@ function Box.new(x,y,w,h)
 	return self
 end
 
+function Box.copy(box)
+	local self = setmetatable({},Box)
+	self.x = box.x
+	self.y = box.y
+	self.w = box.w
+	self.h = box.h
+	return self	
+end
+
 function Box:AABB(box)
 	return self.x < box.x+box.w and
 	box.x < self.x+self.w and

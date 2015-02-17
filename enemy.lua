@@ -37,10 +37,17 @@ function Enemy:update(dt,level,x,y)
 	for i=1,#level.cases do
 		for j=1,#level.cases[i] do
 			local case = level.cases[i][j]
+			local b = Box.copy(case.box)
+			b.x = b.x - self.vx
+			b.y = b.y - self.vy
+
 			if case.t == 1 or case.t ==-1 then
-				if self.boxY:AABB(case.box) then
-					self.vy = -10
-					jump = false
+				if self.boxY:AABB(b) then
+					if self.boxY.y+self.boxY.w > b.y then
+						local d =(self.boxY.y+self.boxY.h)-b.y
+						self.vy = -gravity*dt
+						self.jumping = false
+					end
 				end
 				if self.boxX:AABB(case.box) then
 					if self.boxX.x + self.boxX.w/2 - case.box.x > 5 then
@@ -57,7 +64,7 @@ function Enemy:update(dt,level,x,y)
 		end
 	end
 
-	self.vy = self.vy + gravity*dt*10
+	self.vy = self.vy + gravity*dt
 	self.boxX.x = self.boxX.x + self.vx*dt +x
 	self.boxX.y = self.boxX.y + self.vy*dt +y
 
