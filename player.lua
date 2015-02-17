@@ -12,7 +12,8 @@ local Player = {
 	initX = 400,
 	initY = 400,
 	coolDown = 0.1,
-	time = 0
+	time = 0,
+	dead = false
 }
 
 Box = require 'box'
@@ -51,20 +52,29 @@ function Player:update(dt,level)
 	end
 	if self.time > self.coolDown then
 		if keyBoardInput["right"] then
-
+			local b = Bullet.new(0,self.initX,self.initY,1,0,5)
 			self.time = 0
-			table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,1,0,5))
+			table.insert(level.bullets,b)
+			camera:addLayer(1,b)
 
 		elseif keyBoardInput["left"] then
+
+			local b = Bullet.new(0,self.initX,self.initY,-1,0,5)
 			self.time = 0
-			table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,-1,0,5))
+			table.insert(level.bullets,b)
+			camera:addLayer(1,b)
 		elseif keyBoardInput["up"] then
+
+			local b = Bullet.new(0,self.initX,self.initY,0,-1,5)
 			self.time = 0
-			table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,0,-1,5))
+			table.insert(level.bullets,b)
+			camera:addLayer(1,b)
 
 		elseif keyBoardInput["down"] then
+			local b = Bullet.new(0,self.initX,self.initY,0,1,5)
 			self.time = 0
-			table.insert(level.bullets,Bullet.new(0,self.initX,self.initY,0,1,5))
+			table.insert(level.bullets,b)
+			camera:addLayer(1,b)
 		end
 	end
 

@@ -24,22 +24,26 @@ function camera:newLayer(scale, func)
 	table.sort(self.layers, function(a, b) return a.scale < b.scale end)
 end
 
-function camera:addLayer(index,func)
-	table.insert(self.layer, { draw = func, index = index })
-	table.sort(self.layer, function(a, b) return a.index < b.index end)
+function camera:addLayer(index, object)
+	table.insert(self.layer, { object = object, index = index })
 end
 
 function camera:simpleDraw()
 
 	local bx, by = self.x, self.y
 	for _,v in ipairs(self.layer) do
-		self.x = bx * v.index
-		self.y = by * v.index
-		camera:set()
-		v.draw()
-		camera:unset()
+		if v.object.dead == true then
+			table.remove(self.layer,_)
+		else
+			self.x = bx * v.index
+			self.y = by * v.index
+			camera:set()
+			v.object:draw()
+			camera:unset()
+		end
 	end
 end
+
 
 
 function camera:draw()

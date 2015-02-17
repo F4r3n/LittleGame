@@ -11,6 +11,7 @@ local Bullet = {
 	w = 5,
 	h = 5,
 	box = nil,
+	dead = false
 }
 Box = require 'box'
 Bullet.__index = Bullet

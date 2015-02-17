@@ -36,7 +36,7 @@ function Level.new(n,player)
 										self.h,
 										self.levelBase[i][j])
 
-			camera:addLayer(1,self.cases[i][j]:draw())
+			camera:addLayer(1,self.cases[i][j])
 		end
 	end
 
@@ -48,6 +48,7 @@ function Level.new(n,player)
 		end 
 	end
 
+	camera:addLayer(0,self.player)
 
 	return self
 end
@@ -97,7 +98,10 @@ function Level:update(dt)
 								table.insert(self.bonus,Bonus.new(a.x+x+a.w/2,a.y+y+a.h-10))
 							end
 						end
+
+						v.dead = true
 						table.remove(self.bullets,bullet)
+
 					end
 				end
 			end
@@ -108,7 +112,10 @@ function Level:update(dt)
 	for bullet,v in ipairs(self.bullets) do
 		v:update(dt,x,y)
 		if v.box.x > width*2 or v.box.x < -200 or v.box.y < 0 then
+
+						v.dead = true
 			table.remove(self.bullets,bullet)
+
 		end
 	end
 
