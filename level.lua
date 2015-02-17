@@ -67,8 +67,13 @@ end
 
 function Level:update(dt)
 	self.player:update(dt,self)
+
+	p:update(dt)
 	local x = -self.player.vx 
 	local y = -self.player.vy
+
+	local px,py = p:getPosition()
+	p:moveTo(px+x,py+y)
 
 
 	for i=1,#self.cases do
@@ -80,8 +85,11 @@ function Level:update(dt)
 			if self.cases[i][j].t == 1 then
 				for bullet,v in ipairs(self.bullets) do
 					if  v.box:AABB(self.cases[i][j].box) then
+						p:moveTo(v.box.x+x,v.box.y+y)
+						p:start()
 						self.cases[i][j]:dommaged(v.dmg)
 						if self.cases[i][j].dead == true then
+							p:stop()
 							self.cases[i][j].t = 0
 							if math.random(100) < 50 then
 								table.insert(self.bonus,Bonus.new(a.x+x+a.w/2,a.y+y+a.h-10))
@@ -126,6 +134,9 @@ end
 
 function Level:draw()
 
+	local x = -self.player.vx 
+	local y = -self.player.vy
+
 	for i=1,#self.cases do
 		for j=1,#self.cases[i] do
 			self.cases[i][j]:draw()
@@ -145,6 +156,8 @@ function Level:draw()
 	end
 
 	self.player:draw()
+
+    love.graphics.draw(p, 0,0);
 end
 
 return Level

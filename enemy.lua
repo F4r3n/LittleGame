@@ -22,7 +22,7 @@ function Enemy.new(x,y)
 	self.x = x
 	self.y = y
 	self.boxY = Box.new(self.x,self.y,self.w,self.h)
-	self.boxX = Box.new(self.x-5,self.y+5,self.w+10,self.h-10)
+	self.boxX = Box.new(self.x-10,self.y+10,self.w+20,self.h-20)
 
 	return self
 end
@@ -34,6 +34,7 @@ end
 
 function Enemy:update(dt,level,x,y)
 
+
 	for i=1,#level.cases do
 		for j=1,#level.cases[i] do
 			local case = level.cases[i][j]
@@ -43,18 +44,28 @@ function Enemy:update(dt,level,x,y)
 
 			if case.t == 1 or case.t ==-1 then
 				if self.boxY:AABB(b) then
-					if self.boxY.y+self.boxY.w > b.y then
+					local bottomSide = math.abs(b.h + b.y - (self.boxY.y + self.boxY.h/2))
+					local topSide = math.abs(-b.y + self.boxY.y + self.boxY.h/2)
+					if topSide < bottomSide then
 						local d =(self.boxY.y+self.boxY.h)-b.y
-						self.vy = -gravity*dt
+						self.vy = self.vy-d
 						self.jumping = false
+					else
+						local d = math.abs(b.y + b.h - self.boxY.y + 1)
+						self.vy = self.vy + d
+
 					end
 				end
-				if self.boxX:AABB(case.box) then
-					if self.boxX.x + self.boxX.w/2 - case.box.x > 5 then
-						self.vx = self.speed*dt*4
+				if self.boxX:AABB(b) then
+					local leftSide = math.abs(b.w + b.x - (self.boxX.x+self.boxX.w/2))
+					local rightSide = math.abs(-b.x+self.boxX.x + self.boxX.w/2)  
+					if leftSide > rightSide  then
+						local c =math.abs((self.boxX.x+self.boxX.w)-(b.x)+1)
+						self.vx = self.vx-c
 
-					elseif case.box.x + case.box.w > self.boxX.x+5 then
-						self.vx = -self.speed*dt*4
+					else
+						local c =math.abs(b.x+b.w-self.boxX.x+1)
+						self.vx = self.vx+c
 					end
 
 				end
