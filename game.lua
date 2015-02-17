@@ -7,6 +7,7 @@ Game.__index = Game;
 
 local Player = require 'player'
 local Level = require 'level'
+require('camera')
 
 function Game.new() 
 	local self = setmetatable({},Game)
@@ -20,7 +21,7 @@ function Game:reload()
 end
 
 function Game:draw()
-	self.level:draw()
+	camera:simpleDraw()
 end
 
 function Game:update(dt)

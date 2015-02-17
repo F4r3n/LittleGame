@@ -31,10 +31,12 @@ function Level.new(n,player)
 		self.cases[i] = {}
 		for j=1,#self.levelBase[i] do
 			self.cases[i][j] = Case.new((j-1)*self.w,
-			(i-1)*self.h,
-			self.w,
-			self.h,
-			self.levelBase[i][j])
+										(i-1)*self.h,
+										self.w,
+										self.h,
+										self.levelBase[i][j])
+
+			camera:addLayer(1,self.cases[i][j]:draw())
 		end
 	end
 
