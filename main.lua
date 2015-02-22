@@ -15,12 +15,12 @@ function love.load()
 
 	local img = love.graphics.newImage('blood.png');
 
-	p = love.graphics.newParticleSystem(img, 100);
-	p:setParticleLifetime(0.1, 1); -- Particles live at least 2s and at most 5s.
+	p = love.graphics.newParticleSystem(img, 5);
+	p:setParticleLifetime(0.1, 0.2); -- Particles live at least 2s and at most 5s.
 	p:setSizeVariation(1);
-	p:setEmissionRate(100);
-	p:setEmitterLifetime(0.5)
-	p:setLinearAcceleration(-100, -100, 100, 100); -- Random movement in all directions.
+	p:setEmissionRate(10);
+	p:setEmitterLifetime(0.2)
+	p:setLinearAcceleration(-10, -10, 10, 10); -- Random movement in all directions.
 	p:setColors(255, 255, 255, 255, 255, 255, 255, 0); -- Fade to black.
 	p:stop()
 	game = Game.new();

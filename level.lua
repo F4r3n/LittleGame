@@ -136,6 +136,21 @@ function Level:update(dt)
 				table.remove(self.bullets,bullet)
 			end
 		end
+		if v.boxX:AABB(self.player.boxX) then
+			self.player:dommaged(10)
+		end
+	end
+
+	if self.player.dead == true then 
+		love.event.quit()
+	end
+
+	for _,b in ipairs(self.bonus) do
+	
+		if b.box:AABB(self.player.boxX) then
+		self.player:gainLife(10)
+		table.remove(self.bonus,_)
+	end
 	end
 
 
@@ -166,7 +181,7 @@ function Level:draw()
 
 	self.player:draw()
 
-    love.graphics.draw(p, 0,0);
+    love.graphics.draw(p);
 end
 
 return Level

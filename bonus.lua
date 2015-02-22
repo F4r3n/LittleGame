@@ -15,7 +15,7 @@ function Bonus.new(x,y)
 	local self = setmetatable({},Bonus)
 	self.x = x
 	self.y = y
-	self.box = Box.new(x,y,w,h)
+	self.box = Box.new(self.x,self.y,self.w,self.h)
 	return self
 end
 

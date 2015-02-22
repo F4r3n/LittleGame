@@ -13,7 +13,12 @@ local Player = {
 	initY = 400,
 	coolDown = 0.1,
 	time = 0,
-	dead = false
+	dead = false,
+	life = 100,
+	immortal = 1,
+	timeImmortal =0,
+	mortal = true,
+	maxLife = 100
 }
 
 Box = require 'box'
@@ -47,6 +52,14 @@ end
 
 function Player:update(dt,level)
 	self.time = self.time+dt
+	self.timeImmortal = self.timeImmortal + dt
+
+	if self.timeImmortal > self.immortal then
+		self.mortal = true
+		self.timeImmortal =0
+	end
+
+
 	if keyBoardInput["d"] then
 		self.vx = self.speed
 	end
@@ -132,6 +145,25 @@ function Player:update(dt,level)
 	self.vy = self.vy + gravity*dt
 
 
+end
+
+function Player:dommaged(d)
+	if self.mortal == true and self.dead == false then
+		self.life = self.life -d
+		self.mortal = false
+	end
+	if self.life <=0 then 
+		self.dead = true
+	end
+end
+
+function Player:gainLife(l)
+	if self.life < self.maxLife then
+		self.life = self.life +l
+		if self.life > self.maxLife then
+			self.life = self.maxLife
+		end
+	end
 end
 
 function Player:moveUpdate()
