@@ -97,7 +97,7 @@ function Player:update(dt,level)
 
 
 	if keyBoardInput[" "] and self.jumping == false then
-		self.vy = -self.speed
+		self.vy = -self.speed*(2/3)
 		self.jumping = true
 	end
 
