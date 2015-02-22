@@ -1,7 +1,7 @@
 local LifeHud = {
 	x = 0,
 	y = 0,
-	w = 100,
+	w = 200,
 	h = 10,
 	value = 100,
 	color = {255,0,0,255},
@@ -20,11 +20,16 @@ function LifeHud.new(x,y,max)
 end
 
 function LifeHud:draw()
-	local size = self.max/10
-	local number = self.value/size
+	local r = self.w/self.value
+	local size = 10
+	local number = self.value/(size)
+	print(r,size,number)
+
+	love.graphics.setColor(black)
+	love.graphics.rectangle("line",self.x,self.y,self.w,20)
 	love.graphics.setColor(self.color)
-	for i=0,number do
-		love.graphics.rectangle("fill",self.x+i*size,self.y,size*10,size)
+	for i=0,number-1 do
+		love.graphics.rectangle("fill",self.x+i*size*2,self.y,size*2,20)
 
 	end
 end
