@@ -3,8 +3,9 @@ local InventoryHud ={
 	w = 300,
 	h= 30,
 	x = nil,
-	y = nil
+	y = nil,
 	object = {}
+	
 }
 
 InventoryHud.__index = InventoryHud
@@ -21,14 +22,16 @@ function InventoryHud:draw()
 	love.graphics.setColor(black)
 	love.graphics.rectangle("line",self.x,self.y,self.w,self.h)
 	local size = 100
-	for i=0,3 do
-		love.graphics.rectangle(self.x + i*size,self.y,size,self.h)
+
+	love.graphics.setColor(white)
+	for i=0,#self.object-1 do
+		love.graphics.rectangle("fill",self.x + i*size,self.y,size,self.h)
 	end
 
 end
 
-function InventoryHud:update(dt)
-
+function InventoryHud:update(dt,o)
+	self.object = o
 end
 
 return InventoryHud

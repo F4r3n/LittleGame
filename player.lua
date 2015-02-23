@@ -22,12 +22,14 @@ local Player = {
 	weapon = nil,
 	dirX = 0,
 	coolDownWeapon = nil,
-	weaponTime = 0
+	weaponTime = 0,
+	inventory = nil
 }
 
 Box = require 'box'
 Bullet = require 'bullet'
 Shotgun = require 'shotgun'
+Inventory = require 'inventory'
 
 Player.__index = Player;
 
@@ -38,6 +40,8 @@ function Player.new(position)
 	self.initX = position[1]
 	self.initY = position[2]
 	self.weapon = Shotgun.new(self.initX+self.w,self.initY)
+	self.inventory = Inventory.new()
+	self.inventory:addInventory(self.weapon)
 	self.coolDownWeapon = self.weapon.coolDown
 
 	self.boxX = Box.new(self.initX-10,self.initY+10,self.w+20,self.h-20)
