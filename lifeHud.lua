@@ -23,7 +23,6 @@ function LifeHud:draw()
 	local r = self.w/self.value
 	local size = 10
 	local number = self.value/(size)
-	print(r,size,number)
 
 	love.graphics.setColor(black)
 	love.graphics.rectangle("line",self.x,self.y,self.w,20)
