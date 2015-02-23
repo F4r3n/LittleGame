@@ -8,7 +8,7 @@ local Player = {
 	speed = 10,
 	boxY = nil,
 	boxX = nil,
-	jumping = false,
+	jumping = true,
 	initX = 400,
 	initY = 400,
 	coolDown = 0.1,
@@ -23,7 +23,8 @@ local Player = {
 	dirX = 0,
 	coolDownWeapon = nil,
 	weaponTime = 0,
-	inventory = nil
+	inventory = nil,
+	
 }
 
 Box = require 'box'
@@ -61,6 +62,18 @@ function Player:draw()
 
 end
 
+
+function math.sign(x)
+	if x<0 then
+		return -1
+	elseif x>0 then
+		return 1
+	else
+		return 0
+	end
+end
+
+
 function Player:update(dt,level)
 	self.time = self.time+dt
 	self.timeImmortal = self.timeImmortal + dt
@@ -72,6 +85,10 @@ function Player:update(dt,level)
 
 
 	if keyBoardInput["d"] then
+
+		if self.jumping == true then
+			self.vx = self.speed
+		end
 		self.vx = self.speed
 		self.dirX = 0
 	end
@@ -86,6 +103,14 @@ function Player:update(dt,level)
 	if keyBoardInput["q"] then
 		self.vx = -self.speed
 		self.dirX = 180
+
+		if self.jumping == true then
+			self.vx = -self.speed
+		end
+	end
+
+	if self.jumping then
+			self.vx = self.vx + friction*math.sign(self.vx)*(-1)
 	end
 
 
