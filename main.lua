@@ -10,7 +10,7 @@ white = {255,255,255,255}
 
 function love.load()
 	love.window.setMode(width,height)
-	love.window.setTitle("Yop");
+	love.window.setTitle("Little Game");
 	love.graphics.setBackgroundColor({0,0,0,255});
 
 	local img = love.graphics.newImage('blood.png');
@@ -37,13 +37,9 @@ end
 
 function love.keypressed(key,isrepeat)
 	keyBoardInput[key] = true
-	if key == "p" then
-		game = Game.new()
-	end
-
 
 	if key == "l" then
-		game:reload()
+		love.load()
 	end
 end
 

@@ -147,8 +147,10 @@ function Level:update(dt)
 	for _,b in ipairs(self.bonus) do
 
 		if b.box:AABB(self.player.boxX) then
-			self.player:gainLife(10)
-			table.remove(self.bonus,_)
+			local b = self.player:gainLife(10)
+			if b==true then
+				table.remove(self.bonus,_)
+			end
 		end
 	end
 

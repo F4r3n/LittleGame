@@ -18,11 +18,16 @@ local Player = {
 	immortal = 1,
 	timeImmortal =0,
 	mortal = true,
-	maxLife = 100
+	maxLife = 100,
+	weapon = nil,
+	dirX = 0,
+	coolDownWeapon = nil,
+	weaponTime = 0
 }
 
 Box = require 'box'
 Bullet = require 'bullet'
+Shotgun = require 'shotgun'
 
 Player.__index = Player;
 
@@ -32,6 +37,8 @@ function Player.new(position)
 	self.y = position[2]
 	self.initX = position[1]
 	self.initY = position[2]
+	self.weapon = Shotgun.new(self.initX+self.w,self.initY)
+	self.coolDownWeapon = self.weapon.coolDown
 
 	self.boxX = Box.new(self.initX-10,self.initY+10,self.w+20,self.h-20)
 	self.boxY = Box.new(self.initX,self.initY,self.w,self.h)
@@ -62,37 +69,19 @@ function Player:update(dt,level)
 
 	if keyBoardInput["d"] then
 		self.vx = self.speed
+		self.dirX = 0
 	end
-	if self.time > self.coolDown then
-		if keyBoardInput["right"] then
-			local b = Bullet.new(0,self.initX,self.initY,1,0,5)
-			self.time = 0
-			table.insert(level.bullets,b)
-			camera:addLayer(1,b)
 
-		elseif keyBoardInput["left"] then
-
-			local b = Bullet.new(0,self.initX,self.initY,-1,0,5)
+	if self.time > self.coolDownWeapon then
+		if keyBoardInput["p"] then
 			self.time = 0
-			table.insert(level.bullets,b)
-			camera:addLayer(1,b)
-		elseif keyBoardInput["up"] then
-
-			local b = Bullet.new(0,self.initX,self.initY,0,-1,5)
-			self.time = 0
-			table.insert(level.bullets,b)
-			camera:addLayer(1,b)
-
-		elseif keyBoardInput["down"] then
-			local b = Bullet.new(0,self.initX,self.initY,0,1,5)
-			self.time = 0
-			table.insert(level.bullets,b)
-			camera:addLayer(1,b)
+			self.weapon:shot(self.dirX,level)
 		end
 	end
 
 	if keyBoardInput["q"] then
 		self.vx = -self.speed
+		self.dirX = 180
 	end
 
 
@@ -163,7 +152,9 @@ function Player:gainLife(l)
 		if self.life > self.maxLife then
 			self.life = self.maxLife
 		end
+	else return false
 	end
+	return true
 end
 
 function Player:moveUpdate()

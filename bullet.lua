@@ -15,13 +15,13 @@ local Bullet = {
 }
 Box = require 'box'
 Bullet.__index = Bullet
-function Bullet.new(owner,x,y,dirX,dirY,dmg)
+function Bullet.new(owner,x,y,rad,dmg)
 	local self = setmetatable({},Bullet)
 	self.owner = owner
 	self.x = x
 	self.y = y
-	self.dirX = dirX
-	self.dirY = dirY
+	self.dirX = math.cos(rad*math.pi/180)
+	self.dirY = math.sin(rad*math.pi/180)
 	self.dmg = dmg
 	self.box = Box.new(self.x,self.y,self.w,self.h)
 
@@ -29,7 +29,7 @@ function Bullet.new(owner,x,y,dirX,dirY,dmg)
 end
 
 function Bullet:draw()
-	love.graphics.setColor(0,0,0)
+	love.graphics.setColor(black)
 	love.graphics.rectangle("fill",self.box.x,self.box.y,self.w,self.h)
 end
 

@@ -1,10 +1,11 @@
 local Shotgun = {
 	ammoMax = 10,
-	spread = 10,
+	spread = 20,
 	x = 0,
 	y = 0,
 	ammo = 10,
-	bullets = {}
+	bullets = {},
+	coolDown = 1
 }
 
 Shotgun.__index = Shotgun
@@ -23,10 +24,13 @@ function Shotgun:draw()
 	love.graphics.rectangle("fill",self.x + 5,self.y+5,20,20)
 end
 
-function Shotgun:shot()
+function Shotgun:shot(rad,level)
+	if self.ammo <=0 then 
+		return
+	end
 	self.ammo = self.ammo - 1
-	for i=0,spread do
-		table.insert(self.bullets,Bullet.new(0,self.x,self.y,math.random(0,1),math.random(0,1)))
+	for i=0,self.spread do
+		table.insert(level.bullets,Bullet.new(0,self.x,self.y,math.random(rad-20,rad+20),5))
 	end
 end
 
