@@ -1,30 +1,23 @@
-local Shotgun = {
-	ammoMax = 10,
-	spread = 20,
+local Bazooka = {
 	x = 0,
 	y = 0,
-	ammo = 10,
-	bullets = {},
-	coolDown = 1,
-	name = "Shotgun",
-	shape =nil
+	name = "Bazooka",
+	ammo = 3,
+	maxAmmo = 3
 }
 
-Shotgun.__index = Shotgun
-Bullet = require 'bullet'
-BulletShape = require 'bulletShape'
+Bazooka.__index = Bazooka
 MissileShape = require 'missileShape'
 
-
-function Shotgun.new(x,y)
-	local self = setmetatable({},Shotgun)
+function Bazooka.new(x,y)
+	local self = setmetatable({}, Bazooka)
 	self.x = x
 	self.y = y
-	self.shape = BulletShape.new(5,5)
+	self.shape = MissileShape.new(20,10)
 	return self
 end
 
-function Shotgun:draw(s)
+function Bazooka:draw()
 	love.graphics.setColor(black)
 
 	if s== 0 then
@@ -33,9 +26,10 @@ else
 	love.graphics.rectangle("fill",self.x - 55,self.y+5,20,20)
 
 end
+
 end
 
-function Shotgun:shot(rad,level)
+function Bazooka:shot(rad,level)
 	if self.ammo <=0 then 
 		return
 	end
@@ -45,5 +39,4 @@ function Shotgun:shot(rad,level)
 	end
 end
 
-
-return Shotgun
+return Bazooka

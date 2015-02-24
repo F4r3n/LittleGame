@@ -31,7 +31,7 @@ function Hud:update(dt,level)
 	self.lifeHud:update(level.player.life)
 	self.score:update(0)
 	self.time:update(dt)
-	self.inventory:update(dt,level.player.inventory.object)
+	self.inventory:update(dt,level.player.inventory)
 end
 
 return Hud

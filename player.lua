@@ -60,6 +60,8 @@ function Player:draw()
 	love.graphics.setColor(0,0,100)
 	love.graphics.rectangle("fill", self.boxY.x, self.boxY.y, self.boxY.w, self.boxY.h)
 
+	self.weapon:draw(self.dirX)
+
 end
 
 

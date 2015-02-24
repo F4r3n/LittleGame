@@ -11,11 +11,12 @@ local Bullet = {
 	w = 5,
 	h = 5,
 	box = nil,
-	dead = false
+	dead = false,
+	shape = 0
 }
 Box = require 'box'
 Bullet.__index = Bullet
-function Bullet.new(owner,x,y,rad,dmg)
+function Bullet.new(owner,x,y,rad,dmg,shape)
 	local self = setmetatable({},Bullet)
 	self.owner = owner
 	self.x = x
@@ -24,13 +25,15 @@ function Bullet.new(owner,x,y,rad,dmg)
 	self.dirY = math.sin(rad*math.pi/180)
 	self.dmg = dmg
 	self.box = Box.new(self.x,self.y,self.w,self.h)
+	self.shape = shape
 
 	return self
 end
 
 function Bullet:draw()
-	love.graphics.setColor(black)
-	love.graphics.rectangle("fill",self.box.x,self.box.y,self.w,self.h)
+--	love.graphics.setColor(black)
+--	love.graphics.rectangle("fill",self.box.x,self.box.y,self.w,self.h)
+	self.shape:draw(self.box.x,self.box.y)
 end
 
 function Bullet:update(dt,x,y)
