@@ -29,11 +29,10 @@ end
 
 function Enemy:draw()
 	love.graphics.setColor(black)
-	love.graphics.rectangle("fill",self.boxY.x,self.boxY.y,self.boxY.w,self.boxY.h)
+	love.graphics.rectangle("fill",self.x,self.y,self.boxY.w,self.boxY.h)
 end
 
 function Enemy:update(dt,level,x,y)
-
 
 	for i=1,#level.cases do
 		for j=1,#level.cases[i] do
@@ -82,11 +81,14 @@ function Enemy:update(dt,level,x,y)
 	self.boxY.x = self.boxY.x + self.vx*dt +x
 	self.boxY.y = self.boxY.y + self.vy*dt +y
 
+	self.x = self.x + self.vx*dt
+	self.y = self.y + self.vy*dt
 
 end
 
 
 function Enemy:dommaged(d)
+
 	self.life = self.life - d
 	if self.life <= 0 then
 		self.dead = true

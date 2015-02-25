@@ -25,9 +25,10 @@ function Game:reload()
 end
 
 function Game:draw()
-	self.level:draw()
+--	self.level:draw()
+	camera:simpleDraw()
+
 	self.hud:draw()
---	camera:simpleDraw()
 end
 
 function Game:update(dt)

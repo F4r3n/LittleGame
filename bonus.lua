@@ -5,7 +5,8 @@ local Bonus = {
 	life = 10,
 	w = 10,
 	h = 10,
-	box
+	box,
+	dead = false
 }
 
 Bonus.__index = Bonus
@@ -21,7 +22,7 @@ end
 
 function Bonus:draw()
 	love.graphics.setColor(255,100,100,255)
-	love.graphics.circle("fill",self.box.x,self.box.y,self.w,5)
+	love.graphics.circle("fill",self.x,self.y,self.w,5)
 end
 
 function Bonus:update(dt,x,y)

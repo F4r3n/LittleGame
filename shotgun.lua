@@ -14,6 +14,7 @@ Shotgun.__index = Shotgun
 Bullet = require 'bullet'
 BulletShape = require 'bulletShape'
 MissileShape = require 'missileShape'
+require('camera')
 
 
 function Shotgun.new(x,y)
@@ -28,11 +29,10 @@ function Shotgun:draw(s)
 	love.graphics.setColor(black)
 
 	if s== 0 then
-	love.graphics.rectangle("fill",self.x + 5,self.y+5,20,20)
-else
-	love.graphics.rectangle("fill",self.x - 55,self.y+5,20,20)
-
-end
+		love.graphics.rectangle("fill",self.x + 5,self.y+5,20,20)
+	else
+		love.graphics.rectangle("fill",self.x - 55,self.y+5,20,20)
+	end
 end
 
 function Shotgun:shot(rad,level)
@@ -41,7 +41,9 @@ function Shotgun:shot(rad,level)
 	end
 	self.ammo = self.ammo - 1
 	for i=0,self.spread do
-		table.insert(level.bullets,Bullet.new(0,self.x,self.y,math.random(rad-20,rad+20),5,self.shape))
+		local b = Bullet.new(0,self.x,self.y,math.random(rad-20,rad+20),5,self.shape)
+		table.insert(level.bullets,b)
+		camera:addLayer(0,b)
 	end
 end
 

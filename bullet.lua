@@ -31,14 +31,15 @@ function Bullet.new(owner,x,y,rad,dmg,shape)
 end
 
 function Bullet:draw()
---	love.graphics.setColor(black)
---	love.graphics.rectangle("fill",self.box.x,self.box.y,self.w,self.h)
-	self.shape:draw(self.box.x,self.box.y)
+	self.shape:draw(self.x,self.y)
 end
 
 function Bullet:update(dt,x,y)
 	self.box.x = self.box.x + self.speed * self.dirX * dt+x
 	self.box.y = self.box.y + self.speed * self.dirY * dt+y
+	self.x = self.x + self.speed * self.dirX*dt
+	self.y = self.y + self.speed * self.dirY*dt
+
 end
 
 

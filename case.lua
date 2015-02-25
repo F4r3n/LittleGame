@@ -12,6 +12,8 @@ function Case.new(x,y,w,h,t)
 	local self = setmetatable({},Case)
 	self.box = Box.new(x,y,w,h)
 	self.t = t
+	self.x = x
+	self.y = y
 	return self
 end
 
@@ -26,8 +28,8 @@ function Case:draw()
 			if self.t == 1 then
 				love.graphics.setColor(255,0,0,self.life*2)
 				love.graphics.rectangle("fill",
-				self.box.x,
-				self.box.y, 
+				self.x,
+				self.y, 
 				self.box.w, 
 				self.box.h)
 			end
@@ -35,8 +37,8 @@ function Case:draw()
 			if self.t == 0 then
 				love.graphics.setColor(0,0,255,255)
 				love.graphics.rectangle("fill",
-				self.box.x,
-				self.box.y, 
+				self.x,
+				self.y, 
 				self.box.w, 
 				self.box.h)
 			end
@@ -44,16 +46,16 @@ function Case:draw()
 			if self.t == 2 then
 				love.graphics.setColor(0,255,0,255)
 				love.graphics.rectangle("fill",
-				self.box.x,
-				self.box.y, 
+				self.x,
+				self.y, 
 				self.box.w, 
 				self.box.h)
 			end
 			if self.t == -1 then
 				love.graphics.setColor(100,100,100,255)
 				love.graphics.rectangle("fill",
-				self.box.x,
-				self.box.y, 
+				self.x,
+				self.y, 
 				self.box.w, 
 				self.box.h)
 			end

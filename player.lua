@@ -31,6 +31,7 @@ Box = require 'box'
 Bullet = require 'bullet'
 Shotgun = require 'shotgun'
 Inventory = require 'inventory'
+require('camera')
 
 Player.__index = Player;
 
@@ -112,7 +113,7 @@ function Player:update(dt,level)
 	end
 
 	if self.jumping then
-			self.vx = self.vx + friction*math.sign(self.vx)*(-1)
+--			self.vx = self.vx + friction*math.sign(self.vx)*(-1)
 	end
 
 
@@ -163,6 +164,7 @@ function Player:update(dt,level)
 	end
 	self.vx = self.vx*0.7*(1-dt)
 	self.vy = self.vy + gravity*dt
+	camera:move(self.vx,self.vy)
 
 
 end

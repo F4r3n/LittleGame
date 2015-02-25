@@ -32,14 +32,17 @@ function camera:simpleDraw()
 
 	local bx, by = self.x, self.y
 	for _,v in ipairs(self.layer) do
+
 		if v.object.dead == true then
 			table.remove(self.layer,_)
 		else
-			self.x = bx * v.index
-			self.y = by * v.index
-			camera:set()
-			v.object:draw()
-			camera:unset()
+			if v.index == 0 then
+				v.object:draw()
+			else
+				camera:set()
+				v.object:draw()
+				camera:unset()
+			end
 		end
 	end
 end
