@@ -6,28 +6,32 @@ local Bonus = {
 	w = 10,
 	h = 10,
 	box,
-	dead = false
+	dead = false,
+	xb,
+	yb
 }
 
 Bonus.__index = Bonus
 Box = require 'box'
 
-function Bonus.new(x,y)
+function Bonus.new(x,y,xb,yb)
 	local self = setmetatable({},Bonus)
 	self.x = x
 	self.y = y
-	self.box = Box.new(self.x,self.y,self.w,self.h)
+	self.xb = xb
+	self.yb = yb
+	self.box = Box.new(self.xb,self.yb,self.w,self.h)
 	return self
 end
 
 function Bonus:draw()
 	love.graphics.setColor(255,100,100,255)
-	love.graphics.circle("fill",self.x,self.y,self.w,5)
+	love.graphics.circle("fill",self.x,self.y,self.w,10)
+
+
 end
 
-function Bonus:update(dt,x,y)
-	self.box.x = self.box.x+x
-	self.box.y = self.box.y+y
+function Bonus:update(dt)
 end
 
 return Bonus

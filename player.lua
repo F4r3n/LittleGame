@@ -41,13 +41,16 @@ function Player.new(position)
 	self.y = position[2]
 	self.initX = position[1]
 	self.initY = position[2]
-	self.weapon = Shotgun.new(self.initX+self.w,self.initY)
 	self.inventory = Inventory.new()
-	self.inventory:addInventory(self.weapon)
-	self.coolDownWeapon = self.weapon.coolDown
 
 	self.boxX = Box.new(self.initX-10,self.initY+10,self.w+20,self.h-20)
 	self.boxY = Box.new(self.initX,self.initY,self.w,self.h)
+
+	self.weapon = Shotgun.new(self.boxX.x+self.w,self.boxX.y-self.h/2)
+
+	self.coolDownWeapon = self.weapon.coolDown
+
+	self.inventory:addInventory(self.weapon)
 	return self
 end
 
@@ -55,11 +58,6 @@ function Player:draw()
 	love.graphics.setColor(255,255,255)
 	love.graphics.rectangle("fill", self.initX, self.initY, self.w, self.h)
 
-	love.graphics.setColor(0,100,0)
-	love.graphics.rectangle("fill", self.boxX.x, self.boxX.y, self.boxX.w, self.boxX.h)
-
-	love.graphics.setColor(0,0,100)
-	love.graphics.rectangle("fill", self.boxY.x, self.boxY.y, self.boxY.w, self.boxY.h)
 
 	self.weapon:draw(self.dirX)
 
@@ -99,7 +97,7 @@ function Player:update(dt,level)
 	if self.time > self.coolDownWeapon then
 		if keyBoardInput["p"] then
 			self.time = 0
-			self.weapon:shot(self.dirX,level)
+			self.weapon:shot(self.dirX,self,level)
 		end
 	end
 
@@ -148,7 +146,7 @@ function Player:update(dt,level)
 					local leftSide = math.abs(b.w + b.x - (self.boxX.x+self.boxX.w/2))
 					local rightSide = math.abs(-b.x+self.boxX.x + self.boxX.w/2)  
 					if leftSide > rightSide  then
-						local c =math.abs((self.boxX.x+self.boxX.w)-(b.x)+1)
+						local c = math.abs((self.boxX.x+self.boxX.w)-(b.x)+1)
 						self.vx = self.vx-c
 
 					else
@@ -165,6 +163,7 @@ function Player:update(dt,level)
 	self.vx = self.vx*0.7*(1-dt)
 	self.vy = self.vy + gravity*dt
 	camera:move(self.vx,self.vy)
+	self:moveUpdate()
 
 
 end
@@ -191,10 +190,10 @@ function Player:gainLife(l)
 end
 
 function Player:moveUpdate()
-	self.boxX.x = self.x-5
-	self.boxX.y = self.y+5
-	self.boxY.x = self.x
-	self.boxY.y = self.y
+	self.boxX.x = self.boxX.x + self.vx
+	self.boxX.y = self.boxX.y + self.vy
+	self.boxY.x = self.boxY.x + self.vx
+	self.boxY.y = self.boxY.y + self.vy
 end
 
 return Player

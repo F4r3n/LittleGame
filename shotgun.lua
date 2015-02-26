@@ -1,11 +1,11 @@
 local Shotgun = {
 	ammoMax = 10,
-	spread = 20,
+	spread = 1,
 	x = 0,
 	y = 0,
-	ammo = 10,
+	ammo = 100,
 	bullets = {},
-	coolDown = 1,
+	coolDown = 0.1,
 	name = "Shotgun",
 	shape =nil
 }
@@ -35,15 +35,15 @@ function Shotgun:draw(s)
 	end
 end
 
-function Shotgun:shot(rad,level)
+function Shotgun:shot(rad,p,level,x,y)
 	if self.ammo <=0 then 
 		return
 	end
 	self.ammo = self.ammo - 1
 	for i=0,self.spread do
-		local b = Bullet.new(0,self.x,self.y,math.random(rad-20,rad+20),5,self.shape)
+		local b = Bullet.new(0,p.boxX.x,p.boxX.y,math.random(rad,rad),5,self.shape,p.boxX.x,p.boxY.y)
 		table.insert(level.bullets,b)
-		camera:addLayer(0,b)
+		camera:addLayer(1,b)
 	end
 end
 

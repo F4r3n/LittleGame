@@ -12,19 +12,24 @@ local Bullet = {
 	h = 5,
 	box = nil,
 	dead = false,
-	shape = 0
+	shape = 0,
+	xb = 0,
+	yb = 0
 }
 Box = require 'box'
 Bullet.__index = Bullet
-function Bullet.new(owner,x,y,rad,dmg,shape)
+function Bullet.new(owner,x,y,rad,dmg,shape,xb,yb)
 	local self = setmetatable({},Bullet)
 	self.owner = owner
 	self.x = x
 	self.y = y
+
+	self.xb = x
+	self.yb = y
 	self.dirX = math.cos(rad*math.pi/180)
 	self.dirY = math.sin(rad*math.pi/180)
 	self.dmg = dmg
-	self.box = Box.new(self.x,self.y,self.w,self.h)
+	self.box = Box.new(xb,yb,self.w,self.h)
 	self.shape = shape
 
 	return self
@@ -34,9 +39,9 @@ function Bullet:draw()
 	self.shape:draw(self.x,self.y)
 end
 
-function Bullet:update(dt,x,y)
-	self.box.x = self.box.x + self.speed * self.dirX * dt+x
-	self.box.y = self.box.y + self.speed * self.dirY * dt+y
+function Bullet:update(dt)
+	self.box.x = self.box.x + self.speed * self.dirX * dt
+	self.box.y = self.box.y + self.speed * self.dirY * dt
 	self.x = self.x + self.speed * self.dirX*dt
 	self.y = self.y + self.speed * self.dirY*dt
 

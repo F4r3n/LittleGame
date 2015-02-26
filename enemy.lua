@@ -75,11 +75,11 @@ function Enemy:update(dt,level,x,y)
 	end
 
 	self.vy = self.vy + gravity*dt
-	self.boxX.x = self.boxX.x + self.vx*dt +x
-	self.boxX.y = self.boxX.y + self.vy*dt +y
+	self.boxX.x = self.boxX.x + self.vx*dt
+	self.boxX.y = self.boxX.y + self.vy*dt
 
-	self.boxY.x = self.boxY.x + self.vx*dt +x
-	self.boxY.y = self.boxY.y + self.vy*dt +y
+	self.boxY.x = self.boxY.x + self.vx*dt
+	self.boxY.y = self.boxY.y + self.vy*dt
 
 	self.x = self.x + self.vx*dt
 	self.y = self.y + self.vy*dt
