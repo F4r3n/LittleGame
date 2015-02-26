@@ -32,7 +32,7 @@ function Enemy:draw()
 	love.graphics.rectangle("fill",self.x,self.y,self.boxY.w,self.boxY.h)
 end
 
-function Enemy:update(dt,level,x,y)
+function Enemy:update(dt,level)
 
 	for i=1,#level.cases do
 		for j=1,#level.cases[i] do
@@ -83,6 +83,7 @@ function Enemy:update(dt,level,x,y)
 
 	self.x = self.x + self.vx*dt
 	self.y = self.y + self.vy*dt
+
 
 end
 

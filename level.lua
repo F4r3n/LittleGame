@@ -114,9 +114,9 @@ function Level:update(dt)
 
 	for bullet,v in ipairs(self.bullets) do
 		v:update(dt)
-		if v.box.x > width*2 or v.box.x < -200 or v.box.y < 0 then
+		if math.abs(v.box.x - v.owner.boxX.x)>1000 then
+			v.dead = true
 			table.remove(self.bullets,bullet)
-
 		end
 	end
 

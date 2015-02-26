@@ -3,7 +3,7 @@ local Shotgun = {
 	spread = 1,
 	x = 0,
 	y = 0,
-	ammo = 100,
+	ammo = 1000,
 	bullets = {},
 	coolDown = 0.1,
 	name = "Shotgun",
@@ -41,7 +41,7 @@ function Shotgun:shot(rad,p,level,x,y)
 	end
 	self.ammo = self.ammo - 1
 	for i=0,self.spread do
-		local b = Bullet.new(0,p.boxX.x,p.boxX.y,math.random(rad,rad),5,self.shape,p.boxX.x,p.boxY.y)
+		local b = Bullet.new(p,p.boxX.x,p.boxX.y,math.random(rad,rad),5,self.shape,p.boxX.x,p.boxY.y)
 		table.insert(level.bullets,b)
 		camera:addLayer(1,b)
 	end
