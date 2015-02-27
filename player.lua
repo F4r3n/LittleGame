@@ -76,6 +76,7 @@ end
 
 
 function Player:update(dt,level)
+	--print(self.x,self.y)
 	self.time = self.time+dt
 	self.timeImmortal = self.timeImmortal + dt
 
