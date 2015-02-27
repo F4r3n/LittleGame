@@ -25,7 +25,6 @@ function Game:reload()
 end
 
 function Game:draw()
---	self.level:draw()
 	camera:addLayer(1,self.level)
 	camera:simpleDraw()
 	self.hud:draw()

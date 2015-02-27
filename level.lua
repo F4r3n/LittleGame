@@ -90,7 +90,7 @@ function Level:update(dt)
 					if  v.box:AABB(self.cases[i][j].box) then
 						p:start()
 
-						p:setPosition(a.x,a.y)
+						p:setPosition(v.x,v.y)
 						self.cases[i][j]:dommaged(v.dmg)
 						if self.cases[i][j].dead == true then
 							p:stop()
@@ -165,9 +165,7 @@ function Level:update(dt)
 end
 
 function Level:draw()
-
-
-	love.graphics.draw(p,p:getPosition());
+	love.graphics.draw(p);
 end
 
 return Level
