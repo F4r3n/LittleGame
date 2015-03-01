@@ -27,7 +27,8 @@ local Player = {
 	positionCamerax = 0,
 	positionCameray = 0,
 	offsetCamerax = 400,
-	offsetCameray = 400
+	offsetCameray = 400,
+	owner = 0
 
 	
 }
@@ -104,7 +105,7 @@ function Player:update(dt,level)
 	if self.time > self.coolDownWeapon then
 		if keyBoardInput["p"] then
 			self.time = 0
-			self.weapon:shot(self.dirX,self,level)
+			self.weapon:shot(self,self.dirX,self,level)
 		end
 	end
 
@@ -169,10 +170,9 @@ function Player:update(dt,level)
 			end
 		end
 	end
-	self.positionCamerax = self.boxX.x
-	self.positionCameray = self.boxX.y
 	self.vx = self.vx*0.7*(1-dt)
 	self.vy = self.vy + gravity*dt
+
 	camera:setPosition(self.boxX.x-self.offsetCamerax,self.boxX.y-self.offsetCameray)
 	self:moveUpdate()
 
@@ -202,6 +202,9 @@ function Player:gainLife(l)
 end
 
 function Player:moveUpdate()
+
+	self.positionCamerax = self.boxX.x
+	self.positionCameray = self.boxX.y
 	self.boxX.x = self.boxX.x + self.vx
 	self.boxX.y = self.boxX.y + self.vy
 	self.boxY.x = self.boxY.x + self.vx
