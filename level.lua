@@ -11,7 +11,11 @@ local Level = {
 	bullets = {},
 	bonus = {},
 	enemies = {},
-	scale = 1
+	scale = 1,
+	time = 0,
+	shakeTime = 0,
+	isShaking = false,
+	intervalTime = 0
 }
 
 Level.__index = Level
@@ -70,8 +74,31 @@ function Level:reload()
 
 end
 
+function Level:shake(dt)
+	if self.shakeTime < 0.1 then
+		self.shakeTime = self.shakeTime + dt
+		self.intervalTime = self.intervalTime + dt
+		if self.intervalTime <0.02 then
+			if camera.rotation == 0.01 then
+				camera.rotation =-0.01
+			else camera.rotation = 0.01
+			end
+			self.intervalTime = 0
+		end
+	else self.isShaking =false
+		camera.rotation = 0
+		self.shakeTime = 0
+
+			self.intervalTime = 0
+	end
+
+end
+
+
+
 
 function Level:update(dt)
+	self.time = self.time +dt
 	self.player:update(dt,self)
 
 	p:update(dt)
@@ -138,6 +165,7 @@ function Level:update(dt)
 		end
 
 		if v.boxX:AABB(self.player.boxX) then
+			self.isShaking = true
 			self.player:dommaged(10)
 		end
 	end
@@ -177,10 +205,15 @@ function Level:update(dt)
 			self.scale = self.scale -0.2
 			camera:setScale(self.scale,self.scale)
 
-		self.player.offsetCamerax = 400*self.scale
-		self.player.offsetCameray = 400*self.scale
+			self.player.offsetCamerax = 400*self.scale
+			self.player.offsetCameray = 400*self.scale
 		end
 		keyBoardInputRelease["kp-"] = false
+	end
+
+	if self.isShaking == true then
+		self:shake(dt)
+--	camera.rotation =0.1
 	end
 
 
