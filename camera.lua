@@ -37,8 +37,12 @@ function camera:simpleDraw()
 			table.remove(self.layer,_)
 		else
 			if v.index == 0 then
+				self.x,self.y = 0,0
+				camera:set()
 				v.object:draw()
+				camera:unset()
 			else
+				self.x,self.y = bx,by
 				camera:set()
 				v.object:draw()
 				camera:unset()

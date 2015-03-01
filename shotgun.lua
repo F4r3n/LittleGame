@@ -25,13 +25,13 @@ function Shotgun.new(x,y)
 	return self
 end
 
-function Shotgun:draw(s)
+function Shotgun:draw(s,x,y)
 	love.graphics.setColor(black)
 
 	if s== 0 then
-		love.graphics.rectangle("fill",self.x + 5,self.y+5,20,20)
+		love.graphics.rectangle("fill",x+40,y,20,20)
 	else
-		love.graphics.rectangle("fill",self.x - 40,self.y+5,20,20)
+		love.graphics.rectangle("fill",x-10,y,20,20)
 	end
 end
 
@@ -46,6 +46,7 @@ function Shotgun:shot(rad,p,level,x,y)
 		camera:addLayer(1,b)
 	end
 end
+
 
 
 return Shotgun

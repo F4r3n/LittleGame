@@ -2,6 +2,8 @@
 local Game = require 'game'
 
 keyBoardInput = {}
+mouseInput = {}
+keyBoardInputRelease = {}
 gravity = 10
 width = 800
 height = 600
@@ -48,4 +50,5 @@ end
 
 function love.keyreleased(key)
 	keyBoardInput[key] = false
+	keyBoardInputRelease[key] = true
 end

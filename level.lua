@@ -10,7 +10,8 @@ local Level = {
 	cases = {},
 	bullets = {},
 	bonus = {},
-	enemies = {}
+	enemies = {},
+	scale = 1
 }
 
 Level.__index = Level
@@ -50,7 +51,7 @@ function Level.new(n,player)
 		end 
 	end
 
-	camera:addLayer(0,self.player)
+	camera:addLayer(1,self.player)
 
 	return self
 end
@@ -159,6 +160,27 @@ function Level:update(dt)
 		if enemy.dead then
 			table.remove(self.enemies,_)
 		end
+	end
+
+	if keyBoardInputRelease["kp+"] then
+
+		self.scale = self.scale +0.2 
+		camera:setScale(self.scale,self.scale)
+		keyBoardInputRelease["kp+"] = false
+		self.player.offsetCamerax = 400*self.scale
+		self.player.offsetCameray = 400*self.scale
+
+	end
+
+	if keyBoardInputRelease["kp-"] then
+		if self.scale > 1 then
+			self.scale = self.scale -0.2
+			camera:setScale(self.scale,self.scale)
+
+		self.player.offsetCamerax = 400*self.scale
+		self.player.offsetCameray = 400*self.scale
+		end
+		keyBoardInputRelease["kp-"] = false
 	end
 
 

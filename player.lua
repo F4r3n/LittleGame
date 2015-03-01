@@ -24,6 +24,11 @@ local Player = {
 	coolDownWeapon = nil,
 	weaponTime = 0,
 	inventory = nil,
+	positionCamerax = 0,
+	positionCameray = 0,
+	offsetCamerax = 400,
+	offsetCameray = 400
+
 	
 }
 
@@ -56,10 +61,10 @@ end
 
 function Player:draw()
 	love.graphics.setColor(255,255,255)
-	love.graphics.rectangle("fill", self.initX, self.initY, self.w, self.h)
+	love.graphics.rectangle("fill", self.boxY.x, self.boxY.y, self.w, self.h)
 
 
-	self.weapon:draw(self.dirX)
+	self.weapon:draw(self.dirX,self.boxX.x,self.boxX.y)
 
 end
 
@@ -161,9 +166,12 @@ function Player:update(dt,level)
 			end
 		end
 	end
+	self.positionCamerax = self.boxX.x
+	self.positionCameray = self.boxX.y
+
 	self.vx = self.vx*0.7*(1-dt)
 	self.vy = self.vy + gravity*dt
-	camera:move(self.vx,self.vy)
+	camera:setPosition(self.boxX.x-self.offsetCamerax,self.boxX.y-self.offsetCameray)
 	self:moveUpdate()
 
 
