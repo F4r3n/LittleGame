@@ -1,9 +1,9 @@
 local Shotgun = {
-	ammoMax = 10,
+	ammoMax = 1000,
 	spread = 20,
 	x = 0,
 	y = 0,
-	ammo = 10,
+	ammo = 1000,
 	bullets = {},
 	coolDown = 1,
 	name = "Shotgun",

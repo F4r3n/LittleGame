@@ -60,20 +60,6 @@ function Level.new(n,player)
 	return self
 end
 
-function Level:reload()
-	for i=1,#self.levelBase do
-		self.cases[i] = {}
-		for j=1,#self.levelBase[i] do
-			self.cases[i][j] = Case.new((j-1)*self.w,
-			(i-1)*self.h,
-			self.w,
-			self.h,
-			self.levelBase[i][j])
-		end
-	end
-
-end
-
 function Level:shake(dt)
 	if self.shakeTime < 0.1 then
 		self.shakeTime = self.shakeTime + dt
@@ -114,8 +100,8 @@ function Level:update(dt)
 
 
 			if self.cases[i][j].t == 1 then
-				for bullet,v in ipairs(self.bullets) do
-					if  v.box:AABB(self.cases[i][j].box) then
+				for bullet,v in pairs(self.bullets) do
+					if  a:AABB(v.box) and c.dead == false then
 						p:start()
 
 						p:setPosition(v.x,v.y)
@@ -131,7 +117,6 @@ function Level:update(dt)
 						end
 
 						v.dead = true
-						table.remove(self.bullets,bullet)
 
 					end
 				end
@@ -174,9 +159,10 @@ function Level:update(dt)
 		love.event.quit()
 	end
 
-	for _,b in ipairs(self.bonus) do
-		if b.box:AABB(self.player.boxY) then
+	for _,b in pairs(self.bonus) do
+		if b.box:AABB(self.player.boxY) and b.dead == false then
 			local g = self.player:gainLife(10)
+
 			if g==true then
 				table.remove(self.bonus,_)
 				b.dead = true
@@ -213,8 +199,14 @@ function Level:update(dt)
 
 	if self.isShaking == true then
 		self:shake(dt)
---	camera.rotation =0.1
 	end
+
+	for _,b in pairs(self.bullets) do
+		if b.dead == true then
+			table.remove(self.bullets,_)
+		end
+	end
+
 
 
 end

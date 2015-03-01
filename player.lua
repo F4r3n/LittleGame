@@ -61,6 +61,7 @@ end
 
 function Player:draw()
 	love.graphics.setColor(255,255,255)
+	love.graphics.rectangle("fill", self.boxY.x-10, self.boxY.y+10, self.w+20, self.h-20)
 	love.graphics.rectangle("fill", self.boxY.x, self.boxY.y, self.w, self.h)
 
 
@@ -116,9 +117,6 @@ function Player:update(dt,level)
 		end
 	end
 
-	if self.jumping then
---			self.vx = self.vx + friction*math.sign(self.vx)*(-1)
-	end
 
 
 	if keyBoardInput[" "] and self.jumping == false then
@@ -138,19 +136,24 @@ function Player:update(dt,level)
 				if self.boxY:AABB(b) then
 					local bottomSide = math.abs(b.h + b.y - (self.boxY.y + self.boxY.h/2))
 					local topSide = math.abs(-b.y + self.boxY.y + self.boxY.h/2)
+
 					if topSide < bottomSide then
 						local d =(self.boxY.y+self.boxY.h)-b.y
 						self.vy = self.vy-d
 						self.jumping = false
+						if self.vy < -1 then self.vy = -1 end--A améliorer
+
 					else
 						local d = math.abs(b.y + b.h - self.boxY.y + 1)
 						self.vy = self.vy + d
+
+						if self.vy >1 then self.vy = 1 end--A améliorer
 
 					end
 				end
 				if self.boxX:AABB(b) then
 					local leftSide = math.abs(b.w + b.x - (self.boxX.x+self.boxX.w/2))
-					local rightSide = math.abs(-b.x+self.boxX.x + self.boxX.w/2)  
+					local rightSide = math.abs(-b.x+self.boxX.x + self.boxX.w/2) 
 					if leftSide > rightSide  then
 						local c = math.abs((self.boxX.x+self.boxX.w)-(b.x)+1)
 						self.vx = self.vx-c
@@ -168,7 +171,6 @@ function Player:update(dt,level)
 	end
 	self.positionCamerax = self.boxX.x
 	self.positionCameray = self.boxX.y
-
 	self.vx = self.vx*0.7*(1-dt)
 	self.vy = self.vy + gravity*dt
 	camera:setPosition(self.boxX.x-self.offsetCamerax,self.boxX.y-self.offsetCameray)
@@ -193,6 +195,7 @@ function Player:gainLife(l)
 		if self.life > self.maxLife then
 			self.life = self.maxLife
 		end
+		return true
 	else return false
 	end
 	return true
