@@ -8,7 +8,9 @@ local Rifle = {
 	bullets = {},
 	coolDown = 0.1,
 	name = "Rifle",
-	shape =nil
+	shape =nil,
+	radius = 0,
+	weapon = nil
 }
 
 Rifle.__index = Rifle
@@ -16,6 +18,7 @@ Bullet = require 'bullet'
 BulletShape = require 'bulletShape'
 MissileShape = require 'missileShape'
 require('camera')
+Weapon = require 'weapon'
 
 
 function Rifle.new(x,y)
@@ -23,30 +26,18 @@ function Rifle.new(x,y)
 	self.x = x
 	self.y = y
 	self.shape = BulletShape.new(5,5)
+	self.weapon = Weapon.new(x,y)
+	self.weapon:init(self)
+	self.weapon.radius = self.radius
 	return self
 end
 
 function Rifle:draw(s,x,y)
-	love.graphics.setColor(black)
-
-	if s== 0 then
-		love.graphics.rectangle("fill",x+40,y,20,20)
-	else
-		love.graphics.rectangle("fill",x-10,y,20,20)
-	end
+	self.weapon:draw(s,x,y)
 end
 
 function Rifle:shot(rad,p,level,x,y,dir)
-	if self.ammo <=0 then 
-		return
-	end
-	self.ammo = self.ammo - 1
-	for i=1,self.spread do
-		local b = Bullet.new(p,p.boxX.x,p.boxX.y+5,math.random(rad,rad),5,self.shape,p.boxX.x,p.boxY.y+5,dir)
-		table.insert(level.bullets,b)
-		camera:addLayer(1,b)
-	end
-
+	self.weapon:shot(rad,p,level,x,y,dir)
 end
 
 

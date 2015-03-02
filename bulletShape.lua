@@ -1,4 +1,3 @@
-
 local BulletShape = {
 	w = 0,
 	h = 0
@@ -17,7 +16,7 @@ end
 
 function BulletShape:draw(x,y)
 	love.graphics.setColor(black)
-	love.graphics.circle("fill",x,y,self.w,self.h,10)
+	love.graphics.circle("fill",x,y,self.w,self.h,20)
 end
 
 
