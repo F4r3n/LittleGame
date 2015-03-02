@@ -80,9 +80,17 @@ function Enemy:update(dt,level)
 		end
 	end
 
-	if self.coolDown >1 then
-		self.weapon:shot(0,self,level,nil,nil,0)
-		self.coolDown = 0
+	if math.abs(level.player.boxX.x - self.boxX.x) < 800 then
+
+		local dir = 0
+		if level.player.boxX.x -self.boxX.x < 0 then
+			dir = 180
+		else dir = 0
+		end
+		if self.coolDown >1 then
+			self.weapon:shot(0,self,level,nil,nil,dir)
+			self.coolDown = 0
+		end
 	end
 
 	self.vy = self.vy + gravity*dt

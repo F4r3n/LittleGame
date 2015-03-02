@@ -17,7 +17,7 @@ end
 
 function BulletShape:draw(x,y)
 	love.graphics.setColor(black)
-	love.graphics.rectangle("fill",x,y,self.w,self.h)
+	love.graphics.circle("fill",x,y,self.w,self.h,10)
 end
 
 
