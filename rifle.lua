@@ -36,16 +36,17 @@ function Rifle:draw(s,x,y)
 	end
 end
 
-function Rifle:shot(rad,p,level,x,y)
+function Rifle:shot(rad,p,level,x,y,dir)
 	if self.ammo <=0 then 
 		return
 	end
 	self.ammo = self.ammo - 1
-	for i=0,self.spread do
-		local b = Bullet.new(p,p.boxX.x,p.boxX.y,math.random(rad,rad),5,self.shape,p.boxX.x,p.boxY.y)
+	for i=1,self.spread do
+		local b = Bullet.new(p,p.boxX.x,p.boxX.y+5,math.random(rad,rad),5,self.shape,p.boxX.x,p.boxY.y+5,dir)
 		table.insert(level.bullets,b)
 		camera:addLayer(1,b)
 	end
+
 end
 
 

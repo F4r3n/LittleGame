@@ -105,7 +105,7 @@ function Player:update(dt,level)
 	if self.time > self.coolDownWeapon then
 		if keyBoardInput["p"] then
 			self.time = 0
-			self.weapon:shot(self,self.dirX,self,level)
+			self.weapon:shot(0,self,level,nil,nil,self.dirX)
 		end
 	end
 

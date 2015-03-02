@@ -18,12 +18,12 @@ local Bullet = {
 }
 Box = require 'box'
 Bullet.__index = Bullet
-function Bullet.new(owner,x,y,rad,dmg,shape,xb,yb)
+function Bullet.new(owner,x,y,rad,dmg,shape,xb,yb,dir)
 	local self = setmetatable({},Bullet)
 	self.owner = owner
 	self.x = x
 	self.y = y
-
+	if dir == 180 then self.dir = -1 else self.dir = 1 end
 	self.xb = x
 	self.yb = y
 	self.dirX = math.cos(rad*math.pi/180)
@@ -40,10 +40,10 @@ function Bullet:draw()
 end
 
 function Bullet:update(dt)
-	self.box.x = self.box.x + self.speed * self.dirX * dt
-	self.box.y = self.box.y + self.speed * self.dirY * dt
-	self.x = self.x + self.speed * self.dirX*dt
-	self.y = self.y + self.speed * self.dirY*dt
+	self.box.x = self.box.x + self.speed * self.dirX * dt*self.dir
+	self.box.y = self.box.y + self.speed * self.dirY * dt*self.dir
+	self.x = self.x + self.speed * self.dirX*dt*self.dir
+	self.y = self.y + self.speed * self.dirY*dt*self.dir
 
 end
 

@@ -34,14 +34,6 @@ function Case:draw()
 				self.box.h)
 			end
 
-			if self.t == 0 then
-				love.graphics.setColor(0,0,255,255)
-				love.graphics.rectangle("fill",
-				self.x,
-				self.y, 
-				self.box.w, 
-				self.box.h)
-			end
 
 			if self.t == 2 then
 				love.graphics.setColor(0,255,0,255)

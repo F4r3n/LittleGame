@@ -27,7 +27,7 @@ function Enemy.new(x,y)
 	self.y = y
 	self.boxY = Box.new(self.x,self.y,self.w,self.h)
 	self.boxX = Box.new(self.x-10,self.y+10,self.w+20,self.h-20)
-self.weapon = Rifle.new(self.boxX.x+self.w,self.boxX.y-self.h/2)
+self.weapon = Rifle.new(self.boxX.x+self.w,self.boxX.y-self.h/2+10)
 	return self
 end
 
@@ -81,7 +81,7 @@ function Enemy:update(dt,level)
 	end
 
 	if self.coolDown >1 then
-		self.weapon:shot(0,self,level,nil,nil)
+		self.weapon:shot(0,self,level,nil,nil,0)
 		self.coolDown = 0
 	end
 
