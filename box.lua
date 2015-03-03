@@ -32,4 +32,11 @@ function Box:AABB(box)
 	box.y < self.y+self.h
 end
 
+function Box:pointInside(x,y)
+	return x < self.x + self.w and
+			x> self.x and
+			y>self.y and
+			y<self.y+self.h
+end
+
 return Box

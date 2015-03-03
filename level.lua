@@ -84,6 +84,7 @@ end
 
 
 function Level:update(dt)
+	local mx,my = love.mouse.getPosition()
 	self.time = self.time +dt
 	self.player:update(dt,self)
 
@@ -137,6 +138,13 @@ function Level:update(dt)
 		end
 	end
 
+	for enemy,v in ipairs(self.enemies) do
+		if v.boxY:pointInside(camera.x+mx,camera.y+my) then
+			love.mouse.setCursor(cursor_red_cross)
+		else
+			love.mouse.setCursor(cursor_white_cross)
+		end
+	end
 
 
 	for bonus,v in ipairs(self.bonus) do

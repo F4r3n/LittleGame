@@ -1,6 +1,5 @@
 
 local Game = require 'game'
-
 keyBoardInput = {}
 mouseInput = {}
 keyBoardInputRelease = {}
@@ -14,13 +13,16 @@ friction = 5
 mousePressedLeft = false
 mouseX = 0
 mouseY = 0
+cursor_red_cross = love.mouse.newCursor('assets/red_cross.png')
+cursor_white_cross = love.mouse.newCursor('assets/white_cross.png')
+
 
 function love.load()
 	love.window.setMode(width,height)
 	love.window.setTitle("Little Game");
 	love.graphics.setBackgroundColor(blue);
 
-	local img = love.graphics.newImage('blood.png');
+	local img = love.graphics.newImage('assets/blood.png');
 
 	p = love.graphics.newParticleSystem(img, 100);
 	p:setParticleLifetime(0.1,0.2); -- Particles live at least 2s and at most 5s.
@@ -30,6 +32,7 @@ function love.load()
 	p:setLinearAcceleration(-100, -100, 100, 100); -- Random movement in all directions.
 	p:setColors(255, 255, 255, 255, 255, 255, 255, 0); -- Fade to black.
 	p:stop()
+	love.mouse.setCursor(cursor_white_cross)
 	game = Game.new();
 end
 
