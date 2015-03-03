@@ -1,6 +1,6 @@
 local Shotgun = {
 	ammoMax = 1000,
-	spread = 20,
+	spread = 15,
 	x = 0,
 	y = 0,
 	ammo = 1000,
@@ -33,8 +33,8 @@ function Shotgun:draw(s,x,y)
 	self.weapon:draw(s,x,y)
 end
 
-function Shotgun:shot(rad,p,level,x,y,dir)
-	self.weapon:shot(rad,p,level,x,y,dir)
+function Shotgun:shot(rad,p,level,x,y)
+	self.weapon:shot(rad,p,level,x,y)
 end
 
 

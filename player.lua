@@ -103,10 +103,14 @@ function Player:update(dt,level)
 	end
 
 	if self.time > self.coolDownWeapon then
-		if keyBoardInput["p"] then
-			self.time = 0
-			self.weapon:shot(0,self,level,nil,nil,self.dirX)
+		if mousePressedLeft == true then
+			local degree = math.atan2((mouseY-self.y),(mouseX-self.x))*180/math.pi
+			if degree<0 then degree = -math.abs(degree) +360 end
+			self.weapon:shot(degree,self,level,nil,nil)
+
+		self.time = 0
 		end
+
 	end
 
 	if keyBoardInput["q"] then

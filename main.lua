@@ -11,6 +11,9 @@ black = {0,0,0,255}
 white = {255,255,255,255}
 blue = {0,0,255,255}
 friction = 5
+mousePressedLeft = false
+mouseX = 0
+mouseY = 0
 
 function love.load()
 	love.window.setMode(width,height)
@@ -31,7 +34,12 @@ function love.load()
 end
 
 function love.update(dt)
+
+	if mousePressedLeft then
+		mouseX,mouseY = love.mouse.getPosition()
+	end
 	game:update(dt)
+
 end
 
 
@@ -44,6 +52,19 @@ function love.keypressed(key,isrepeat)
 
 	if key == "l" then
 		love.load()
+	end
+end
+
+function love.mousepressed(x,y,button)
+	if button == "l" then
+		mousePressedLeft = true
+	end
+end
+
+
+function love.mousereleased(x,y,button)
+	if button == "l" then
+		mousePressedLeft = false
 	end
 end
 

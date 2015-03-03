@@ -5,7 +5,7 @@ local Weapon = {
 	y = 0,
 	ammo = 1000,
 	bullets = {},
-	coolDown = 1,
+	coolDown = 0.1,
 	name = "Weapon",
 	shape =nil,
 	radius = 0
@@ -49,13 +49,14 @@ function Weapon:draw(s,x,y)
 	end
 end
 
-function Weapon:shot(rad,p,level,x,y,dir)
+function Weapon:shot(rad,p,level,x,y)
 	if self.ammo <=0 then 
 		return
 	end
 	self.ammo = self.ammo - 1
 	for i=1,self.spread do
-		local b = Bullet.new(p,p.boxX.x,p.boxX.y,math.random(rad-self.radius,rad+self.radius),5,self.shape,p.boxX.x,p.boxY.y,dir)
+		
+		local b = Bullet.new(p,p.boxX.x,p.boxX.y,math.random(rad-self.radius,rad+self.radius),5,self.shape,p.boxX.x,p.boxY.y)
 		table.insert(level.bullets,b)
 		camera:addLayer(1,b)
 	end

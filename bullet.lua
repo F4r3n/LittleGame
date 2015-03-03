@@ -2,8 +2,8 @@ local Bullet = {
 	dmg = 10,
 	speed = 500,
 	owner = 0,
-	dirX = 0,
-	dirY = 0,
+	dirVarX = 0,
+	dirVarY = 0,
 	x = 0,
 	y = 0,
 	vx = nil,
@@ -14,20 +14,24 @@ local Bullet = {
 	dead = false,
 	shape = 0,
 	xb = 0,
-	yb = 0
+	yb = 0,
+	dirX = 0,
+	dirY = 0
+
 }
 Box = require 'box'
 Bullet.__index = Bullet
-function Bullet.new(owner,x,y,rad,dmg,shape,xb,yb,dir)
+function Bullet.new(owner,x,y,rad,dmg,shape,xb,yb)
 	local self = setmetatable({},Bullet)
 	self.owner = owner
 	self.x = x
 	self.y = y
-	if dir == 180 then self.dir = -1 else self.dir = 1 end
 	self.xb = x
 	self.yb = y
-	self.dirX = math.cos(rad*math.pi/180)
-	self.dirY = math.sin(rad*math.pi/180)
+	self.dirVarX = math.cos(rad*math.pi/180)
+	self.dirVarY = math.sin(rad*math.pi/180)
+
+
 	self.dmg = dmg
 	self.box = Box.new(xb,yb,self.w,self.h)
 	self.shape = shape
@@ -40,10 +44,10 @@ function Bullet:draw()
 end
 
 function Bullet:update(dt)
-	self.box.x = self.box.x + self.speed * self.dirX * dt*self.dir
-	self.box.y = self.box.y + self.speed * self.dirY * dt*self.dir
-	self.x = self.x + self.speed * self.dirX*dt*self.dir
-	self.y = self.y + self.speed * self.dirY*dt*self.dir
+	self.box.x = self.box.x + self.speed * self.dirVarX*dt 
+	self.box.y = self.box.y + self.speed * self.dirVarY*dt
+	self.x = self.x + self.speed * self.dirVarX*dt
+	self.y = self.y + self.speed * self.dirVarY*dt
 
 end
 

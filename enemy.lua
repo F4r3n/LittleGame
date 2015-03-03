@@ -88,7 +88,7 @@ function Enemy:update(dt,level)
 		else dir = 0
 		end
 		if self.coolDown >1 then
-			self.weapon:shot(0,self,level,nil,nil,dir)
+		--	self.weapon:shot(0,self,level,nil,nil,dir)
 			self.coolDown = 0
 		end
 	end
