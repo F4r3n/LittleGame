@@ -13,11 +13,14 @@ friction = 5
 mousePressedLeft = false
 mouseX = 0
 mouseY = 0
-cursor_red_cross = love.mouse.newCursor('assets/red_cross.png',10,10)
-cursor_white_cross = love.mouse.newCursor('assets/white_cross.png',10,10)
 
 
 function love.load()
+
+	cursor_red_cross = love.mouse.newCursor('assets/red_cross.png',10,10)
+	cursor_white_cross = love.mouse.newCursor('assets/white_cross.png',10,10)
+	shotgun_image = love.graphics.newImage('assets/shotgun.png')
+	shotgun_quad = love.graphics.newQuad(0,50,75,50,shotgun_image:getWidth(),shotgun_image:getHeight())
 	love.window.setMode(width,height)
 	love.window.setTitle("Little Game");
 	love.graphics.setBackgroundColor(blue);
@@ -38,7 +41,7 @@ end
 
 function love.update(dt)
 
-		mouseX,mouseY = love.mouse.getPosition()
+	mouseX,mouseY = love.mouse.getPosition()
 	game:update(dt)
 
 end

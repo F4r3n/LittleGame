@@ -24,9 +24,8 @@ function InventoryHud:draw()
 	local size = 100
 	love.graphics.setColor(white)
 	for i=0,#self.object-1 do
-		love.graphics.rectangle("fill",self.x + i*size,self.y,size,self.h)
+		love.graphics.draw(self.object[i+1].img,self.object[i+1].quad_img,self.x,self.y,0,1,1,0,0)
 		love.graphics.setColor(black)
-		love.graphics.print(self.object[i+1].name,self.x+i*size,self.y)
 	end
 
 end

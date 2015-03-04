@@ -9,6 +9,8 @@ local Shotgun = {
 	name = "Shotgun",
 	shape = nil,
 	radius = 15,
+	img = nil,
+	quad_img = nil,
 	weapon =nil
 }
 
@@ -23,6 +25,8 @@ function Shotgun.new(x,y)
 	local self = setmetatable({},Shotgun)
 	self.x = x
 	self.y = y
+	self.img = shotgun_image
+	self.quad_img = shotgun_quad
 	self.shape = BulletShape.new(5,5)
 	self.weapon = Weapon.new(x,y)
 	self.weapon:init(self)

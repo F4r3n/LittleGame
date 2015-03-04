@@ -8,7 +8,9 @@ local Weapon = {
 	coolDown = 0.1,
 	name = "Weapon",
 	shape =nil,
-	radius = 0
+	radius = 0,
+	img = nil,
+	quad_img = nil
 }
 
 Weapon.__index = Weapon
@@ -36,16 +38,28 @@ function Weapon:init(w)
 	self.name = w.name
 	self.shape = w.shape
 	self.radius = w.radius
+	self.img = w.img
+	self.quad_img = w.quad_img
 
 end
 
 function Weapon:draw(s,x,y)
-	love.graphics.setColor(black)
 
-	if s== 0 then
-		love.graphics.rectangle("fill",x+40,y,20,20)
-	else
-		love.graphics.rectangle("fill",x-10,y,20,20)
+	if self.img == nil then
+		love.graphics.setColor(black)
+
+		if s== 0 then
+			love.graphics.rectangle("fill",x+40,y,20,20)
+		else
+			love.graphics.rectangle("fill",x-10,y,20,20)
+		end
+	else 
+		if s== 0 then
+			love.graphics.draw(self.img,self.quad_img,x,y,0,1,1,0,0,0,0)
+
+		else
+			love.graphics.draw(self.img,self.quad_img,x+40,y,0,-1,1,0,0,0,0)
+		end
 	end
 end
 
@@ -55,7 +69,7 @@ function Weapon:shot(rad,p,level,x,y)
 	end
 	self.ammo = self.ammo - 1
 	for i=1,self.spread do
-		
+
 		local b = Bullet.new(p,p.boxX.x,p.boxX.y,math.random(rad-self.radius,rad+self.radius),5,self.shape,p.boxX.x,p.boxY.y)
 		table.insert(level.bullets,b)
 		camera:addLayer(1,b)

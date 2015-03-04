@@ -10,6 +10,8 @@ local Rifle = {
 	name = "Rifle",
 	shape =nil,
 	radius = 0,
+	img = nil,
+	quad_img = nil,
 	weapon = nil
 }
 
