@@ -13,7 +13,7 @@ require('camera')
 
 function Game.new() 
 	local self = setmetatable({},Game)
-	self.player = Player.new({400,400})
+	self.player = Player.new({200,100})
 	self.level = Level.new(0,self.player)
 	self.hud = Hud.new(self.level)
 

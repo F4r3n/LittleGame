@@ -1,7 +1,7 @@
 local Level = {
 	player = nil,
-	w = 100,
-	h = 100,
+	w = 25,
+	h = 25,
 	levelNumber = 0,
 	score = 0,
 	levelBase = nil,

@@ -29,8 +29,7 @@ function Bullet.new(owner,x,y,rad,dmg,shape,xb,yb)
 	self.xb = x
 	self.yb = y
 	self.dirVarX = math.cos(rad*math.pi/180)
-	self.dirVarY = math.sin(rad*math.pi/180)
-
+	self.dirVarY = -math.sin(rad*math.pi/180)
 
 	self.dmg = dmg
 	self.box = Box.new(xb,yb,self.w,self.h)

@@ -28,7 +28,8 @@ local Player = {
 	positionCameray = 0,
 	offsetCamerax = 400,
 	offsetCameray = 400,
-	owner = 0
+	owner = 0,
+	degree = 0
 
 	
 }
@@ -56,6 +57,7 @@ function Player.new(position)
 
 	self.coolDownWeapon = self.weapon.coolDown
 
+
 	self.inventory:addInventory(self.weapon)
 	return self
 end
@@ -64,9 +66,12 @@ function Player:draw()
 	love.graphics.setColor(255,255,255)
 	love.graphics.rectangle("fill", self.boxY.x-10, self.boxY.y+10, self.w+20, self.h-20)
 	love.graphics.rectangle("fill", self.boxY.x, self.boxY.y, self.w, self.h)
+	if (self.degree>270 and self.degree <360) or (self.degree > 0 and self.degree<90) then
+		self.weapon:draw(0,self.boxX.x,self.boxX.y)
+	else
+		self.weapon:draw(180,self.boxX.x,self.boxX.y)
 
-
-	self.weapon:draw(self.dirX,self.boxX.x,self.boxX.y)
+	end
 
 end
 
@@ -101,14 +106,15 @@ function Player:update(dt,level)
 		self.vx = self.speed
 		self.dirX = 0
 	end
+	local y= -mouseY + 400
+	local x= -mouseX + 400
+	self.degree = math.atan2(y,-x)*180/math.pi
+	if self.degree<0 then self.degree = -math.abs(self.degree) +360 end
 
 	if self.time > self.coolDownWeapon then
 		if mousePressedLeft == true then
-			local degree = math.atan2((mouseY-self.y),(mouseX-self.x))*180/math.pi
-			if degree<0 then degree = -math.abs(degree) +360 end
-			self.weapon:shot(degree,self,level,nil,nil)
-
-		self.time = 0
+			self.weapon:shot(self.degree,self,level,nil,nil)
+			self.time = 0
 		end
 
 	end

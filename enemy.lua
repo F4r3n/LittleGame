@@ -9,11 +9,13 @@ local Enemy = {
 	h = 40,
 	vx = 0,
 	vy = 0,
-	speed = 20,
+	speed = 1,
 	dead = false,
 	weapon = nil,
 	coolDown = 0,
-	owner = 1
+	owner = 1,
+	dirPlayer = 0,
+	isBlocked = false
 
 }
 
@@ -34,11 +36,31 @@ end
 function Enemy:draw()
 	love.graphics.setColor(black)
 	love.graphics.rectangle("fill",self.boxY.x,self.boxY.y,self.boxY.w,self.boxY.h)
-	self.weapon:draw(0,self.boxX.x,self.boxX.y)
+	if self.dirPlayer == -1 then
+		self.weapon:draw(180,self.boxX.x,self.boxX.y)
+	else
+
+		self.weapon:draw(0,self.boxX.x,self.boxX.y)
+	end
+end
+
+function Enemy:move(dt,level)
+	if level.player.boxX.x -self.boxX.x < 0 then
+		self.dirPlayer = -1
+	else self.dirPlayer = 1
+	end
+	self.vx = self.speed*self.dirPlayer
+	if self.isBlocked ==true and self.jumping == false then
+		self.vy = -self.speed*3
+		self.isBlocked = false
+		self.jumping = true
+	end
+
 end
 
 function Enemy:update(dt,level)
 	self.coolDown = self.coolDown + dt
+	self:move(dt,level)
 
 	for i=1,#level.cases do
 		for j=1,#level.cases[i] do
@@ -63,7 +85,9 @@ function Enemy:update(dt,level)
 				end
 				if self.boxX:AABB(b) then
 					local leftSide = math.abs(b.w + b.x - (self.boxX.x+self.boxX.w/2))
-					local rightSide = math.abs(-b.x+self.boxX.x + self.boxX.w/2)  
+					local rightSide = math.abs(-b.x+self.boxX.x + self.boxX.w/2) 
+
+						self.isBlocked = true
 					if leftSide > rightSide  then
 						local c =math.abs((self.boxX.x+self.boxX.w)-(b.x)+1)
 						self.vx = self.vx-c
@@ -88,10 +112,11 @@ function Enemy:update(dt,level)
 		else dir = 0
 		end
 		if self.coolDown >1 then
-			self.weapon:shot(0,self,level,nil,nil)
+		self.weapon:shot(dir,self,level,nil,nil)
 			self.coolDown = 0
 		end
 	end
+
 
 	self.vy = self.vy + gravity*dt
 	self.boxX.x = self.boxX.x + self.vx

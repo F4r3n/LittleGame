@@ -13,8 +13,8 @@ friction = 5
 mousePressedLeft = false
 mouseX = 0
 mouseY = 0
-cursor_red_cross = love.mouse.newCursor('assets/red_cross.png')
-cursor_white_cross = love.mouse.newCursor('assets/white_cross.png')
+cursor_red_cross = love.mouse.newCursor('assets/red_cross.png',10,10)
+cursor_white_cross = love.mouse.newCursor('assets/white_cross.png',10,10)
 
 
 function love.load()
@@ -38,9 +38,7 @@ end
 
 function love.update(dt)
 
-	if mousePressedLeft then
 		mouseX,mouseY = love.mouse.getPosition()
-	end
 	game:update(dt)
 
 end
