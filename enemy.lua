@@ -69,7 +69,7 @@ function Enemy:update(dt,level)
 			b.x = b.x - self.vx
 			b.y = b.y - self.vy
 
-			if case.t == 1 or case.t ==-1 then
+			if case.t == 1 or case.t ==-1 or case.t==3 then
 				if self.boxY:AABB(b) then
 					local bottomSide = math.abs(b.h + b.y - (self.boxY.y + self.boxY.h/2))
 					local topSide = math.abs(-b.y + self.boxY.y + self.boxY.h/2)

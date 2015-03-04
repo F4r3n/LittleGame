@@ -25,13 +25,9 @@ function Case:dommaged(d)
 end
 
 function Case:draw()
+    love.graphics.setColor(255, 255, 255)
 			if self.t == 1 then
-				love.graphics.setColor(255,0,0,self.life*2)
-				love.graphics.rectangle("fill",
-				self.x,
-				self.y, 
-				self.box.w, 
-				self.box.h)
+				love.graphics.draw(grass_image,grass_quad,self.x,self.y-5,0,1,1,0,0,0,0)
 			end
 
 
@@ -43,13 +39,14 @@ function Case:draw()
 				self.box.w, 
 				self.box.h)
 			end
+
+
+			if self.t == 3 then
+				love.graphics.draw(earth_image,earth_quad,self.x,self.y,0,1,1,0,0,0,0)
+			end
 			if self.t == -1 then
-				love.graphics.setColor(100,100,100,255)
-				love.graphics.rectangle("fill",
-				self.x,
-				self.y, 
-				self.box.w, 
-				self.box.h)
+				love.graphics.draw(rock_image,rock_quad,self.x,self.y,0,1,1,0,0,0,0)
+
 			end
 end
 

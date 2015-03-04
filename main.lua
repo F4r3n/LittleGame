@@ -21,6 +21,14 @@ function love.load()
 	cursor_white_cross = love.mouse.newCursor('assets/white_cross.png',10,10)
 	shotgun_image = love.graphics.newImage('assets/shotgun.png')
 	shotgun_quad = love.graphics.newQuad(0,50,75,50,shotgun_image:getWidth(),shotgun_image:getHeight())
+	grass_image = love.graphics.newImage('assets/grass.png')
+	grass_quad = love.graphics.newQuad(5,0,25,30,grass_image:getWidth(),grass_image:getHeight())
+	earth_image = love.graphics.newImage('assets/terre.png')
+	earth_quad = love.graphics.newQuad(5,5,25,25,earth_image:getWidth(),earth_image:getHeight())
+	rock_image = love.graphics.newImage('assets/rock.png')
+	rock_quad = love.graphics.newQuad(5,5,25,25,rock_image:getWidth(),rock_image:getHeight())
+
+
 	love.window.setMode(width,height)
 	love.window.setTitle("Little Game");
 	love.graphics.setBackgroundColor(blue);
