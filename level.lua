@@ -199,12 +199,14 @@ function Level:update(dt)
 	end
 
 	if keyBoardInputRelease["kp-"] then
+		if self.scale>0.4 then
 			self.scale = self.scale -0.2
 			camera:setScale(self.scale,self.scale)
 
 			self.player.offsetCamerax = 400*self.scale
 			self.player.offsetCameray = 400*self.scale
 		keyBoardInputRelease["kp-"] = false
+	end
 	end
 
 	if self.isShaking == true then

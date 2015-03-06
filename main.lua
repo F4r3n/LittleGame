@@ -56,7 +56,9 @@ end
 
 
 function love.draw()
+
 	game:draw()
+	   love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, height-20)
 end
 
 function love.keypressed(key,isrepeat)
