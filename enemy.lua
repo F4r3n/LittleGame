@@ -42,8 +42,7 @@ end
 
 function Enemy:draw()
 	love.graphics.setColor(white)
-	love.graphics.draw(zs_image,self.current_quad,self.boxY.x,self.boxY.y-10,0,self.dirPlayer,1,0,0)
-	love.graphics.setColor(black)
+	love.graphics.draw(zs_image,self.current_quad,self.boxY.x,self.boxY.y-18,0,self.dirPlayer*1.2,1*1.2,0,0)
 end
 
 function Enemy:move(dt,level)

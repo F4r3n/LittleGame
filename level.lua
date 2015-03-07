@@ -15,7 +15,9 @@ local Level = {
 	time = 0,
 	shakeTime = 0,
 	isShaking = false,
-	intervalTime = 0
+	intervalTime = 0,
+	casesAround = {{},{},{},{},{},{},{},{}},
+	constructMode = false
 }
 
 Level.__index = Level
@@ -75,7 +77,7 @@ function Level:shake(dt)
 		camera.rotation = 0
 		self.shakeTime = 0
 
-			self.intervalTime = 0
+		self.intervalTime = 0
 	end
 
 end
@@ -93,6 +95,51 @@ function Level:update(dt)
 	local y = -self.player.vy
 
 
+	if keyBoardInputRelease["p"] then
+		if self.constructMode == false then
+			self.constructMode = true
+			keyBoardInputRelease["p"] = false
+		else 
+			self.constructMode =false
+			keyBoardInputRelease["p"] = false
+		end
+	end
+
+
+	if self.constructMode then
+		if (self.casesAround[1][1] ~= math.floor((self.player.boxX.x-self.w)/self.w)) 
+			or  self.casesAround[1][2] ~= math.floor((self.player.boxX.y)/self.h) then
+			grid_batch:clear()
+			grid_batch:bind()
+			self.casesAround[1][1]=math.floor((self.player.boxX.x-self.w)/self.w)
+			self.casesAround[1][2]=math.floor(self.player.boxX.y/self.h)
+
+			self.casesAround[2][1]=math.floor((self.player.boxX.x-self.w)/self.w)
+			self.casesAround[2][2]=math.floor((self.player.boxX.y-self.h)/self.h)
+
+			self.casesAround[3][1]=math.floor((self.player.boxX.x-self.w)/self.w)
+			self.casesAround[3][2]=math.floor((self.player.boxX.y+self.h)/self.h)
+
+			self.casesAround[4][1]=math.floor((self.player.boxX.x-self.w)/self.w)
+			self.casesAround[4][2]=math.floor((self.player.boxX.y-2*self.h)/self.h)
+
+			self.casesAround[5][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
+			self.casesAround[5][2]=math.floor(self.player.boxX.y/self.h)
+
+			self.casesAround[6][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
+			self.casesAround[6][2]=math.floor((self.player.boxX.y-self.h)/self.h)
+
+			self.casesAround[7][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
+			self.casesAround[7][2]=math.floor((self.player.boxX.y+self.h)/self.h)
+
+			self.casesAround[8][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
+			self.casesAround[8][2]=math.floor((self.player.boxX.y-2*self.h)/self.h)
+			for i=1,8 do
+				grid_batch:add(self.casesAround[i][1]*self.w,self.casesAround[i][2]*self.h)
+			end
+			grid_batch:unbind()
+		end
+	end
 
 	for i=1,#self.cases do
 		for j=1,#self.cases[i] do
@@ -138,11 +185,10 @@ function Level:update(dt)
 		end
 	end
 
+	love.mouse.setCursor(cursor_white_cross)
 	for enemy,v in ipairs(self.enemies) do
 		if v.boxY:pointInside(camera.x+mx,camera.y+my) then
 			love.mouse.setCursor(cursor_red_cross)
-		else
-			love.mouse.setCursor(cursor_white_cross)
 		end
 	end
 
@@ -205,8 +251,8 @@ function Level:update(dt)
 
 			self.player.offsetCamerax = 400*self.scale
 			self.player.offsetCameray = 400*self.scale
-		keyBoardInputRelease["kp-"] = false
-	end
+			keyBoardInputRelease["kp-"] = false
+		end
 	end
 
 	if self.isShaking == true then
@@ -220,11 +266,14 @@ function Level:update(dt)
 	end
 
 
-
 end
 
 function Level:draw()
 	love.graphics.draw(p);
+	love.graphics.setColor(black)
+	if self.constructMode then
+		love.graphics.draw(grid_batch)
+	end
 end
 
 return Level

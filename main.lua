@@ -40,6 +40,8 @@ function love.load()
 
 	z_image = love.graphics.newImage('assets/z2.png')
 	z_quad = love.graphics.newQuad(0,0,50,50,z_image:getWidth(),z_image:getHeight())
+	grid_img = love.graphics.newImage('assets/grid.png')
+	grid_batch = love.graphics.newSpriteBatch(grid_img,8)
 
 	love.window.setMode(width,height)
 	love.window.setTitle("Little Game");
@@ -63,11 +65,13 @@ function love.update(dt)
 
 	mouseX,mouseY = love.mouse.getPosition()
 	game:update(dt)
+	
 
 end
 
 
 function love.draw()
+	love.graphics.clear()
 
 	game:draw()
 	love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, height-20)
