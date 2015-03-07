@@ -5,7 +5,7 @@ local Enemy = {
 	dmg=5,
 	x = 0,
 	y = 0,
-	w = 40,
+	w = 20,
 	h = 40,
 	vx = 0,
 	vy = 0,
@@ -42,14 +42,8 @@ end
 
 function Enemy:draw()
 	love.graphics.setColor(white)
-	love.graphics.draw(zs_image,self.current_quad,self.boxY.x,self.boxY.y-10,0,1,1,0,0)
+	love.graphics.draw(zs_image,self.current_quad,self.boxY.x,self.boxY.y-10,0,self.dirPlayer,1,0,0)
 	love.graphics.setColor(black)
-	if self.dirPlayer == -1 then
-		self.weapon:draw(180,self.boxX.x,self.boxX.y)
-	else
-
-		self.weapon:draw(0,self.boxX.x,self.boxX.y)
-	end
 end
 
 function Enemy:move(dt,level)

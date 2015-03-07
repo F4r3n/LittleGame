@@ -4,7 +4,8 @@ local InventoryHud ={
 	h= 30,
 	x = nil,
 	y = nil,
-	object = {}
+	object = {},
+	nbObject = {}
 	
 }
 
@@ -32,6 +33,7 @@ end
 
 function InventoryHud:update(dt,i)
 	self.object = i.object
+	self.nbObject = i.nbObject
 end
 
 return InventoryHud

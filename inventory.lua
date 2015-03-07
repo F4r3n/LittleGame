@@ -1,5 +1,6 @@
 local Inventory = {
 	object = {},
+	nbObject = {},
 	index = 0,
 	size = 3
 }
@@ -12,8 +13,14 @@ function Inventory.new()
 end
 
 function Inventory:addInventory(o)
-	if #self.object < self.size then
-		table.insert(self.object,o)
+	if self.object[o.name] == nil then
+		if #self.object < self.size then
+			table.insert(self.object,o)
+			self.nbObject[o.name] = 1
+		end
+	else 
+		self.nbObject[o.name] = self.nbObject[o.name] + 1
+
 	end
 end
 

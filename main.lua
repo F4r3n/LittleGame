@@ -9,6 +9,7 @@ height = 600
 black = {0,0,0,255}
 white = {255,255,255,255}
 blue = {0,0,255,255}
+grey = {119,104,104,255}
 friction = 5
 mousePressedLeft = false
 mouseX = 0
