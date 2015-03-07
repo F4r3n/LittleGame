@@ -41,6 +41,7 @@ function Hud:update(dt,level)
 	self.score:update(0)
 	self.time:update(dt)
 	self.inventory:update(dt,level.player.inventory)
+	self.inventoryPanel:update(dt,level.player.inventory)
 	if keyBoardInputRelease["i"] then
 		if self.openInventory == true then
 			self.openInventory = false

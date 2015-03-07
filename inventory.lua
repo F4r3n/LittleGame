@@ -24,6 +24,17 @@ function Inventory:addInventory(o)
 	end
 end
 
+function Inventory:rmInventory(o)
+	if self.object[o.name] ~= nil then
+		if self.nbObject[o.name] >1 then
+			self.nbObject[o.name] = self.nbObject[o.name] - 1
+		else
+			table.remove(self.nbObject,o)
+			table.remove(self.object,o)
+		end
+	end
+end
+
 function Inventory:setSize(size)
 	self.size = size
 end
