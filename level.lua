@@ -110,7 +110,6 @@ function Level:update(dt)
 		if (self.casesAround[1][1] ~= math.floor((self.player.boxX.x-self.w)/self.w)) 
 			or  self.casesAround[1][2] ~= math.floor((self.player.boxX.y)/self.h) then
 			grid_batch:clear()
-			grid_batch:bind()
 			self.casesAround[1][1]=math.floor((self.player.boxX.x-self.w)/self.w)
 			self.casesAround[1][2]=math.floor(self.player.boxX.y/self.h)
 
@@ -137,7 +136,7 @@ function Level:update(dt)
 			for i=1,8 do
 				grid_batch:add(self.casesAround[i][1]*self.w,self.casesAround[i][2]*self.h)
 			end
-			grid_batch:unbind()
+			grid_batch:flush()
 		end
 	end
 
