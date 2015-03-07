@@ -15,7 +15,12 @@ local Enemy = {
 	coolDown = 0,
 	owner = 1,
 	dirPlayer = 0,
-	isBlocked = false
+	isBlocked = false,
+	current_quad = nil,
+	current_img = nil,
+	animationCoolDown = 0.2,
+	animationTime = 0,
+	indexQuad = 2
 
 }
 
@@ -29,13 +34,16 @@ function Enemy.new(x,y)
 	self.y = y
 	self.boxY = Box.new(self.x,self.y,self.w,self.h)
 	self.boxX = Box.new(self.x-10,self.y+10,self.w+20,self.h-20)
-self.weapon = Rifle.new(self.boxX.x+self.w,self.boxX.y-self.h/2+10)
+	self.weapon = Rifle.new(self.boxX.x+self.w,self.boxX.y-self.h/2+10)
+	self.current_img = zs_image
+	self.current_quad = zs[1]
 	return self
 end
 
 function Enemy:draw()
+	love.graphics.setColor(white)
+	love.graphics.draw(zs_image,self.current_quad,self.boxY.x,self.boxY.y-10,0,1,1,0,0)
 	love.graphics.setColor(black)
-	love.graphics.rectangle("fill",self.boxY.x,self.boxY.y,self.boxY.w,self.boxY.h)
 	if self.dirPlayer == -1 then
 		self.weapon:draw(180,self.boxX.x,self.boxX.y)
 	else
@@ -59,8 +67,18 @@ function Enemy:move(dt,level)
 end
 
 function Enemy:update(dt,level)
+	self.animationTime = self.animationTime + dt
 	self.coolDown = self.coolDown + dt
 	self:move(dt,level)
+
+	if self.animationTime > self.animationCoolDown then
+		self.indexQuad = (self.indexQuad + 1)%#zs
+		if self.indexQuad == 0 then
+			self.indexQuad = 2
+		end
+		self.current_quad = zs[self.indexQuad]
+		self.animationTime = 0
+	end
 
 	for i=1,#level.cases do
 		for j=1,#level.cases[i] do
@@ -87,7 +105,7 @@ function Enemy:update(dt,level)
 					local leftSide = math.abs(b.w + b.x - (self.boxX.x+self.boxX.w/2))
 					local rightSide = math.abs(-b.x+self.boxX.x + self.boxX.w/2) 
 
-						self.isBlocked = true
+					self.isBlocked = true
 					if leftSide > rightSide  then
 						local c =math.abs((self.boxX.x+self.boxX.w)-(b.x)+1)
 						self.vx = self.vx-c
@@ -112,7 +130,7 @@ function Enemy:update(dt,level)
 		else dir = 0
 		end
 		if self.coolDown >1 then
-		self.weapon:shot(dir,self,level,nil,nil)
+			self.weapon:shot(dir,self,level,nil,nil)
 			self.coolDown = 0
 		end
 	end

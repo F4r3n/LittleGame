@@ -14,6 +14,15 @@ mousePressedLeft = false
 mouseX = 0
 mouseY = 0
 
+zs_image = love.graphics.newImage('assets/zs.png')
+zs = {
+	love.graphics.newQuad(0,0,40,50,zs_image:getWidth(),zs_image:getHeight()),
+	love.graphics.newQuad(40,0,30,50,zs_image:getWidth(),zs_image:getHeight()),
+	love.graphics.newQuad(75,0,20,50,zs_image:getWidth(),zs_image:getHeight()),
+	love.graphics.newQuad(100,0,22,50,zs_image:getWidth(),zs_image:getHeight()),
+	love.graphics.newQuad(128,0,20,50,zs_image:getWidth(),zs_image:getHeight())
+}
+
 
 function love.load()
 
@@ -28,6 +37,8 @@ function love.load()
 	rock_image = love.graphics.newImage('assets/rock.png')
 	rock_quad = love.graphics.newQuad(5,5,25,25,rock_image:getWidth(),rock_image:getHeight())
 
+	z_image = love.graphics.newImage('assets/z2.png')
+	z_quad = love.graphics.newQuad(0,0,50,50,z_image:getWidth(),z_image:getHeight())
 
 	love.window.setMode(width,height)
 	love.window.setTitle("Little Game");
@@ -58,7 +69,7 @@ end
 function love.draw()
 
 	game:draw()
-	   love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, height-20)
+	love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, height-20)
 end
 
 function love.keypressed(key,isrepeat)
