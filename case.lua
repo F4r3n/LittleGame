@@ -30,7 +30,6 @@ function Case:draw()
 				love.graphics.draw(grass_image,grass_quad,self.x,self.y-5,0,1,1,0,0,0,0)
 			end
 
-
 			if self.t == 2 then
 				love.graphics.setColor(0,255,0,255)
 				love.graphics.rectangle("fill",

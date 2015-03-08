@@ -18,6 +18,8 @@ FPS = 60
 updateMax = 1/FPS
 updateCurrent = 0
 
+require('profile')
+
 zs_image = love.graphics.newImage('assets/zs.png')
 zs = {
 	love.graphics.newQuad(0,0,40,50,zs_image:getWidth(),zs_image:getHeight()),
@@ -62,6 +64,11 @@ function love.load()
 	p:stop()
 	love.mouse.setCursor(cursor_white_cross)
 	game = Game.new();
+	print(love.graphics:getRendererInfo())
+profiler = newProfiler()
+profiler:start()
+
+
 end
 
 function love.update(dt)
@@ -99,6 +106,16 @@ function love.mousepressed(x,y,button)
 	if button == "l" then
 		mousePressedLeft = true
 	end
+end
+
+function love.quit()
+	print("Merci d'avoir joué")
+	profiler:stop()
+
+	local outfile = io.open( "profile.txt", "w+" )
+	profiler:report( outfile )
+	outfile:close()
+
 end
 
 

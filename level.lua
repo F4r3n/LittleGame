@@ -110,29 +110,18 @@ function Level:update(dt)
 		if (self.casesAround[1][1] ~= math.floor((self.player.boxX.x-self.w)/self.w)) 
 			or  self.casesAround[1][2] ~= math.floor((self.player.boxX.y)/self.h) then
 			grid_batch:clear()
-			self.casesAround[1][1]=math.floor((self.player.boxX.x-self.w)/self.w)
-			self.casesAround[1][2]=math.floor(self.player.boxX.y/self.h)
 
-			self.casesAround[2][1]=math.floor((self.player.boxX.x-self.w)/self.w)
-			self.casesAround[2][2]=math.floor((self.player.boxX.y-self.h)/self.h)
+			for i=1,4 do
+			self.casesAround[i][1]=math.floor((self.player.boxX.x-self.w)/self.w)
+			self.casesAround[i][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
+			end
 
-			self.casesAround[3][1]=math.floor((self.player.boxX.x-self.w)/self.w)
-			self.casesAround[3][2]=math.floor((self.player.boxX.y+self.h)/self.h)
+			for i=1,4 do
+			self.casesAround[i+4][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
+			self.casesAround[i+4][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
+			end
 
-			self.casesAround[4][1]=math.floor((self.player.boxX.x-self.w)/self.w)
-			self.casesAround[4][2]=math.floor((self.player.boxX.y-2*self.h)/self.h)
 
-			self.casesAround[5][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
-			self.casesAround[5][2]=math.floor(self.player.boxX.y/self.h)
-
-			self.casesAround[6][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
-			self.casesAround[6][2]=math.floor((self.player.boxX.y-self.h)/self.h)
-
-			self.casesAround[7][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
-			self.casesAround[7][2]=math.floor((self.player.boxX.y+self.h)/self.h)
-
-			self.casesAround[8][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
-			self.casesAround[8][2]=math.floor((self.player.boxX.y-2*self.h)/self.h)
 			for i=1,8 do
 				grid_batch:add(self.casesAround[i][1]*self.w,self.casesAround[i][2]*self.h)
 			end
@@ -268,8 +257,9 @@ function Level:update(dt)
 end
 
 function Level:draw()
+
+	love.graphics.setColor(white)
 	love.graphics.draw(p);
-	love.graphics.setColor(black)
 	if self.constructMode then
 		love.graphics.draw(grid_batch)
 	end
