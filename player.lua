@@ -112,7 +112,7 @@ function Player:update(dt,level)
 	if self.degree<0 then self.degree = -math.abs(self.degree) +360 end
 
 	if self.time > self.coolDownWeapon then
-		if mousePressedLeft == true then
+		if mousePressedLeft == true and level.constructMode== false then
 			self.weapon:shot(self.degree,self,level,nil,nil)
 			self.time = 0
 		end

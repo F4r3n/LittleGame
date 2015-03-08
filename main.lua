@@ -38,6 +38,7 @@ function love.load()
 	end
 	cursor_red_cross = love.mouse.newCursor('assets/red_cross.png',10,10)
 	cursor_white_cross = love.mouse.newCursor('assets/white_cross.png',10,10)
+	cursor_build_cross_black = love.mouse.newCursor('assets/cross_build_black.png',10,10)
 	shotgun_image = love.graphics.newImage('assets/shotgun.png')
 	shotgun_quad = love.graphics.newQuad(0,50,75,50,shotgun_image:getWidth(),shotgun_image:getHeight())
 	grass_image = love.graphics.newImage('assets/grass.png')

@@ -39,4 +39,12 @@ function Box:pointInside(x,y)
 			y<self.y+self.h
 end
 
+function Box.pointInside2(x1,y1,x,y,w,h)
+
+	return x1 < x + w and
+			x1> x and
+			y1>y and
+			y1<y+h
+end
+
 return Box

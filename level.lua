@@ -82,6 +82,37 @@ function Level:shake(dt)
 
 end
 
+function Level:chooseCursor()
+
+	local mx,my = love.mouse.getPosition()
+	love.mouse.setCursor(cursor_white_cross)
+
+	if self.constructMode then
+
+		love.mouse.setCursor(cursor_build_cross_black)
+		for i=1,8 do
+			if Box.pointInside2(camera.x+mx,
+				camera.y+my,
+				self.casesAround[i][1]*self.w,
+				self.casesAround[i][2]*self.h,
+				self.w,
+				self.h) then
+				if mousePressedLeft and self.cases[self.casesAround[i][2]+1][self.casesAround[i][1]+1].t ==0 then
+					self.cases[self.casesAround[i][2]+1][self.casesAround[i][1]+1].t =1 
+				end
+			end
+		end
+	end
+
+
+	for enemy,v in ipairs(self.enemies) do
+		if v.boxY:pointInside(camera.x+mx,camera.y+my) then
+			love.mouse.setCursor(cursor_red_cross)
+		end
+	end
+
+end
+
 
 
 
@@ -105,7 +136,7 @@ function Level:update(dt)
 	if distanceEnemy < 500 and self.constructMode == true then self.constructMode=false end
 
 	if keyBoardInputRelease["p"] then
-		if distanceEnemy > 500 then
+		if distanceEnemy > 500  and math.floor((self.player.boxX.y+(1)*self.h)/self.h) >2 then
 			if self.constructMode == false then
 				self.constructMode = true
 			else 
@@ -114,6 +145,11 @@ function Level:update(dt)
 		end
 		keyBoardInputRelease["p"] = false
 	end
+	if self.constructMode then
+		if math.floor((self.player.boxX.y+(-3)*self.h)/self.h) <2 then
+			self.constructMode = false
+		end
+	end
 
 
 	if self.constructMode then
@@ -121,15 +157,19 @@ function Level:update(dt)
 			or  self.casesAround[1][2] ~= math.floor((self.player.boxX.y)/self.h) then
 			grid_batch:clear()
 
+				if math.floor((self.player.boxX.y+(1)*self.h)/self.h) >0 then
 			for i=1,4 do
+
 				self.casesAround[i][1]=math.floor((self.player.boxX.x-self.w)/self.w)
 				self.casesAround[i][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
 			end
 
 			for i=1,4 do
+
 				self.casesAround[i+4][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
 				self.casesAround[i+4][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
 			end
+		end
 
 
 			for i=1,8 do
@@ -138,6 +178,7 @@ function Level:update(dt)
 			grid_batch:flush()
 		end
 	end
+
 
 	for i=1,#self.cases do
 		for j=1,#self.cases[i] do
@@ -183,12 +224,6 @@ function Level:update(dt)
 		end
 	end
 
-	love.mouse.setCursor(cursor_white_cross)
-	for enemy,v in ipairs(self.enemies) do
-		if v.boxY:pointInside(camera.x+mx,camera.y+my) then
-			love.mouse.setCursor(cursor_red_cross)
-		end
-	end
 
 
 	for bonus,v in ipairs(self.bonus) do
@@ -262,6 +297,8 @@ function Level:update(dt)
 			table.remove(self.bullets,_)
 		end
 	end
+
+	self:chooseCursor()
 
 
 end
