@@ -17,7 +17,8 @@ local Level = {
 	isShaking = false,
 	intervalTime = 0,
 	casesAround = {{},{},{},{},{},{},{},{}},
-	constructMode = false
+	constructMode = false,
+	sprites = nil
 }
 
 Level.__index = Level
@@ -26,6 +27,7 @@ Case = require 'case'
 Bullet = require 'bullet'
 Bonus = require 'bonus'
 Enemy = require 'enemy'
+SpritesBatch = require 'spritesBatch'
 LevelEnemies = require 'levelEnemies'
 
 function Level.new(n,player)
@@ -33,6 +35,10 @@ function Level.new(n,player)
 	self.levelBase = LevelBase[2*n+1]
 	self.levelEnemies = LevelEnemies[2*n+1]
 	self.player = player
+
+	earth_batch:clear()
+	grass_batch:clear()
+	rock_batch:clear()
 
 	for i=1,#self.levelBase do
 		self.cases[i] = {}
@@ -43,9 +49,24 @@ function Level.new(n,player)
 			self.h,
 			self.levelBase[i][j])
 
-			camera:addLayer(1,self.cases[i][j])
+			if self.levelBase[i][j]==3 then
+				earth_batch:add(earth_quad,self.cases[i][j].x,self.cases[i][j].y)
+			elseif self.levelBase[i][j]==-1 then
+				rock_batch:add(grass_quad,self.cases[i][j].x,self.cases[i][j].y)
+			elseif self.levelBase[i][j]==1 then
+				grass_batch:add(grass_quad,self.cases[i][j].x,self.cases[i][j].y)
+
+			end
 		end
 	end
+
+
+	self.sprites =SpritesBatch.new(earth_batch,grass_batch,rock_batch)
+	earth_batch:flush()
+	grass_batch:flush()
+	rock_batch:flush()
+
+	camera:addLayer(1,self.sprites)
 
 	for i=1,#self.levelEnemies do
 		for j=1,#self.levelEnemies[i] do
@@ -121,6 +142,9 @@ function Level:update(dt)
 	self.time = self.time +dt
 	self.player:update(dt,self)
 
+	self.sprites.earth:clear()
+	self.sprites.rock:clear()
+	self.sprites.grass:clear()
 	p:update(dt)
 	local x = -self.player.vx 
 	local y = -self.player.vy
@@ -159,19 +183,19 @@ function Level:update(dt)
 			or  self.casesAround[1][2] ~= math.floor((self.player.boxX.y)/self.h) then
 			grid_batch:clear()
 
-				if math.floor((self.player.boxX.y+(1)*self.h)/self.h) >0 then
-			for i=1,4 do
+			if math.floor((self.player.boxX.y+(1)*self.h)/self.h) >0 then
+				for i=1,4 do
 
-				self.casesAround[i][1]=math.floor((self.player.boxX.x-self.w)/self.w)
-				self.casesAround[i][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
+					self.casesAround[i][1]=math.floor((self.player.boxX.x-self.w)/self.w)
+					self.casesAround[i][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
+				end
+
+				for i=1,4 do
+
+					self.casesAround[i+4][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
+					self.casesAround[i+4][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
+				end
 			end
-
-			for i=1,4 do
-
-				self.casesAround[i+4][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
-				self.casesAround[i+4][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
-			end
-		end
 
 
 			for i=1,8 do
@@ -187,6 +211,13 @@ function Level:update(dt)
 			local a = self.cases[i][j].box
 			local c = self.cases[i][j]
 
+			if c.t == 3 then
+				self.sprites.earth:add(earth_quad,c.x,c.y)
+			elseif c.t==-1 then
+				self.sprites.rock:add(rock_quad,c.x,c.y)
+			elseif c.t==1 then
+				self.sprites.grass:add(grass_quad,c.x,c.y-5)
+			end
 
 			if self.cases[i][j].t == 1 or c.t == 3 then
 				for bullet,v in pairs(self.bullets) do
@@ -213,6 +244,9 @@ function Level:update(dt)
 		end
 	end
 
+	self.sprites.earth:flush()
+	self.sprites.rock:flush()
+	self.sprites.grass:flush()
 
 	for bullet,v in ipairs(self.bullets) do
 		v:update(dt)

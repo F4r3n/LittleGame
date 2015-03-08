@@ -2,7 +2,9 @@ local Case = {
 	t = 0,
 	box = nil,
 	life = 100,
-	dead = false
+	dead = false,
+	x=0,
+	y=0
 }
 
 Case.__index = Case
@@ -41,7 +43,7 @@ function Case:draw()
 
 
 			if self.t == 3 then
-				love.graphics.draw(earth_image,earth_quad,self.x,self.y,0,1,1,0,0,0,0)
+			--	love.graphics.draw(earth_image,earth_quad,self.x,self.y,0,1,1,0,0,0,0)
 			end
 			if self.t == -1 then
 				love.graphics.draw(rock_image,rock_quad,self.x,self.y,0,1,1,0,0,0,0)
