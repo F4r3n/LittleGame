@@ -25,8 +25,8 @@ function Bonus.new(x,y,xb,yb)
 end
 
 function Bonus:draw()
-	love.graphics.setColor(255,100,100,255)
-	love.graphics.circle("fill",self.x,self.y,self.w,10)
+	love.graphics.setColor(white)
+	love.graphics.draw(bonus_heal_image,self.x-10,self.y-10)
 
 
 end
