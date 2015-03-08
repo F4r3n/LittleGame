@@ -145,8 +145,10 @@ function Level:update(dt)
 		end
 		keyBoardInputRelease["p"] = false
 	end
+
 	if self.constructMode then
-		if math.floor((self.player.boxX.y+(-3)*self.h)/self.h) <2 then
+		if math.floor((self.player.boxX.y+(-3)*self.h)/self.h) <2
+			or math.floor((self.player.boxX.x+3*self.w)/self.w) > #self.cases[1] then
 			self.constructMode = false
 		end
 	end
