@@ -17,6 +17,7 @@ mouseY = 0
 FPS = 60
 updateMax = 1/FPS
 updateCurrent = 0
+debugMode = false
 
 require('profile')
 
@@ -31,7 +32,10 @@ zs = {
 
 
 function love.load()
-
+	if arg[2] == "-d" then 
+		debugMode = true 
+		print("Debug Mode")
+	end
 	cursor_red_cross = love.mouse.newCursor('assets/red_cross.png',10,10)
 	cursor_white_cross = love.mouse.newCursor('assets/white_cross.png',10,10)
 	shotgun_image = love.graphics.newImage('assets/shotgun.png')
@@ -65,8 +69,11 @@ function love.load()
 	love.mouse.setCursor(cursor_white_cross)
 	game = Game.new();
 	print(love.graphics:getRendererInfo())
+
+	if debugMode then
 profiler = newProfiler()
 profiler:start()
+end
 
 
 end
@@ -110,11 +117,14 @@ end
 
 function love.quit()
 	print("Merci d'avoir joué")
+
+	if debugMode then
 	profiler:stop()
 
 	local outfile = io.open( "profile.txt", "w+" )
 	profiler:report( outfile )
 	outfile:close()
+end
 
 end
 

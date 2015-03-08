@@ -1,200 +1,152 @@
 Lua Profile output created by profiler.lua. Copyright Pepperfish 2002+
 
 	----------------------------- L:set@@camera.lua:11 -----------------------------
-Sample count:          786
-Time spend total:       5.017s
+Sample count:           50
+Time spend total:       0.339s
 Time spent in children: 0.000s
-Time spent in self:     5.017s
-Time spent per sample:  0.00638s/sample
-Time spent in self per sample: 0.00638s/sample
+Time spent in self:     0.339s
+Time spent per sample:  0.00678s/sample
+Time spent in self per sample: 0.00678s/sample
 
 ------------------------- L:simpleDraw@@camera.lua:31 --------------------------
-Sample count:         2014
-Time spend total:       12.957s
-Time spent in children: 9.651s
-Time spent in self:     3.306s
-Time spent per sample:  0.00643s/sample
-Time spent in self per sample: 0.00164s/sample
+Sample count:          150
+Time spend total:       1.025s
+Time spent in children: 0.728s
+Time spent in self:     0.297s
+Time spent per sample:  0.00683s/sample
+Time spent in self per sample: 0.00198s/sample
 
-Child L:unset@@camera.lua:18                    sampled    116 times. Took 0.73s
-Child L:draw@@player.lua:65                     sampled      1 times. Took 0.01s
-Child L:draw@@case.lua:27                       sampled    460 times. Took 3.19s
-Child L:set@@camera.lua:11                      sampled    786 times. Took 5.02s
-Child L:draw@@level.lua:259                     sampled    135 times. Took 0.71s
+Child L:set@@camera.lua:11                      sampled     50 times. Took 0.34s
+Child L:unset@@camera.lua:18                    sampled     12 times. Took 0.08s
+Child L:draw@@level.lua:259                     sampled      2 times. Took 0.01s
+Child L:draw@@case.lua:27                       sampled     42 times. Took 0.29s
 
 ----------------------------- L:draw@@case.lua:27 ------------------------------
-Sample count:          460
-Time spend total:       3.192s
+Sample count:           42
+Time spend total:       0.295s
 Time spent in children: 0.000s
-Time spent in self:     3.192s
-Time spent per sample:  0.00694s/sample
-Time spent in self per sample: 0.00694s/sample
+Time spent in self:     0.295s
+Time spent per sample:  0.00701s/sample
+Time spent in self per sample: 0.00701s/sample
 
 ---------------------------- L:unset@@camera.lua:18 ----------------------------
-Sample count:          116
-Time spend total:       0.727s
+Sample count:           12
+Time spend total:       0.083s
 Time spent in children: 0.000s
-Time spent in self:     0.727s
-Time spent per sample:  0.00627s/sample
-Time spent in self per sample: 0.00627s/sample
-
----------------------------- L:draw@@level.lua:259 -----------------------------
-Sample count:          135
-Time spend total:       0.708s
-Time spent in children: 0.000s
-Time spent in self:     0.708s
-Time spent per sample:  0.00525s/sample
-Time spent in self per sample: 0.00525s/sample
+Time spent in self:     0.083s
+Time spent per sample:  0.00688s/sample
+Time spent in self per sample: 0.00688s/sample
 
 ---------------------------- L:update@@level.lua:88 ----------------------------
-Sample count:           79
-Time spend total:       0.559s
-Time spent in children: 0.031s
-Time spent in self:     0.529s
-Time spent per sample:  0.00708s/sample
-Time spent in self per sample: 0.00669s/sample
+Sample count:           12
+Time spend total:       0.087s
+Time spent in children: 0.024s
+Time spent in self:     0.062s
+Time spent per sample:  0.00721s/sample
+Time spent in self per sample: 0.00521s/sample
 
-Child L:AABB@@box.lua:28                        sampled      2 times. Took 0.01s
-Child L:update@@player.lua:90                   sampled      1 times. Took 0.02s
+Child L:update@@player.lua:90                   sampled      2 times. Took 0.02s
 
 ------------------------------ L:AABB@@box.lua:28 ------------------------------
-Sample count:            3
-Time spend total:       0.031s
-Time spent in children: 0.000s
-Time spent in self:     0.031s
-Time spent per sample:  0.01025s/sample
-Time spent in self per sample: 0.01025s/sample
-
------------------------ L:update@@inventoryPanel.lua:58 ------------------------
 Sample count:            2
-Time spend total:       0.014s
+Time spend total:       0.024s
 Time spent in children: 0.000s
-Time spent in self:     0.014s
-Time spent per sample:  0.00723s/sample
-Time spent in self per sample: 0.00723s/sample
+Time spent in self:     0.024s
+Time spent per sample:  0.01204s/sample
+Time spent in self per sample: 0.01204s/sample
 
----------------------------- L:draw@@lifeHud.lua:22 ----------------------------
+---------------------------- L:draw@@level.lua:259 -----------------------------
 Sample count:            2
-Time spend total:       0.011s
+Time spend total:       0.012s
 Time spent in children: 0.000s
-Time spent in self:     0.011s
-Time spent per sample:  0.00573s/sample
-Time spent in self per sample: 0.00573s/sample
+Time spent in self:     0.012s
+Time spent per sample:  0.00610s/sample
+Time spent in self per sample: 0.00610s/sample
 
------------------------------ L:update@@hud.lua:39 -----------------------------
-Sample count:            3
-Time spend total:       0.020s
-Time spent in children: 0.014s
-Time spent in self:     0.006s
-Time spent per sample:  0.00676s/sample
-Time spent in self per sample: 0.00194s/sample
-
-Child L:update@@inventoryPanel.lua:58           sampled      2 times. Took 0.01s
-
----------------------------- L:draw@@player.lua:65 -----------------------------
-Sample count:            1
-Time spend total:       0.005s
-Time spent in children: 0.000s
-Time spent in self:     0.005s
-Time spent per sample:  0.00547s/sample
-Time spent in self per sample: 0.00547s/sample
-
------------------------------- L:draw@@hud.lua:28 ------------------------------
-Sample count:            3
-Time spend total:       0.016s
-Time spent in children: 0.011s
-Time spent in self:     0.005s
-Time spent per sample:  0.00534s/sample
-Time spent in self per sample: 0.00152s/sample
-
-Child L:draw@@lifeHud.lua:22                    sampled      2 times. Took 0.01s
-
--------------------- L:<function: 0x4138b4c0>@boot.lua:413 ---------------------
-Sample count:         2100
-Time spend total:       13.557s
-Time spent in children: 13.553s
-Time spent in self:     0.004s
-Time spent per sample:  0.00646s/sample
-Time spent in self per sample: 0.00000s/sample
-
-Child L:draw@@main.lua:90                       sampled   2017 times. Took 12.97s
-Child L:update@@main.lua:74                     sampled     82 times. Took 0.58s
-
-------------------------------- C:xpcall@=[C]:? --------------------------------
-Sample count:         2100
-Time spend total:       13.557s
-Time spent in children: 13.557s
+----------------------------- L:draw@@main.lua:97 ------------------------------
+Sample count:          150
+Time spend total:       1.025s
+Time spent in children: 1.025s
 Time spent in self:     0.000s
-Time spent per sample:  0.00646s/sample
+Time spent per sample:  0.00683s/sample
 Time spent in self per sample: 0.00000s/sample
 
-Child L:<function: 0x4138b4c0>@boot.lua:413     sampled   2100 times. Took 13.56s
-
----------------------------- L:update@@main.lua:74 -----------------------------
-Sample count:           82
-Time spend total:       0.580s
-Time spent in children: 0.580s
-Time spent in self:     0.000s
-Time spent per sample:  0.00707s/sample
-Time spent in self per sample: 0.00000s/sample
-
-Child L:update@@game.lua:33                     sampled     82 times. Took 0.58s
+Child L:draw@@game.lua:27                       sampled    150 times. Took 1.02s
 
 --------------------------- L:update@@player.lua:90 ----------------------------
-Sample count:            1
-Time spend total:       0.019s
-Time spent in children: 0.019s
+Sample count:            2
+Time spend total:       0.024s
+Time spent in children: 0.024s
 Time spent in self:     0.000s
-Time spent per sample:  0.01884s/sample
+Time spent per sample:  0.01204s/sample
 Time spent in self per sample: 0.00000s/sample
 
-Child L:AABB@@box.lua:28                        sampled      1 times. Took 0.02s
-
------------------------------ L:draw@@main.lua:90 ------------------------------
-Sample count:         2017
-Time spend total:       12.973s
-Time spent in children: 12.973s
-Time spent in self:     0.000s
-Time spent per sample:  0.00643s/sample
-Time spent in self per sample: 0.00000s/sample
-
-Child L:draw@@game.lua:27                       sampled   2017 times. Took 12.97s
+Child L:AABB@@box.lua:28                        sampled      2 times. Took 0.02s
 
 ---------------------------- L:update@@game.lua:33 -----------------------------
-Sample count:           82
-Time spend total:       0.580s
-Time spent in children: 0.580s
+Sample count:           12
+Time spend total:       0.087s
+Time spent in children: 0.087s
 Time spent in self:     0.000s
-Time spent per sample:  0.00707s/sample
+Time spent per sample:  0.00721s/sample
 Time spent in self per sample: 0.00000s/sample
 
-Child L:update@@hud.lua:39                      sampled      3 times. Took 0.02s
-Child L:update@@level.lua:88                    sampled     79 times. Took 0.56s
+Child L:update@@level.lua:88                    sampled     12 times. Took 0.09s
+
+-------------------- L:<function: 0x409b3518>@boot.lua:413 ---------------------
+Sample count:          162
+Time spend total:       1.112s
+Time spent in children: 1.112s
+Time spent in self:     0.000s
+Time spent per sample:  0.00686s/sample
+Time spent in self per sample: 0.00000s/sample
+
+Child L:draw@@main.lua:97                       sampled    150 times. Took 1.02s
+Child L:update@@main.lua:81                     sampled     12 times. Took 0.09s
 
 ----------------------------- L:draw@@game.lua:27 ------------------------------
-Sample count:         2017
-Time spend total:       12.973s
-Time spent in children: 12.973s
+Sample count:          150
+Time spend total:       1.025s
+Time spent in children: 1.025s
 Time spent in self:     0.000s
-Time spent per sample:  0.00643s/sample
+Time spent per sample:  0.00683s/sample
 Time spent in self per sample: 0.00000s/sample
 
-Child L:draw@@hud.lua:28                        sampled      3 times. Took 0.02s
-Child L:simpleDraw@@camera.lua:31               sampled   2014 times. Took 12.96s
+Child L:simpleDraw@@camera.lua:31               sampled    150 times. Took 1.02s
 
--------------------- L:<function: 0x4138b5d8>@boot.lua:1496 --------------------
-Sample count:         2100
-Time spend total:       13.557s
-Time spent in children: 13.557s
+---------------------------- L:update@@main.lua:81 -----------------------------
+Sample count:           12
+Time spend total:       0.087s
+Time spent in children: 0.087s
 Time spent in self:     0.000s
-Time spent per sample:  0.00646s/sample
+Time spent per sample:  0.00721s/sample
 Time spent in self per sample: 0.00000s/sample
 
-Child C:xpcall@=[C]:?                           sampled   2100 times. Took 13.56s
+Child L:update@@game.lua:33                     sampled     12 times. Took 0.09s
+
+------------------------------- C:xpcall@=[C]:? --------------------------------
+Sample count:          162
+Time spend total:       1.112s
+Time spent in children: 1.112s
+Time spent in self:     0.000s
+Time spent per sample:  0.00686s/sample
+Time spent in self per sample: 0.00000s/sample
+
+Child L:<function: 0x409b3518>@boot.lua:413     sampled    162 times. Took 1.11s
+
+-------------------- L:<function: 0x409b3630>@boot.lua:1496 --------------------
+Sample count:          162
+Time spend total:       1.112s
+Time spent in children: 1.112s
+Time spent in self:     0.000s
+Time spent per sample:  0.00686s/sample
+Time spent in self per sample: 0.00000s/sample
+
+Child C:xpcall@=[C]:?                           sampled    162 times. Took 1.11s
 
 
 
-Total time spent in profiled functions:  13.6s
+Total time spent in profiled functions:  1.11s
 
 		END
 		

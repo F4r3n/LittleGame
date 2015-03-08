@@ -94,15 +94,25 @@ function Level:update(dt)
 	local x = -self.player.vx 
 	local y = -self.player.vy
 
+	local distanceEnemy=0
+	for _,v in ipairs(self.enemies) do
+		local d = math.abs(self.player.boxX.x-v.boxX.x)
+		if  distanceEnemy<d then
+			distanceEnemy = d
+		end
+	end
+
+	if distanceEnemy < 500 and self.constructMode == true then self.constructMode=false end
 
 	if keyBoardInputRelease["p"] then
-		if self.constructMode == false then
-			self.constructMode = true
-			keyBoardInputRelease["p"] = false
-		else 
-			self.constructMode =false
-			keyBoardInputRelease["p"] = false
+		if distanceEnemy > 500 then
+			if self.constructMode == false then
+				self.constructMode = true
+			else 
+				self.constructMode =false
+			end
 		end
+		keyBoardInputRelease["p"] = false
 	end
 
 
@@ -112,13 +122,13 @@ function Level:update(dt)
 			grid_batch:clear()
 
 			for i=1,4 do
-			self.casesAround[i][1]=math.floor((self.player.boxX.x-self.w)/self.w)
-			self.casesAround[i][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
+				self.casesAround[i][1]=math.floor((self.player.boxX.x-self.w)/self.w)
+				self.casesAround[i][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
 			end
 
 			for i=1,4 do
-			self.casesAround[i+4][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
-			self.casesAround[i+4][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
+				self.casesAround[i+4][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
+				self.casesAround[i+4][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
 			end
 
 
