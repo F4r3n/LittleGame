@@ -14,6 +14,9 @@ friction = 5
 mousePressedLeft = false
 mouseX = 0
 mouseY = 0
+FPS = 60
+updateMax = 1/FPS
+updateCurrent = 0
 
 zs_image = love.graphics.newImage('assets/zs.png')
 zs = {
@@ -63,9 +66,16 @@ end
 
 function love.update(dt)
 
-	mouseX,mouseY = love.mouse.getPosition()
-	game:update(dt)
-	
+	if dt > updateMax then dt = updateMax end
+	updateCurrent = updateCurrent + dt
+
+	while updateCurrent >= updateMax do
+		updateCurrent = updateCurrent - updateMax
+
+		mouseX,mouseY = love.mouse.getPosition()
+		game:update(dt)
+	end
+
 
 end
 
