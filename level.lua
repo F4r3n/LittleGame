@@ -18,7 +18,8 @@ local Level = {
 	intervalTime = 0,
 	casesAround = {{},{},{},{},{},{},{},{}},
 	constructMode = false,
-	sprites = nil
+	sprites = nil,
+	refresh = true
 }
 
 Level.__index = Level
@@ -142,9 +143,6 @@ function Level:update(dt)
 	self.time = self.time +dt
 	self.player:update(dt,self)
 
-	self.sprites.earth:clear()
-	self.sprites.rock:clear()
-	self.sprites.grass:clear()
 	p:update(dt)
 	local x = -self.player.vx 
 	local y = -self.player.vy
@@ -211,13 +209,6 @@ function Level:update(dt)
 			local a = self.cases[i][j].box
 			local c = self.cases[i][j]
 
-			if c.t == 3 then
-				self.sprites.earth:add(earth_quad,c.x,c.y)
-			elseif c.t==-1 then
-				self.sprites.rock:add(rock_quad,c.x,c.y)
-			elseif c.t==1 then
-				self.sprites.grass:add(grass_quad,c.x,c.y-5)
-			end
 
 			if self.cases[i][j].t == 1 or c.t == 3 then
 				for bullet,v in pairs(self.bullets) do
@@ -228,6 +219,7 @@ function Level:update(dt)
 						self.cases[i][j]:dommaged(v.dmg)
 						if self.cases[i][j].dead == true then
 							p:stop()
+							self.refresh = true
 							self.cases[i][j].t = 0
 							if math.random(100) < 50 then
 								local b = Bonus.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
@@ -244,9 +236,10 @@ function Level:update(dt)
 		end
 	end
 
-	self.sprites.earth:flush()
-	self.sprites.rock:flush()
-	self.sprites.grass:flush()
+	if self.refresh then
+		self:refreshMap()
+		self.refresh = false
+	end
 
 	for bullet,v in ipairs(self.bullets) do
 		v:update(dt)
@@ -286,13 +279,15 @@ function Level:update(dt)
 		love.event.quit()
 	end
 
-	for _,b in pairs(self.bonus) do
-		if b.box:AABB(self.player.boxY) and b.dead == false then
-			local g = self.player:gainLife(10)
+	if self.player:maxHealed() then
+		for _,b in pairs(self.bonus) do
+			if b.box:AABB(self.player.boxY) and b.dead == false then
+				local g = self.player:gainLife(10)
 
-			if g==true then
-				table.remove(self.bonus,_)
-				b.dead = true
+				if g==true then
+					table.remove(self.bonus,_)
+					b.dead = true
+				end
 			end
 		end
 	end
@@ -336,6 +331,33 @@ function Level:update(dt)
 
 	self:chooseCursor()
 
+
+end
+
+function Level:refreshMap()
+
+		self.sprites.earth:clear()
+		self.sprites.rock:clear()
+		self.sprites.grass:clear()
+		for i=1,#self.cases do
+			for j=1,#self.cases[i] do
+				local a = self.cases[i][j].box
+				local c = self.cases[i][j]
+
+				if c.t == 3 then
+					self.sprites.earth:add(earth_quad,c.x,c.y)
+				elseif c.t==-1 then
+					self.sprites.rock:add(rock_quad,c.x,c.y)
+				elseif c.t==1 then
+					self.sprites.grass:add(grass_quad,c.x,c.y-5)
+				end
+			end
+		end
+
+
+		self.sprites.earth:flush()
+		self.sprites.rock:flush()
+		self.sprites.grass:flush()
 
 end
 

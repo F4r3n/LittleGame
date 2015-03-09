@@ -221,4 +221,8 @@ function Player:moveUpdate()
 	self.boxY.y = self.boxY.y + self.vy
 end
 
+function Player:maxHealed()
+	return self.life == self.maxLife
+end
+
 return Player

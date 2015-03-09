@@ -20,6 +20,8 @@ function SpritesBatch:draw()
 	love.graphics.draw(self.rock)
 	love.graphics.draw(self.grass)
 
+	love.graphics.setColor(white)
+
 end
 
 
