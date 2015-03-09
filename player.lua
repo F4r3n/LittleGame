@@ -63,7 +63,7 @@ function Player.new(position)
 end
 
 function Player:draw()
-	love.graphics.setColor(255,255,255)
+	love.graphics.setColor(white)
 	love.graphics.rectangle("fill", self.boxY.x-10, self.boxY.y+10, self.w+20, self.h-20)
 	love.graphics.rectangle("fill", self.boxY.x, self.boxY.y, self.w, self.h)
 	if (self.degree>270 and self.degree <360) or (self.degree > 0 and self.degree<90) then

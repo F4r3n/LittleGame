@@ -120,7 +120,8 @@ function Level:chooseCursor()
 				self.w,
 				self.h) then
 				if mousePressedLeft and self.cases[self.casesAround[i][2]+1][self.casesAround[i][1]+1].t ==0 then
-					self.cases[self.casesAround[i][2]+1][self.casesAround[i][1]+1].t =1 
+					self.cases[self.casesAround[i][2]+1][self.casesAround[i][1]+1].t =1
+					self.refresh = true
 				end
 			end
 		end
@@ -155,10 +156,10 @@ function Level:update(dt)
 		end
 	end
 
-	if distanceEnemy < 500 and self.constructMode == true then self.constructMode=false end
+	if (distanceEnemy < 500 and distanceEnemy~=0) and self.constructMode == true then self.constructMode=false end
 
 	if keyBoardInputRelease["p"] then
-		if distanceEnemy > 500  and math.floor((self.player.boxX.y+(1)*self.h)/self.h) >2 then
+		if (distanceEnemy > 500 or distanceEnemy==0)  and math.floor((self.player.boxX.y+(1)*self.h)/self.h) >2 then
 			if self.constructMode == false then
 				self.constructMode = true
 			else 
@@ -183,13 +184,11 @@ function Level:update(dt)
 
 			if math.floor((self.player.boxX.y+(1)*self.h)/self.h) >0 then
 				for i=1,4 do
-
 					self.casesAround[i][1]=math.floor((self.player.boxX.x-self.w)/self.w)
 					self.casesAround[i][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
 				end
 
 				for i=1,4 do
-
 					self.casesAround[i+4][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
 					self.casesAround[i+4][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
 				end
@@ -279,7 +278,7 @@ function Level:update(dt)
 		love.event.quit()
 	end
 
-	if self.player:maxHealed() then
+	if self.player:maxHealed() == false then
 		for _,b in pairs(self.bonus) do
 			if b.box:AABB(self.player.boxY) and b.dead == false then
 				local g = self.player:gainLife(10)
@@ -291,7 +290,6 @@ function Level:update(dt)
 			end
 		end
 	end
-
 	for _,enemy in ipairs(self.enemies) do
 		if enemy.dead then
 			table.remove(self.enemies,_)
