@@ -10,7 +10,9 @@ local Weapon = {
 	shape =nil,
 	radius = 0,
 	img = nil,
-	quad_img = nil
+	quad_img = nil,
+	w=nil
+
 }
 
 Weapon.__index = Weapon
@@ -28,6 +30,7 @@ function Weapon.new(x,y)
 end
 
 function Weapon:init(w)
+	self.w = w
 	self.ammoMax = w.ammoMax
 	self.spread = w.spread
 	self.x = w.x
@@ -44,9 +47,14 @@ function Weapon:init(w)
 end
 
 function Weapon:reload(v)
-	if self.ammo + v > self.ammoMax then
-		self.ammo = self.ammoMax
-	else self.ammo = self.ammo + v
+	if self.ammo ~=self.ammoMax then
+		if self.ammo + v > self.ammoMax then
+			self.ammo = self.ammoMax
+		else self.ammo = self.ammo + v
+		end
+		self.w:update()
+		return true
+	else return false
 	end
 end
 

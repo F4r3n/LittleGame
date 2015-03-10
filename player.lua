@@ -200,7 +200,13 @@ function Player:dommaged(d)
 end
 
 function Player:gainAmmo(l)
-	self.weapon:reload(l)
+	return  self.weapon:reload(l)
+
+end
+
+function Player:fullAmmo() 
+	return self.weapon.ammoMax == self.weapon.ammo
+
 end
 
 function Player:gainLife(l)

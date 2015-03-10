@@ -22,18 +22,18 @@ function BonusAmmo.new(x,y,xb,yb)
 	self.y = y
 	self.xb = xb
 	self.yb = yb
-	self.img = bonus_heal_image
+	self.img = bonus_ammoBox_image
 	self.box = Box.new(self.xb,self.yb,self.w,self.h)
 	return self
 end
 
 function BonusAmmo:draw()
 	love.graphics.setColor(white)
-	love.graphics.draw(self.img,self.x-10,self.y-10)
+	love.graphics.draw(self.img,self.x-15,self.y-15,0,1.5,1.5)
 end
 
 function BonusAmmo:action(player)
-	return player:gainLife(10)
+	return player:gainAmmo(10)
 end
 
 function BonusAmmo:update(dt)

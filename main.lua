@@ -42,6 +42,7 @@ function love.load()
 	shotgun_image = love.graphics.newImage('assets/shotgun.png')
 	ball_image = love.graphics.newImage('assets/ball.png')
 	bonus_heal_image = love.graphics.newImage('assets/bonus_heal.png')
+	bonus_ammoBox_image = love.graphics.newImage('assets/ammoBox.png')
 
 	shotgun_quad = love.graphics.newQuad(0,50,75,50,shotgun_image:getWidth(),shotgun_image:getHeight())
 	grass_image = love.graphics.newImage('assets/grass.png')

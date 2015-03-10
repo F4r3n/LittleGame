@@ -19,7 +19,9 @@ local Level = {
 	casesAround = {{},{},{},{},{},{},{},{}},
 	constructMode = false,
 	sprites = nil,
-	refresh = true
+	refresh = true,
+	bonusAmmo = {},
+	bonusHeal = {}
 }
 
 Level.__index = Level
@@ -31,6 +33,7 @@ Enemy = require 'enemy'
 SpritesBatch = require 'spritesBatch'
 LevelEnemies = require 'levelEnemies'
 BonusHeal = require 'bonusHeal'
+BonusAmmo = require 'bonusAmmo'
 
 
 function Level.new(n,player)
@@ -107,6 +110,7 @@ function Level:shake(dt)
 end
 
 function Level:chooseCursor()
+
 	local mx,my = love.mouse.getPosition()
 	love.mouse.setCursor(cursor_white_cross)
 
@@ -141,7 +145,6 @@ end
 
 
 function Level:update(dt)
-
 	local mx,my = love.mouse.getPosition()
 	self.time = self.time +dt
 	self.player:update(dt,self)
@@ -223,8 +226,8 @@ function Level:update(dt)
 							self.refresh = true
 							self.cases[i][j].t = 0
 							if math.random(100) < 50 then
-								local b = BonusHeal.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
-								table.insert(self.bonus,b)
+								local b = BonusAmmo.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
+								table.insert(self.bonusAmmo,b)
 								camera:addLayer(1,b)
 							end
 						end
@@ -255,8 +258,11 @@ function Level:update(dt)
 	end
 
 
+	for bonus,v in ipairs(self.bonusHeal) do
+		v:update(dt)
+	end
 
-	for bonus,v in ipairs(self.bonus) do
+	for bonus,v in ipairs(self.bonusAmmo) do
 		v:update(dt)
 	end
 
@@ -280,13 +286,25 @@ function Level:update(dt)
 		love.event.quit()
 	end
 
+	if self.player:fullAmmo() == false then
+		for _,b in pairs(self.bonusAmmo) do
+			if b.box:AABB(self.player.boxY) and b.dead == false then
+				local g = b:action(self.player)
+				print(g)
+				if g==true then
+					table.remove(self.bonusAmmo,_)
+					b.dead = true
+				end
+			end
+		end
+	end
 	if self.player:maxHealed() == false then
-		for _,b in pairs(self.bonus) do
+		for _,b in pairs(self.bonusHeal) do
 			if b.box:AABB(self.player.boxY) and b.dead == false then
 				local g = b:action(self.player)
 
 				if g==true then
-					table.remove(self.bonus,_)
+					table.remove(self.bonusHeal,_)
 					b.dead = true
 				end
 			end

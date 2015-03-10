@@ -1,5 +1,5 @@
 local Shotgun = {
-	ammoMax = 1000,
+	ammoMax = 10,
 	spread = 15,
 	x = 0,
 	y = 0,
@@ -47,7 +47,7 @@ function Shotgun:shot(rad,p,level,x,y)
 end
 
 function Shotgun:reload(v)
-	self.weapon:reload(v)
+	return self.weapon:reload(v)
 end
 
 
