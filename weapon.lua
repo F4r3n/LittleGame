@@ -3,7 +3,7 @@ local Weapon = {
 	spread = 20,
 	x = 0,
 	y = 0,
-	ammo = 1000,
+	ammo = 10,
 	bullets = {},
 	coolDown = 0.1,
 	name = "Weapon",
@@ -41,6 +41,13 @@ function Weapon:init(w)
 	self.img = w.img
 	self.quad_img = w.quad_img
 
+end
+
+function Weapon:reload(v)
+	if self.ammo + v > self.ammoMax then
+		self.ammo = self.ammoMax
+	else self.ammo = self.ammo + v
+	end
 end
 
 function Weapon:draw(s,x,y)

@@ -3,7 +3,7 @@ local Shotgun = {
 	spread = 15,
 	x = 0,
 	y = 0,
-	ammo = 1000,
+	ammo = 10,
 	bullets = {},
 	coolDown = 1,
 	name = "Shotgun",
@@ -37,8 +37,17 @@ function Shotgun:draw(s,x,y)
 	self.weapon:draw(s,x,y)
 end
 
+function Shotgun:update()
+	self.ammo = self.weapon.ammo
+end
+
 function Shotgun:shot(rad,p,level,x,y)
 	self.weapon:shot(rad,p,level,x,y)
+	self.ammo = self.weapon.ammo
+end
+
+function Shotgun:reload(v)
+	self.weapon:reload(v)
 end
 
 

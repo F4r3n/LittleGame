@@ -199,6 +199,10 @@ function Player:dommaged(d)
 	end
 end
 
+function Player:gainAmmo(l)
+	self.weapon:reload(l)
+end
+
 function Player:gainLife(l)
 	if self.life < self.maxLife then
 		self.life = self.life +l

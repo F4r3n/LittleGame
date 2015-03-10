@@ -30,6 +30,8 @@ Bonus = require 'bonus'
 Enemy = require 'enemy'
 SpritesBatch = require 'spritesBatch'
 LevelEnemies = require 'levelEnemies'
+BonusHeal = require 'bonusHeal'
+
 
 function Level.new(n,player)
 	local self = setmetatable({},Level)
@@ -105,7 +107,6 @@ function Level:shake(dt)
 end
 
 function Level:chooseCursor()
-
 	local mx,my = love.mouse.getPosition()
 	love.mouse.setCursor(cursor_white_cross)
 
@@ -140,6 +141,7 @@ end
 
 
 function Level:update(dt)
+
 	local mx,my = love.mouse.getPosition()
 	self.time = self.time +dt
 	self.player:update(dt,self)
@@ -221,7 +223,7 @@ function Level:update(dt)
 							self.refresh = true
 							self.cases[i][j].t = 0
 							if math.random(100) < 50 then
-								local b = Bonus.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
+								local b = BonusHeal.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
 								table.insert(self.bonus,b)
 								camera:addLayer(1,b)
 							end
@@ -281,7 +283,7 @@ function Level:update(dt)
 	if self.player:maxHealed() == false then
 		for _,b in pairs(self.bonus) do
 			if b.box:AABB(self.player.boxY) and b.dead == false then
-				local g = self.player:gainLife(10)
+				local g = b:action(self.player)
 
 				if g==true then
 					table.remove(self.bonus,_)

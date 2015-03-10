@@ -8,7 +8,8 @@ local Bonus = {
 	box,
 	dead = false,
 	xb,
-	yb
+	yb,
+	img = bonus
 }
 
 Bonus.__index = Bonus

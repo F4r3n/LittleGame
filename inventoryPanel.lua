@@ -38,15 +38,25 @@ function InventoryPanel:draw()
 	for i=0,self.nbCaseY do 
 		for j=0,self.nbCaseX do
 			if self.indexObject[cpt] ~=nil then
-			love.graphics.setColor(white)
-			love.graphics.circle("fill",self.x+(size+5+size/2)*j+5+size/2,self.y+(5+size+size/2)*i+5+size/2,10,10,10)
+				if self.indexObject[cpt].quad_img ~=nil then
+					love.graphics.setColor(white)
+					love.graphics.draw(self.indexObject[cpt].img,
+					self.indexObject[cpt].quad_img,
+					self.x+(size+5+size/2)*j+5,
+					self.y+(5+size+size/2)*i+5+size/2,0,0.8,0.8)
+				else
 
-			love.graphics.setColor(black)
-			love.graphics.print(self.nbObject[self.indexObject[cpt].name],self.x+(size+5+size/2)*j+5+size/2,self.y+(5+size+size/2)*i+5+size/2)
+					love.graphics.draw(self.indexObject[cpt].img,
+					self.x+(size+5+size/2)*j+5,
+					self.y+(5+size+size/2)*i+5+size/2,0,0.8,0.8)
+				end
+				love.graphics.setColor(black)
+				love.graphics.print(self.nbObject[self.indexObject[cpt].name],self.x+(size+5+size/2)*j+5+size/2,self.y+(5+size+size/2)*i+5+size/2)
+
 			else
 
-			love.graphics.setColor(black)
-			love.graphics.rectangle("fill",self.x+(size+5)*j+5,self.y+(5+size)*i+5,size,size)
+				love.graphics.setColor(black)
+				love.graphics.rectangle("fill",self.x+(size+5)*j+5,self.y+(5+size)*i+5,size,size)
 			end
 			cpt = cpt + 1
 		end
