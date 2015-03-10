@@ -225,10 +225,16 @@ function Level:update(dt)
 							p:stop()
 							self.refresh = true
 							self.cases[i][j].t = 0
-							if math.random(100) < 50 then
+							if math.random(100) < 25 then
+								local b = BonusHeal.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
+								table.insert(self.bonusHeal,b)
+								camera:addLayer(1,b)
+							elseif math.random(100)>75 then
+
 								local b = BonusAmmo.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
 								table.insert(self.bonusAmmo,b)
 								camera:addLayer(1,b)
+
 							end
 						end
 
