@@ -85,7 +85,7 @@ function Weapon:shot(rad,p,level,x,y)
 	self.ammo = self.ammo - 1
 	for i=1,self.spread do
 
-		local b = Bullet.new(p,p.boxX.x,p.boxX.y,math.random(rad-self.radius,rad+self.radius),5,self.shape,p.boxX.x,p.boxY.y)
+		local b = Bullet.new(p,p.boxX.x+10,p.boxX.y+10,math.random(rad-self.radius,rad+self.radius),5,self.shape,p.boxX.x,p.boxY.y)
 		table.insert(level.bullets,b)
 		camera:addLayer(1,b)
 	end

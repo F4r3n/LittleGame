@@ -68,9 +68,6 @@ function Level.new(n,player)
 
 
 	self.sprites =SpritesBatch.new(earth_batch,grass_batch,rock_batch)
-	earth_batch:flush()
-	grass_batch:flush()
-	rock_batch:flush()
 
 	camera:addLayer(1,self.sprites)
 
@@ -111,15 +108,16 @@ end
 
 function Level:chooseCursor()
 
+	local isSpecial = false
 	local mx,my = love.mouse.getPosition()
-	love.mouse.setCursor(cursor_white_cross)
 
 	if self.constructMode then
 
+		isSpecial = true
 		love.mouse.setCursor(cursor_build_cross_black)
 		for i=1,8 do
-			if Box.pointInside2(camera.x+mx,
-				camera.y+my,
+			if Box.pointInside2(camera.x+mx*self.scale,
+				camera.y+my*self.scale,
 				self.casesAround[i][1]*self.w,
 				self.casesAround[i][2]*self.h,
 				self.w,
@@ -135,8 +133,12 @@ function Level:chooseCursor()
 
 	for enemy,v in ipairs(self.enemies) do
 		if v.boxY:pointInside(camera.x+mx,camera.y+my) then
+			isSpecial = true
 			love.mouse.setCursor(cursor_red_cross)
 		end
+	end
+	if isSpecial ==false then 
+	love.mouse.setCursor(cursor_white_cross)
 	end
 
 end
@@ -183,27 +185,29 @@ function Level:update(dt)
 
 
 	if self.constructMode then
-		if (self.casesAround[1][1] ~= math.floor((self.player.boxX.x-self.w)/self.w)) 
-			or  self.casesAround[1][2] ~= math.floor((self.player.boxX.y)/self.h) then
-			grid_batch:clear()
+		if  self.casesAround[1][1] ~= math.floor((self.player.boxX.x-self.w)/self.w)
+then
+			if (self.casesAround[1][1] ~= math.floor((self.player.boxX.x-self.w)/self.w)) 
+				or  self.casesAround[1][2] ~= math.floor((self.player.boxX.y)/self.h) then
+				grid_batch:clear()
 
-			if math.floor((self.player.boxX.y+(1)*self.h)/self.h) >0 then
-				for i=1,4 do
-					self.casesAround[i][1]=math.floor((self.player.boxX.x-self.w)/self.w)
-					self.casesAround[i][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
+				if math.floor((self.player.boxX.y+(1)*self.h)/self.h) >0 then
+					for i=1,4 do
+						self.casesAround[i][1]=math.floor((self.player.boxX.x-self.w)/self.w)
+						self.casesAround[i][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
+					end
+
+					for i=1,4 do
+						self.casesAround[i+4][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
+						self.casesAround[i+4][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
+					end
 				end
 
-				for i=1,4 do
-					self.casesAround[i+4][1]=math.floor((self.player.boxX.x+3*self.w)/self.w)
-					self.casesAround[i+4][2]=math.floor((self.player.boxX.y+(-i+2)*self.h)/self.h)
+
+				for i=1,8 do
+					grid_batch:add(self.casesAround[i][1]*self.w,self.casesAround[i][2]*self.h)
 				end
 			end
-
-
-			for i=1,8 do
-				grid_batch:add(self.casesAround[i][1]*self.w,self.casesAround[i][2]*self.h)
-			end
-			grid_batch:flush()
 		end
 	end
 
@@ -360,28 +364,25 @@ end
 
 function Level:refreshMap()
 
-		self.sprites.earth:clear()
-		self.sprites.rock:clear()
-		self.sprites.grass:clear()
-		for i=1,#self.cases do
-			for j=1,#self.cases[i] do
-				local a = self.cases[i][j].box
-				local c = self.cases[i][j]
+	self.sprites.earth:clear()
+	self.sprites.rock:clear()
+	self.sprites.grass:clear()
+	for i=1,#self.cases do
+		for j=1,#self.cases[i] do
+			local a = self.cases[i][j].box
+			local c = self.cases[i][j]
 
-				if c.t == 3 then
-					self.sprites.earth:add(earth_quad,c.x,c.y)
-				elseif c.t==-1 then
-					self.sprites.rock:add(rock_quad,c.x,c.y)
-				elseif c.t==1 then
-					self.sprites.grass:add(grass_quad,c.x,c.y-5)
-				end
+			if c.t == 3 then
+				self.sprites.earth:add(earth_quad,c.x,c.y)
+			elseif c.t==-1 then
+				self.sprites.rock:add(rock_quad,c.x,c.y)
+			elseif c.t==1 then
+				self.sprites.grass:add(grass_quad,c.x,c.y-5)
 			end
 		end
+	end
 
 
-		self.sprites.earth:flush()
-		self.sprites.rock:flush()
-		self.sprites.grass:flush()
 
 end
 

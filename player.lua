@@ -29,7 +29,8 @@ local Player = {
 	offsetCamerax = 400,
 	offsetCameray = 400,
 	owner = 0,
-	degree = 0
+	degree = 0,
+	hasMoved = false
 
 	
 }
@@ -89,6 +90,7 @@ end
 
 function Player:update(dt,level)
 	--print(self.x,self.y)
+	self.hasMoved = false
 	self.time = self.time+dt
 	self.timeImmortal = self.timeImmortal + dt
 
@@ -99,7 +101,6 @@ function Player:update(dt,level)
 
 
 	if keyBoardInput["d"] then
-
 		if self.jumping == true then
 			self.vx = self.speed
 		end
@@ -131,6 +132,7 @@ function Player:update(dt,level)
 
 
 	if keyBoardInput[" "] and self.jumping == false then
+		self.hasMoved = true
 		self.vy = -self.speed*(2/3)
 		self.jumping = true
 	end
@@ -180,8 +182,15 @@ function Player:update(dt,level)
 			end
 		end
 	end
-	self.vx = self.vx*0.7*(1-dt)
-	self.vy = self.vy + gravity*dt
+	local v = self.vx*0.7*(1-dt)
+	local g = self.vy + gravity*dt
+
+
+	if math.abs(self.vx-v) >2 or self.jumping then
+		self.hasMoved = true 
+	end
+	self.vx = v
+	self.vy = g
 
 	camera:setPosition(self.boxX.x-self.offsetCamerax,self.boxX.y-self.offsetCameray)
 	self:moveUpdate()
