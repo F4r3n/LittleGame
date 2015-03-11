@@ -4,7 +4,7 @@ local Rifle = {
 	spread = 1,
 	x = 0,
 	y = 0,
-	ammo = 1000,
+	ammo = 100,
 	bullets = {},
 	coolDown = 0.1,
 	name = "Rifle",
@@ -12,7 +12,8 @@ local Rifle = {
 	radius = 0,
 	img = nil,
 	quad_img = nil,
-	weapon = nil
+	weapon = nil,
+	dmg = 10
 }
 
 Rifle.__index = Rifle
@@ -27,10 +28,13 @@ function Rifle.new(x,y)
 	local self = setmetatable({},Rifle)
 	self.x = x
 	self.y = y
+	self.img = rifle_image
+	self.quad_img = rifle_quad
 	self.shape = BulletShape.new(5,5)
 	self.weapon = Weapon.new(x,y)
 	self.weapon:init(self)
 	self.weapon.radius = self.radius
+	
 	return self
 end
 
@@ -40,8 +44,15 @@ end
 
 function Rifle:shot(rad,p,level,x,y,dir)
 	self.weapon:shot(rad,p,level,x,y,dir)
+	self.ammo = self.weapon.ammo
 end
 
+function Rifle:update()
+	self.ammo = self.weapon.ammo
+end
 
+function Rifle:reload(v)
+	return self.weapon:reload(v)
+end
 
 return Rifle

@@ -279,7 +279,7 @@ then
 	for enemy,v in ipairs(self.enemies) do
 		v:update(dt,self)
 		for bullet,b in ipairs(self.bullets) do
-			if b.box:AABB(v.boxX) and v.owner ~= b.owner.owner then
+			if b.box:AABB(v.boxY) and v.owner ~= b.owner.owner then
 				v:dommaged(b.dmg)
 				b.dead = true
 				table.remove(self.bullets,bullet)

@@ -11,7 +11,9 @@ local Shotgun = {
 	radius = 15,
 	img = nil,
 	quad_img = nil,
-	weapon =nil
+	weapon =nil,
+	dmg = 5
+
 }
 
 Shotgun.__index = Shotgun

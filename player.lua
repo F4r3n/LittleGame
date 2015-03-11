@@ -40,6 +40,7 @@ Bullet = require 'bullet'
 Shotgun = require 'shotgun'
 Inventory = require 'inventory'
 require('camera')
+Rifle = require 'rifle'
 
 Player.__index = Player;
 
@@ -54,7 +55,7 @@ function Player.new(position)
 	self.boxX = Box.new(self.initX-10,self.initY+10,self.w+20,self.h-20)
 	self.boxY = Box.new(self.initX,self.initY,self.w,self.h)
 
-	self.weapon = Shotgun.new(self.boxX.x+self.w,self.boxX.y-self.h/2)
+	self.weapon = Rifle.new(self.boxX.x+self.w,self.boxX.y-self.h/2)
 
 	self.coolDownWeapon = self.weapon.coolDown
 
