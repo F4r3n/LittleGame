@@ -130,6 +130,10 @@ function Level:chooseCursor()
 		end
 	end
 
+	if self.player.boxY.y/self.h > #self.levelBase+10 then
+		love.event.quit()
+	end
+
 
 	for enemy,v in ipairs(self.enemies) do
 		if v.boxY:pointInside(camera.x+mx,camera.y+my) then
@@ -322,6 +326,7 @@ then
 	end
 	for _,enemy in ipairs(self.enemies) do
 		if enemy.dead then
+			self.score = self.score +enemy.score
 			table.remove(self.enemies,_)
 		end
 	end

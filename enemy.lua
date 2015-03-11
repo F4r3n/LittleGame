@@ -20,7 +20,8 @@ local Enemy = {
 	current_img = nil,
 	animationCoolDown = 0.2,
 	animationTime = 0,
-	indexQuad = 2
+	indexQuad = 2,
+	score = 10
 
 }
 

@@ -42,7 +42,7 @@ end
 
 function Hud:update(dt,level)
 	self.lifeHud:update(level.player.life)
-	self.score:update(0)
+	self.score:update(level)
 	self.time:update(dt)
 	self.hudAmmo:update(level.player.weapon.ammo)
 	self.inventory:update(dt,level.player.inventory)

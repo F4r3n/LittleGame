@@ -13,7 +13,8 @@ local Rifle = {
 	img = nil,
 	quad_img = nil,
 	weapon = nil,
-	dmg = 10
+	dmg = 10,
+	factorReload = 4
 }
 
 Rifle.__index = Rifle

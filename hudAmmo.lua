@@ -23,13 +23,12 @@ end
 
 function HudAmmo:draw()
 	local r = self.w/self.value
-	local size = (5+20/self.value)
+	local size = (5+20/self.value)/5
 	local number = self.value/(size)
-
 	love.graphics.setColor(black)
 	love.graphics.setColor(self.color)
 	for i=0,self.value-1 do
-		love.graphics.rectangle("fill",self.x+i*(size*2+5),self.y,size*2,20)
+		love.graphics.rectangle("fill",self.x+i*(size*2+1),self.y,size*2,20)
 
 	end
 end

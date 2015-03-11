@@ -46,7 +46,8 @@ function Weapon:init(w)
 
 end
 
-function Weapon:reload(v)
+function Weapon:reload(a)
+	local v = a*self.w.factorReload
 	if self.ammo ~=self.ammoMax then
 		if self.ammo + v > self.ammoMax then
 			self.ammo = self.ammoMax

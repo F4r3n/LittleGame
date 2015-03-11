@@ -18,8 +18,8 @@ function ScoreHud:draw()
 	love.graphics.print("Score ".. self.score,self.x,self.y)
 end
 
-function ScoreHud:update(score)
-	self.score = self.score + score
+function ScoreHud:update(l)
+	self.score = l.score
 end
 
 return ScoreHud
