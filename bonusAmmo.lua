@@ -29,7 +29,7 @@ end
 
 function BonusAmmo:draw()
 	love.graphics.setColor(white)
-	love.graphics.draw(self.img,self.x-15,self.y-15,0,1.5,1.5)
+	love.graphics.draw(self.img,self.x-15,self.y-20,0,1.5,1.5)
 end
 
 function BonusAmmo:action(player)

@@ -215,9 +215,19 @@ then
 		end
 	end
 
+	local left =math.floor(self.player.boxX.x/self.w)-20
+	local right =math.floor(self.player.boxX.x/self.w)+20
+	local up = math.floor(self.player.boxX.y/self.h)-10
+	local down = math.floor(self.player.boxX.y/self.h)+10
 
-	for i=1,#self.cases do
-		for j=1,#self.cases[i] do
+	if left <=1 then left = 1 end
+	if right >#self.cases[1] then right = #self.cases[1] end
+	if up <=1 then up=1 end
+	if down>#self.cases then down = #self.cases end
+
+
+	for i=up,down do
+		for j=left,right do
 			local a = self.cases[i][j].box
 			local c = self.cases[i][j]
 
