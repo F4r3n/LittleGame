@@ -27,7 +27,7 @@ function HudAmmo:draw()
 	local number = self.value/(size)
 	love.graphics.setColor(black)
 	love.graphics.setColor(self.color)
-		love.graphics.rectangle("fill",self.x+(size*2+1),self.y,size*2*self.value,20)
+	love.graphics.rectangle("fill",self.x+(size*2+1),self.y,size*2*self.value,20)
 
 end
 

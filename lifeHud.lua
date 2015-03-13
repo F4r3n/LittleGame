@@ -21,16 +21,15 @@ end
 
 function LifeHud:draw()
 	local r = self.w/self.value
-	local size = 10
+	local size = 1
+
 	local number = self.value/(size)
 
 	love.graphics.setColor(black)
 	love.graphics.rectangle("line",self.x,self.y,self.w,20)
 	love.graphics.setColor(self.color)
-	for i=0,number-1 do
-		love.graphics.rectangle("fill",self.x+i*size*2,self.y,size*2,20)
+	love.graphics.rectangle("fill",self.x+size,self.y,size*2*self.value,20)
 
-	end
 end
 
 function LifeHud:update(vie)
