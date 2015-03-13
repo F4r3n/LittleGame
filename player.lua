@@ -138,9 +138,17 @@ function Player:update(dt,level)
 		self.jumping = true
 	end
 
+	local left =math.floor(self.boxX.x/level.w)-5
+	local right =math.floor(self.boxX.x/level.w)+5
+	local up = math.floor(self.boxX.y/level.h)-5
+	local down = math.floor(self.boxX.y/level.h)+5
+	if left <=1 then left = 1 end
+	if right >#level.cases[1] then right = #level.cases[1] end
+	if up <=1 then up=1 end
+	if down>#level.cases then down = #level.cases end
 
-	for i=1,#level.cases do
-		for j=1,#level.cases[i] do
+	for i=up,down do
+		for j=left,right do
 			local case = level.cases[i][j]
 			local b = Box.copy(case.box)
 			b.x = b.x - self.vx
