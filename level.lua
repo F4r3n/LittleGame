@@ -302,7 +302,7 @@ function Level:update(dt)
 				end
 			end
 
-			if v.boxX:AABB(self.player.boxX) then
+			if v.boxX:AABB(self.player.boxY) then
 				self.isShaking = true
 				self.player:dommaged(10)
 			end

@@ -1,5 +1,6 @@
 
 local Game = require 'game'
+local Menu = require 'menu'
 keyBoardInput = {}
 mouseInput = {}
 keyBoardInputRelease = {}
@@ -10,6 +11,7 @@ black = {0,0,0,255}
 white = {255,255,255,255}
 blue = {0,0,255,255}
 grey = {119,104,104,255}
+redBlood = {200,25,25,255}
 friction = 5
 mousePressedLeft = false
 mouseX = 0
@@ -18,6 +20,7 @@ FPS = 60
 updateMax = 1/FPS
 updateCurrent = 0
 debugMode = false
+play = false
 
 require('profile')
 
@@ -79,12 +82,13 @@ function love.load()
 	p:stop()
 	love.mouse.setCursor(cursor_white_cross)
 	game = Game.new();
+	menu = Menu.new()
 	print(love.graphics:getRendererInfo())
 
 	if debugMode then
-profiler = newProfiler()
-profiler:start()
-end
+		profiler = newProfiler()
+		profiler:start()
+	end
 
 
 end
@@ -98,7 +102,10 @@ function love.update(dt)
 		updateCurrent = updateCurrent - updateMax
 
 		mouseX,mouseY = love.mouse.getPosition()
-		game:update(dt)
+		if play == true then
+			game:update(dt)
+		else menu:update(dt)
+		end
 	end
 
 
@@ -108,15 +115,18 @@ end
 function love.draw()
 	love.graphics.clear()
 
-	game:draw()
-	love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, height-20)
+	if play ==  true then
+		game:draw()
+		love.graphics.print("Current FPS: "..tostring(love.timer.getFPS( )), 10, height-20)
+	else menu:draw()
+	end
 end
 
 function love.keypressed(key,isrepeat)
 	keyBoardInput[key] = true
 
-	if key == "l" then
-		love.load()
+	if key == "p" then
+		play = true
 	end
 end
 
@@ -130,12 +140,12 @@ function love.quit()
 	print("Merci d'avoir joué")
 
 	if debugMode then
-	profiler:stop()
+		profiler:stop()
 
-	local outfile = io.open( "profile.txt", "w+" )
-	profiler:report( outfile )
-	outfile:close()
-end
+		local outfile = io.open( "profile.txt", "w+" )
+		profiler:report( outfile )
+		outfile:close()
+	end
 
 end
 
