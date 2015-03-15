@@ -6,7 +6,8 @@ local Button = {
 	h = 30,
 	name=nil,
 	box = nil,
-	f = nil
+	f = nil,
+	isActivated = false
 }
 
 Box = require('box')
@@ -38,6 +39,9 @@ function Button:update(dt)
 end
 
 function Button:activate()
+
+	if self.isActivated == false then
+	self.isActivated = true else self.isActivated = false end
 	self.f()
 end
 

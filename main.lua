@@ -21,6 +21,7 @@ updateMax = 1/FPS
 updateCurrent = 0
 debugMode = false
 play = false
+mouseLeftReleased = false
 
 require('profile')
 
@@ -107,6 +108,7 @@ function love.update(dt)
 		else menu:update(dt)
 		end
 	end
+mouseLeftReleased = false
 
 
 end
@@ -153,6 +155,7 @@ end
 function love.mousereleased(x,y,button)
 	if button == "l" then
 		mousePressedLeft = false
+		mouseLeftReleased = true
 	end
 end
 
