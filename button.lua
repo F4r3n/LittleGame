@@ -7,7 +7,8 @@ local Button = {
 	name=nil,
 	box = nil,
 	f = nil,
-	isActivated = false
+	isActivated = false,
+	hover = false
 }
 
 Box = require('box')
@@ -27,24 +28,38 @@ function Button.new(x,y,name,f,h,w)
 end
 
 function Button:draw()
+	if self.hover then
+		love.graphics.setLineWidth( 3 )
+
+		love.graphics.setColor(black)
+		love.graphics.rectangle("line",self.x,self.y,self.w,self.h)
+	end
+
 	love.graphics.setColor(redBlood)
 	love.graphics.rectangle("fill",self.x,self.y,self.w,self.h)
 	love.graphics.setColor(black)
 	love.graphics.print(self.name,self.x+self.w/3,self.y+5)
+end
+
+function Button:update(dt,x,y)
+	if self.box:pointInside(x,y) then
+		self.hover = true
+		if mouseLeftReleased then
+			self:activate()
+		end
+	else self.hover = false
+	end
 
 end
 
-function Button:update(dt)
-
-end
 
 function Button:activate()
 
 	if self.isActivated == false then
-	self.isActivated = true else self.isActivated = false end
-	self.f()
-end
+		self.isActivated = true else self.isActivated = false end
+		self.f()
+	end
 
 
 
-return Button
+	return Button

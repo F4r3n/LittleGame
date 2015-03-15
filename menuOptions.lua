@@ -21,6 +21,7 @@ function MenuOptions.new(parent)
 	love.window.setFullscreen(fullScreenButton.isActivated,"desktop")
 end
 table.insert(self.buttons,fullScreenButton)
+table.insert(self.buttons,Button.new(width/2-50,200,"Music",function() menu = self.parent end))
 table.insert(self.buttons,Button.new(width/2-50,400,"Back",function() menu = self.parent end))
 
 return self
@@ -35,10 +36,7 @@ end
 function MenuOptions:update(dt)
 	local mx,my = love.mouse.getPosition()
 	for _,b in ipairs(self.buttons) do
-		if mouseLeftReleased and b.box:pointInside(mx,my) then
-			b:activate()
-		end
-		b:update(dt)
+		b:update(dt,mx,my)
 	end
 
 end

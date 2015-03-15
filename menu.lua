@@ -26,11 +26,10 @@ end
 
 function Menu:update(dt)
 	local mx,my = love.mouse.getPosition()
+
+
 	for _,b in ipairs(self.buttons) do
-		if mouseLeftReleased and b.box:pointInside(mx,my) then
-			b:activate()
-		end
-		b:update(dt)
+		b:update(dt,mx,my)
 	end
 
 end
