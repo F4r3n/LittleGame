@@ -26,9 +26,9 @@ function LifeHud:draw()
 	local number = self.value/(size)
 
 	love.graphics.setColor(black)
-	love.graphics.rectangle("line",self.x,self.y,self.w,20)
+	love.graphics.rectangle("line",self.x*width,self.y*height,self.w,20)
 	love.graphics.setColor(self.color)
-	love.graphics.rectangle("fill",self.x+size,self.y,size*2*self.value,20)
+	love.graphics.rectangle("fill",self.x*width+size,self.y*height,size*2*self.value,20)
 
 end
 

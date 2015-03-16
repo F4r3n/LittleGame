@@ -32,16 +32,18 @@ function Button:draw()
 		love.graphics.setLineWidth( 3 )
 
 		love.graphics.setColor(black)
-		love.graphics.rectangle("line",self.x,self.y,self.w,self.h)
+		love.graphics.rectangle("line",self.x*width,self.y*height,self.w,self.h)
 	end
 
 	love.graphics.setColor(redBlood)
-	love.graphics.rectangle("fill",self.x,self.y,self.w,self.h)
+	love.graphics.rectangle("fill",self.x*width,self.y*height,self.w,self.h)
 	love.graphics.setColor(black)
-	love.graphics.print(self.name,self.x+self.w/3,self.y+5)
+	love.graphics.print(self.name,self.x*width+self.w/3,self.y*height+5)
 end
 
 function Button:update(dt,x,y)
+	self.box.x = self.x*width
+	self.box.y = self.y*height
 	if self.box:pointInside(x,y) then
 		self.hover = true
 		if mouseLeftReleased then

@@ -15,7 +15,7 @@ end
 
 function TimeHud:draw()
 	love.graphics.setColor(white)
-	love.graphics.print("Time ".. math.floor(self.time+0.5),self.x,self.y)
+	love.graphics.print("Time ".. math.floor(self.time+0.5),self.x*width,self.y*height)
 end
 
 function TimeHud:update(time)

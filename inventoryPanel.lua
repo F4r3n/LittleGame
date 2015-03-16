@@ -26,13 +26,10 @@ end
 function InventoryPanel:draw()
 	local size = 50
 	love.graphics.setColor(white)
-
-	--	for i=0,#self.object-1 do
-	--		love.graphics.draw(self.object[i+1].img,self.object[i+1].quad_img,self.x,self.y,0,1,1,0,0)
-	--		love.graphics.setColor(black)
-	--	endi
+	local x = self.x*width
+	local y = self.y*height
 	love.graphics.setColor(grey)
-	love.graphics.rectangle("fill",self.x,self.y,size*(self.nbCaseX+1)+25,size*(self.nbCaseY+1)+25)
+	love.graphics.rectangle("fill",x,y,size*(self.nbCaseX+1)+25,size*(self.nbCaseY+1)+25)
 
 	local cpt = 1
 	for i=0,self.nbCaseY do 
@@ -42,21 +39,21 @@ function InventoryPanel:draw()
 					love.graphics.setColor(white)
 					love.graphics.draw(self.indexObject[cpt].img,
 					self.indexObject[cpt].quad_img,
-					self.x+(size+5+size/2)*j+5,
-					self.y+(5+size+size/2)*i+5+size/2,0,0.8,0.8)
+					x+(size+5+size/2)*j+5,
+					y+(5+size+size/2)*i+5+size/2,0,0.8,0.8)
 				else
 
 					love.graphics.draw(self.indexObject[cpt].img,
-					self.x+(size+5+size/2)*j+5,
-					self.y+(5+size+size/2)*i+5+size/2,0,0.8,0.8)
+					x+(size+5+size/2)*j+5,
+					y+(5+size+size/2)*i+5+size/2,0,0.8,0.8)
 				end
 				love.graphics.setColor(black)
-				love.graphics.print(self.nbObject[self.indexObject[cpt].name],self.x+(size+5+size/2)*j+5+size/2,self.y+(5+size+size/2)*i+5+size/2)
+				love.graphics.print(self.nbObject[self.indexObject[cpt].name],x+(size+5+size/2)*j+5+size/2,y+(5+size+size/2)*i+5+size/2)
 
 			else
 
 				love.graphics.setColor(black)
-				love.graphics.rectangle("fill",self.x+(size+5)*j+5,self.y+(5+size)*i+5,size,size)
+				love.graphics.rectangle("fill",x+(size+5)*j+5,y+(5+size)*i+5,size,size)
 			end
 			cpt = cpt + 1
 		end

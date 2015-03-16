@@ -15,7 +15,7 @@ end
 
 function ScoreHud:draw()
 	love.graphics.setColor(white)
-	love.graphics.print("Score ".. self.score,self.x,self.y)
+	love.graphics.print("Score ".. self.score,self.x*width,self.y*height)
 end
 
 function ScoreHud:update(l)

@@ -10,10 +10,10 @@ Menu.__index = Menu
 
 function Menu.new()
 	local self = setmetatable({},Menu)
-	table.insert(self.buttons,Button.new(width/2-50,100,"Play", function() play = true end))
-	table.insert(self.buttons,Button.new(width/2-50,200,"New Game"))
-	table.insert(self.buttons,Button.new(width/2-50,300,"Options",function() menu = MenuOptions.new(self) end))
-	table.insert(self.buttons,Button.new(width/2-50,400,"Quit",function() love.event.quit() end))
+	table.insert(self.buttons,Button.new(0.4,0.1,"Play", function() play = true end))
+	table.insert(self.buttons,Button.new(0.4,0.2,"New Game"))
+	table.insert(self.buttons,Button.new(0.4,0.3,"Options",function() menu = MenuOptions.new(self) end))
+	table.insert(self.buttons,Button.new(0.4,0.4,"Quit",function() love.event.quit() end))
 
 	return self
 end
