@@ -130,7 +130,10 @@ function love.keypressed(key,isrepeat)
 	keyBoardInput[key] = true
 
 	if key == "p" then
-		play = true
+		if play==false then
+			play = true
+		else play =false
+		end
 	end
 end
 
