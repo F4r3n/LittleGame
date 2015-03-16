@@ -316,7 +316,6 @@ function Level:update(dt)
 			for _,b in pairs(self.bonusAmmo) do
 				if b.box:AABB(self.player.boxY) and b.dead == false then
 					local g = b:action(self.player)
-					print(g)
 					if g==true then
 						table.remove(self.bonusAmmo,_)
 						b.dead = true

@@ -33,7 +33,6 @@ return self
 end
 
 function MenuOptions:draw()
-	print(width)
 	for _,b in ipairs(self.buttons) do
 		b:draw()
 	end
