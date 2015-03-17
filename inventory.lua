@@ -2,12 +2,13 @@ local Inventory = {
 	object = {},
 	nbObject = {},
 	index = 0,
-	size = 3
+	size = 3,
+	player = nil
 }
 
 Inventory.__index = Inventory
 
-function Inventory.new()
+function Inventory.new(player)
 	local self = setmetatable({},Inventory)
 	return self
 end

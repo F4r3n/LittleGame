@@ -4,19 +4,21 @@ local InventoryBox = {
 	nb = nil,
 	x,
 	y,
-	inside = false
+	inside = false,
+	player
 }
 
 InventoryBox.__index = InventoryBox
 
 Box = require('box')
 
-function InventoryBox.new(x,y,w,h,object)
+function InventoryBox.new(x,y,w,h,object,player)
 	local self = setmetatable({},InventoryBox)
 	self.x = x
 	self.y = y
 	self.box = Box.new(x*width,y*height,w,h)
 	self.object = object
+	self.player = player
 
 	return self
 end

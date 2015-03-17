@@ -21,7 +21,7 @@ function Hud.new(level)
 	self.lifeHud = LifeHud.new(0.05,0.05,level.player.maxLife)
 	self.score = ScoreHud.new(0.5,0.05)
 	self.time = TimeHud.new(0.9,0.05)
-	self.inventory = InventoryHud.new(0.4,0.95)
+	self.inventory = InventoryHud.new(0.4,0.95,level.player)
 	self.inventoryPanel = InventoryPanel.new(0.5,0.05)
 	self.hudAmmo = HudAmmo.new(0.4,0.90)
 

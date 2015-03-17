@@ -15,14 +15,14 @@ Box = require('box')
 InventoryBox = require('inventoryBox')
 InventoryHud.__index = InventoryHud
 
-function InventoryHud.new(x,y)
+function InventoryHud.new(x,y,player)
 	local self = setmetatable({},InventoryHud)
 	self.x = x
 	self.y = y
 
-	table.insert(self.boxes,InventoryBox.new(self.x,self.y,100,30))
-	table.insert(self.boxes,InventoryBox.new(self.x+100/width,self.y,100,30))
-	table.insert(self.boxes,InventoryBox.new(self.x+200/width,self.y,100,30))
+	table.insert(self.boxes,InventoryBox.new(self.x,self.y,100,30,nil,player))
+	table.insert(self.boxes,InventoryBox.new(self.x+100/width,self.y,100,30,nil,player))
+	table.insert(self.boxes,InventoryBox.new(self.x+200/width,self.y,100,30,nil,player))
 
 
 	return self
