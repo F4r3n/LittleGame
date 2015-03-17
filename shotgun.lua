@@ -53,6 +53,10 @@ function Shotgun:reload(v)
 	return self.weapon:reload(v)
 end
 
+function Shotgun:activate(p)
+	p.weapon = self	
+end
+
 
 
 return Shotgun

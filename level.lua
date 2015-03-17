@@ -170,7 +170,7 @@ function Level:update(dt)
 
 	if (distanceEnemy < 500 and distanceEnemy~=0) and self.constructMode == true then self.constructMode=false end
 
-	if keyBoardInputRelease["p"] then
+	if keyBoardInputRelease["c"] then
 		if (distanceEnemy > 500 or distanceEnemy==0)  and math.floor((self.player.boxX.y+(1)*self.h)/self.h) >2 then
 			if self.constructMode == false then
 				self.constructMode = true
@@ -178,7 +178,7 @@ function Level:update(dt)
 				self.constructMode =false
 			end
 		end
-		keyBoardInputRelease["p"] = false
+		keyBoardInputRelease["c"] = false
 	end
 
 	if self.constructMode then

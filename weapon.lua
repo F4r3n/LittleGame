@@ -43,7 +43,6 @@ function Weapon:init(w)
 	self.radius = w.radius
 	self.img = w.img
 	self.quad_img = w.quad_img
-
 end
 
 function Weapon:reload(a)

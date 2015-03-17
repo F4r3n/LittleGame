@@ -5,20 +5,19 @@ local InventoryBox = {
 	x,
 	y,
 	inside = false,
-	player
+	isSelected = false
 }
 
 InventoryBox.__index = InventoryBox
 
 Box = require('box')
 
-function InventoryBox.new(x,y,w,h,object,player)
+function InventoryBox.new(x,y,w,h,object)
 	local self = setmetatable({},InventoryBox)
 	self.x = x
 	self.y = y
 	self.box = Box.new(x*width,y*height,w,h)
 	self.object = object
-	self.player = player
 
 	return self
 end
@@ -27,7 +26,11 @@ function InventoryBox:update(dt)
 
 	if self.box:pointInside(mx,my) then
 		self.inside = true
+		if mouseLeftReleased then
+			self.isSelected = true
+		end
 	else self.inside = false
+	
 	end
 
 	self.box.x = self.x*width

@@ -19,10 +19,11 @@ function InventoryHud.new(x,y,player)
 	local self = setmetatable({},InventoryHud)
 	self.x = x
 	self.y = y
+	self.player = player
 
-	table.insert(self.boxes,InventoryBox.new(self.x,self.y,100,30,nil,player))
-	table.insert(self.boxes,InventoryBox.new(self.x+100/width,self.y,100,30,nil,player))
-	table.insert(self.boxes,InventoryBox.new(self.x+200/width,self.y,100,30,nil,player))
+	table.insert(self.boxes,InventoryBox.new(self.x,self.y,100,30))
+	table.insert(self.boxes,InventoryBox.new(self.x+100/width,self.y,100,30))
+	table.insert(self.boxes,InventoryBox.new(self.x+200/width,self.y,100,30))
 
 
 	return self
@@ -44,6 +45,12 @@ function InventoryHud:update(dt,i)
 
 	for _,b in ipairs(self.boxes) do
 		b:update(dt)
+		if b.object ~= nil then
+			if b.isSelected then
+				b.object:activate(self.player)
+				b.isSelected = false
+			end
+		end
 	end
 
 	for _,o in pairs(i.object) do
@@ -54,9 +61,10 @@ function InventoryHud:update(dt,i)
 		self.t = self.number
 	else self.t = #self.object
 	end
+
+
 end
 
---TODO Construire un objet contenant les box, l'objet et son nom
 
 return InventoryHud
 

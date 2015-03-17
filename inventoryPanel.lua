@@ -9,16 +9,30 @@ local InventoryPanel ={
 	nbCaseY = 3,
 	object = {},
 	nbObject = {},
-	indexObject = {}
+	indexObject = {},
+	boxes = {},
+	player =nil
 
 }
 
+InventoryBox = require('inventoryBox')
+
 InventoryPanel.__index = InventoryPanel
 
-function InventoryPanel.new(x,y)
+function InventoryPanel.new(x,y,player)
 	local self = setmetatable({},InventoryPanel)
 	self.x = x
 	self.y = y
+	self.player = player
+
+	local size = 50
+	for i=0,self.nbCaseY do 
+		for j=0,self.nbCaseX do
+			table.insert(self.boxes,
+			InventoryBox.new((x*width+(size+5)*j+5)/width,
+							(y*height+(5+size)*i+5)/height,size,size))
+		end
+	end
 	return self
 
 end
@@ -34,24 +48,9 @@ function InventoryPanel:draw()
 	local cpt = 1
 	for i=0,self.nbCaseY do 
 		for j=0,self.nbCaseX do
-			if self.indexObject[cpt] ~=nil then
-				if self.indexObject[cpt].quad_img ~=nil then
-					love.graphics.setColor(white)
-					love.graphics.draw(self.indexObject[cpt].img,
-					self.indexObject[cpt].quad_img,
-					x+(size+5+size/2)*j+5,
-					y+(5+size+size/2)*i+5+size/2,0,0.8,0.8)
-				else
-
-					love.graphics.draw(self.indexObject[cpt].img,
-					x+(size+5+size/2)*j+5,
-					y+(5+size+size/2)*i+5+size/2,0,0.8,0.8)
-				end
-				love.graphics.setColor(black)
-				love.graphics.print(self.nbObject[self.indexObject[cpt].name],x+(size+5+size/2)*j+5+size/2,y+(5+size+size/2)*i+5+size/2)
-
+			if self.boxes[cpt].nb ~=nil then
+				self.boxes[cpt]:draw()
 			else
-
 				love.graphics.setColor(black)
 				love.graphics.rectangle("fill",x+(size+5)*j+5,y+(5+size)*i+5,size,size)
 			end
@@ -63,8 +62,21 @@ function InventoryPanel:draw()
 end
 
 function InventoryPanel:update(dt,i)
-	self.object = i.object
-	self.nbObject = i.nbObject
+
+	for _,b in ipairs(self.boxes) do
+		b:update(dt)
+		if b.object ~= nil then
+			if b.isSelected then
+				b.object:activate(self.player)
+				b.isSelected = false
+			end
+		end
+	end
+
+	for _,o in pairs(i.object) do
+		self.boxes[_].object = o
+		self.boxes[_].nb = i.nbObject[o.name]
+	end
 
 	for _,v in pairs(self.object) do
 		self.indexObject[_] = v

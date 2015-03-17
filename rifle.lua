@@ -56,4 +56,9 @@ function Rifle:reload(v)
 	return self.weapon:reload(v)
 end
 
+
+function Rifle:activate(p)
+	p.weapon = self	
+end
+
 return Rifle

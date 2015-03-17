@@ -101,6 +101,7 @@ function Player:update(dt,level)
 		self.mortal = true
 		self.timeImmortal =0
 	end
+	
 
 
 	if keyBoardInput["d"] then
@@ -115,7 +116,7 @@ function Player:update(dt,level)
 	self.degree = math.atan2(y,-x)*180/math.pi
 	if self.degree<0 then self.degree = -math.abs(self.degree) +360 end
 
-	if self.time > self.coolDownWeapon then
+	if self.time > self.weapon.coolDown then
 		if mousePressedLeft == true and level.constructMode== false then
 			self.weapon:shot(self.degree,self,level,nil,nil)
 			self.time = 0
