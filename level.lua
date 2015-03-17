@@ -153,7 +153,6 @@ end
 
 
 function Level:update(dt)
-	local mx,my = love.mouse.getPosition()
 	self.time = self.time +dt
 	self.player:update(dt,self)
 

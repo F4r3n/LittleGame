@@ -8,10 +8,11 @@ local InventoryHud ={
 	nbObject = {},
 	t = 0,
 	boxes = {}
-	
+
 }
 
 Box = require('box')
+InventoryBox = require('inventoryBox')
 InventoryHud.__index = InventoryHud
 
 function InventoryHud.new(x,y)
@@ -19,9 +20,9 @@ function InventoryHud.new(x,y)
 	self.x = x
 	self.y = y
 
-	table.insert(self.boxes,Box.new(self.x,self.y,100,10))
-	table.insert(self.boxes,Box.new(self.x+100/width,self.y,100,10))
-	table.insert(self.boxes,Box.new(self.x+200/width,self.y,100,10))
+	table.insert(self.boxes,InventoryBox.new(self.x,self.y,100,30))
+	table.insert(self.boxes,InventoryBox.new(self.x+100/width,self.y,100,30))
+	table.insert(self.boxes,InventoryBox.new(self.x+200/width,self.y,100,30))
 
 
 	return self
@@ -33,23 +34,22 @@ function InventoryHud:draw()
 	love.graphics.rectangle("line",self.x*width,self.y*height,self.w,self.h)
 	local size = 100
 	love.graphics.setColor(white)
-	for i=0,#self.object-1 do
-		love.graphics.draw(self.object[i+1].img,self.object[i+1].quad_img,self.boxes[i+1].x,self.boxes[i+1].y,0,1,1,0,0)
-		love.graphics.setColor(black)
+	for _,b in ipairs(self.boxes) do
+		b:draw()
 	end
 
 end
 
 function InventoryHud:update(dt,i)
-	self.boxes[1].x = self.x*width
-	self.boxes[2].x = self.x*width+100
-	self.boxes[3].x = self.x*width+200
 
-	self.boxes[1].y = self.y*height
-	self.boxes[2].y = self.y*height
-	self.boxes[3].y = self.y*height
-	self.object = i.object
-	self.nbObject = i.nbObject
+	for _,b in ipairs(self.boxes) do
+		b:update(dt)
+	end
+
+	for _,o in pairs(i.object) do
+		self.boxes[_].object = o
+		self.boxes[_].nb = i.nbObject[o.name]
+	end
 	if #self.object>self.number then
 		self.t = self.number
 	else self.t = #self.object

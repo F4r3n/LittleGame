@@ -98,6 +98,8 @@ end
 
 function love.update(dt)
 
+	mx,my = love.mouse.getPosition()
+
 	if dt > updateMax then dt = updateMax end
 	updateCurrent = updateCurrent + dt
 
