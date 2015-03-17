@@ -54,14 +54,14 @@ function Player.new(position)
 	self.boxX = Box.new(self.initX-10,self.initY+10,self.w+20,self.h-20)
 	self.boxY = Box.new(self.initX,self.initY,self.w,self.h)
 
-	self.weapon = Rifle.new(self.boxX.x+self.w,self.boxX.y-self.h/2)
+	self.weapon = Rifle.new(self.boxY.x+self.w/2,self.boxX.y-self.h/2)
 
 	self.coolDownWeapon = self.weapon.coolDown
 
 	self.inventory = Inventory.new(self)
 
 	self.inventory:addInventory(self.weapon)
-	self.inventory:addInventory(Shotgun.new(self.boxX.x+self.w,self.boxX.y-self.h/2))
+	self.inventory:addInventory(Shotgun.new(self.boxY.x+self.w/2,self.boxX.y-self.h/2))
 
 	return self
 end

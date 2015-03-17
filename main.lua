@@ -52,7 +52,7 @@ function love.load()
 	rifle_image = love.graphics.newImage('assets/rifle.png')
 	rifle_quad = love.graphics.newQuad(0,0,rifle_image:getWidth(),rifle_image:getHeight(),rifle_image:getWidth(),rifle_image:getHeight())
 
-	shotgun_quad = love.graphics.newQuad(0,50,75,50,shotgun_image:getWidth(),shotgun_image:getHeight())
+	shotgun_quad = love.graphics.newQuad(0,0,50,25,shotgun_image:getWidth(),shotgun_image:getHeight())
 
 	grass_image = love.graphics.newImage('assets/grass.png')
 	grass_quad = love.graphics.newQuad(5,0,25,30,grass_image:getWidth(),grass_image:getHeight())

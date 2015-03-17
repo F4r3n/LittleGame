@@ -46,7 +46,7 @@ function InventoryBox:draw()
 	love.graphics.setColor(white)
 
 	if self.object ~= nil then
-		love.graphics.draw(self.object.img,self.object.quad_img,self.box.x,self.box.y,0,1,1,0,0)
+		love.graphics.draw(self.object.img,self.object.quad_img,self.box.x,self.box.y+self.box.h/3,0,1,1,0,0)
 	end
 
 end
