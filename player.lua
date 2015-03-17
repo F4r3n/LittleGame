@@ -111,8 +111,8 @@ function Player:update(dt,level)
 		self.vx = self.speed
 		self.dirX = 0
 	end
-	local y= -mouseY + 400
-	local x= -mouseX + 400
+	local y= -mouseY + 400+10--Décalage du départ de balle
+	local x= -mouseX + 400+27
 	self.degree = math.atan2(y,-x)*180/math.pi
 	if self.degree<0 then self.degree = -math.abs(self.degree) +360 end
 
