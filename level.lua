@@ -223,42 +223,41 @@ function Level:update(dt)
 			local rb = math.floor(v.box.x/self.w)+1
 			local ub = math.floor(v.box.y/self.h)-1
 			local db = math.floor(v.box.y/self.h)+1
-
 			if lb <=1 then lb = 1 end
 			if rb >#self.cases[1] then rb = #self.cases[1] end
+
 			if ub <=1 then ub=1 end
 			if db>#self.cases then db = #self.cases end
-			for i=lb,db do
+
+			for i=ub,db do
 				for j=lb,rb do
 					local a = self.cases[i][j].box
 					local c = self.cases[i][j]
 					if self.cases[i][j].t == 1 or c.t == 3 then
-						for bullet,v in pairs(self.bullets) do
-							if  a:AABB(v.box) and c.dead == false then
-								p:start()
+						if  a:AABB(v.box) and c.dead == false then
+							p:start()
 
-								p:setPosition(v.x,v.y)
-								self.cases[i][j]:dommaged(v.dmg)
-								if self.cases[i][j].dead == true then
-									p:stop()
-									self.refresh = true
-									self.cases[i][j].t = 0
-									if math.random(100) < 25 then
-										local b = BonusHeal.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
-										table.insert(self.bonusHeal,b)
-										camera:addLayer(1,b)
-									elseif math.random(100)>75 then
+							p:setPosition(v.x,v.y)
+							self.cases[i][j]:dommaged(v.dmg)
+							if self.cases[i][j].dead == true then
+								p:stop()
+								self.refresh = true
+								self.cases[i][j].t = 0
+								if math.random(100) < 25 then
+									local b = BonusHeal.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
+									table.insert(self.bonusHeal,b)
+									camera:addLayer(1,b)
+								elseif math.random(100)>75 then
 
-										local b = BonusAmmo.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
-										table.insert(self.bonusAmmo,b)
-										camera:addLayer(1,b)
+									local b = BonusAmmo.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
+									table.insert(self.bonusAmmo,b)
+									camera:addLayer(1,b)
 
-									end
 								end
-
-								v.dead = true
-
 							end
+
+							v.dead = true
+
 						end
 
 					end
