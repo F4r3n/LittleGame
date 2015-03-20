@@ -1,4 +1,3 @@
-
 local Game = require 'game'
 local Menu = require 'menu'
 keyBoardInput = {}
