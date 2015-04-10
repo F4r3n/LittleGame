@@ -71,7 +71,6 @@ function Weapon:draw(s,x,y)
 	else 
 		if s== 0 then
 			love.graphics.draw(self.img,self.quad_img,x,y,0,1,1,0,0,0,0)
-
 		else
 			love.graphics.draw(self.img,self.quad_img,x+40,y,0,-1,1,0,0,0,0)
 		end

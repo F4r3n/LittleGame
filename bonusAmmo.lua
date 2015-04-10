@@ -1,4 +1,3 @@
-
 local BonusAmmo = {
 	x = 0,
 	y = 0,
