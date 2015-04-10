@@ -19,7 +19,7 @@ function TimeHud:draw()
 end
 
 function TimeHud:update(time)
-	self.time = self.time + time
+	self.time = time
 end
 
 return TimeHud
