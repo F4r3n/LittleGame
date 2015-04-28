@@ -84,7 +84,7 @@ function love.load()
 	p:stop()
 	love.mouse.setCursor(cursor_white_cross)
 	game = Game.new();
-	menu = Menu.new()
+	menu = Menu.new(game)
 	print(love.graphics:getRendererInfo())
 
 	if debugMode then

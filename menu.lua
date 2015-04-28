@@ -1,5 +1,6 @@
 local Menu = {
-	buttons = {}
+	buttons = {},
+	game = nil
 
 }
 
@@ -8,13 +9,13 @@ MenuOptions = require('menuOptions')
 
 Menu.__index = Menu
 
-function Menu.new()
+function Menu.new(game)
 	local self = setmetatable({},Menu)
 	table.insert(self.buttons,Button.new(0.4,0.1,"Play", function() play = true end))
-	table.insert(self.buttons,Button.new(0.4,0.2,"New Game"))
+	table.insert(self.buttons,Button.new(0.4,0.2,"New Game", function() game:reload() play=true end ))
 	table.insert(self.buttons,Button.new(0.4,0.3,"Options",function() menu = MenuOptions.new(self) end))
 	table.insert(self.buttons,Button.new(0.4,0.4,"Quit",function() love.event.quit() end))
-
+	self.game = game;
 	return self
 end
 

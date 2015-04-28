@@ -19,6 +19,16 @@ function camera:unset()
 	love.graphics.pop()
 end
 
+function camera:update()
+
+	for _,v in ipairs(self.layer) do
+
+		if v.object.dead == true then
+			table.remove(self.layer,_)
+		end
+	end
+end
+
 function camera:newLayer(scale, func)
 	table.insert(self.layers, { draw = func, scale = scale })
 	table.sort(self.layers, function(a, b) return a.scale < b.scale end)
