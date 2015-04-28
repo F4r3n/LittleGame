@@ -7,22 +7,18 @@ local BonusAmmo = {
 	h = 5,
 	box,
 	dead = false,
-	xb,
-	yb,
 	img = nil
 }
 
 BonusAmmo.__index = BonusAmmo
 Box = require 'box'
 
-function BonusAmmo.new(x,y,xb,yb)
+function BonusAmmo.new(x,y)
 	local self = setmetatable({},BonusAmmo)
 	self.x = x
 	self.y = y
-	self.xb = xb
-	self.yb = yb
 	self.img = bonus_ammoBox_image
-	self.box = Box.new(self.xb,self.yb,self.w,self.h)
+	self.box = Box.new(self.x,self.y,self.w,self.h)
 	return self
 end
 

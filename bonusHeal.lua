@@ -8,22 +8,18 @@ local BonusHeal = {
 	h = 5,
 	box,
 	dead = false,
-	xb,
-	yb,
 	img = nil
 }
 
 BonusHeal.__index = BonusHeal
 Box = require 'box'
 
-function BonusHeal.new(x,y,xb,yb)
+function BonusHeal.new(x,y)
 	local self = setmetatable({},BonusHeal)
 	self.x = x
 	self.y = y
-	self.xb = xb
-	self.yb = yb
 	self.img = bonus_heal_image
-	self.box = Box.new(self.xb,self.yb,self.w,self.h)
+	self.box = Box.new(self.x,self.y,self.w,self.h)
 	return self
 end
 

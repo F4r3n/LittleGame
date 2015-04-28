@@ -21,7 +21,8 @@ local Level = {
 	sprites = nil,
 	refresh = true,
 	bonusAmmo = {},
-	bonusHeal = {}
+	bonusHeal = {},
+	items = {}
 }
 
 Level.__index = Level
@@ -34,6 +35,7 @@ SpritesBatch = require 'spritesBatch'
 LevelEnemies = require 'levelEnemies'
 BonusHeal = require 'bonusHeal'
 BonusAmmo = require 'bonusAmmo'
+Item = require 'item'
 
 
 function Level.new(n,player)
@@ -260,12 +262,12 @@ function Level:update(dt)
 							self.refresh = true
 							self.cases[i][j].t = 0
 							if math.random(100) < 25 then
-								local b = BonusHeal.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
+								local b = BonusHeal.new(c.x+a.w/2,c.y+a.h)
 								table.insert(self.bonusHeal,b)
 								camera:addLayer(1,b)
 							elseif math.random(100)>75 then
 
-								local b = BonusAmmo.new(c.x+a.w/2,c.y+a.h,self.cases[i][j].box.x+a.w/2,self.cases[i][j].box.y+a.h)
+								local b = BonusAmmo.new(c.x+a.w/2,c.y+a.h)
 								table.insert(self.bonusAmmo,b)
 								camera:addLayer(1,b)
 
@@ -317,6 +319,12 @@ function Level:update(dt)
 				v:dommaged(b.dmg)
 				b.dead = true
 				table.remove(self.bullets,bullet)
+				if v.dead then
+					local i = Item.new(v.boxX.x,v.boxX.y)
+					table.insert(self.items,i)
+					camera:addLayer(1,i)
+				end
+
 			end
 		end
 
@@ -389,6 +397,10 @@ function Level:update(dt)
 		if b.dead == true then
 			table.remove(self.bullets,_)
 		end
+	end
+
+	for _,item in pairs(self.items) do
+		item:update(dt,self)
 	end
 
 	self:chooseCursor()

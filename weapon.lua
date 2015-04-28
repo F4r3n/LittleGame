@@ -7,11 +7,11 @@ local Weapon = {
 	bullets = {},
 	coolDown = 0.1,
 	name = "Weapon",
-	shape =nil,
+	shape = nil,
 	radius = 0,
 	img = nil,
 	quad_img = nil,
-	w=nil
+	w = nil
 
 }
 
