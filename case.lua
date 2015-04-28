@@ -1,6 +1,7 @@
 local Case = {
 	t = 0,
 	box = nil,
+	max = 100,
 	life = 100,
 	dead = false,
 	x=0,
@@ -24,6 +25,12 @@ function Case:dommaged(d)
 	if self.life <= 0 then
 		self.dead = true
 	end
+end
+
+function Case:init(t)
+	self.t = t
+	self.life = self.max
+	self.dead = false
 end
 
 function Case:draw()

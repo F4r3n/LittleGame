@@ -125,8 +125,9 @@ function Level:chooseCursor()
 				self.w,
 				self.h) then
 				if mousePressedLeft and self.cases[self.casesAround[i][2]+1][self.casesAround[i][1]+1].t ==0 then
-					self.cases[self.casesAround[i][2]+1][self.casesAround[i][1]+1].t =1
+					self.cases[self.casesAround[i][2]+1][self.casesAround[i][1]+1]:init(1)
 					self.refresh = true
+					
 				end
 			end
 		end
@@ -233,7 +234,7 @@ function Level:update(dt)
 				for j=lb,rb do
 					local a = self.cases[i][j].box
 					local c = self.cases[i][j]
-					if self.cases[i][j].t == 1 or c.t == 3 then
+					if c.t == 1 or c.t == 3 then
 						if  a:AABB(v.box) and c.dead == false then
 							p:start()
 
