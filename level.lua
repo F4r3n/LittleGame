@@ -46,8 +46,8 @@ function Level.new(n,player)
 	self.levelBase = LevelBase[2*n+1]
 	self.levelEnemies = LevelEnemies[2*n+1]
 	self.player = player
-	self.night = Night.new({100,100,100,100})
-	table.insert(self.light,Torch.new({10,10,10,255}))	
+	self.night = Night.new({100,100,100,255})
+	table.insert(self.light,Torch.new({200,200,200,10}))	
 
 	earth_batch:clear()
 	grass_batch:clear()
@@ -149,7 +149,7 @@ function Level:chooseCursor()
 				if mousePressedLeft and self.cases[self.casesAround[i][2]+1][self.casesAround[i][1]+1].t ==0 then
 					self.cases[self.casesAround[i][2]+1][self.casesAround[i][1]+1]:init(1)
 					self.refresh = true
-					
+
 				end
 			end
 		end
@@ -447,6 +447,7 @@ function Level:draw()
 	if self.constructMode then
 		love.graphics.draw(grid_batch)
 	end
+	--self.night:draw()
 end
 
 return Level
