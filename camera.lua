@@ -7,6 +7,7 @@ camera.scaleX = 1
 camera.scaleY = 1
 camera.rotation = 0
 camera.index = 0
+camera.ambient = {}
 
 function camera:set()
 	love.graphics.push()
@@ -29,6 +30,10 @@ function camera:update()
 	end
 end
 
+function camera:addAmbient(object)
+	table.insert(self.ambient, { object = object})
+end
+
 function camera:newLayer(scale, func)
 	table.insert(self.layers, { draw = func, scale = scale })
 	table.sort(self.layers, function(a, b) return a.scale < b.scale end)
@@ -43,15 +48,25 @@ function camera:simpleDraw()
 	local bx, by = self.x, self.y
 	for _,v in ipairs(self.layer) do
 
-		if v.object.dead == true then
-			table.remove(self.layer,_)
-		else
+		if v.index == 1 then
+
+			if v.object.dead == true then
+				table.remove(self.layer,_)
+			else
 				self.x,self.y = bx,by
 				camera:set()
 				v.object:draw()
 				camera:unset()
+			end
+
 		end
 	end
+
+	for _,v in ipairs(self.ambient) do
+
+			v.object:draw()
+		end
+
 end
 
 function camera:draw()

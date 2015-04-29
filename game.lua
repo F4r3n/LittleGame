@@ -1,7 +1,8 @@
 local Game = {
 	player = nil,
 	level = nil,
-	hud = nil
+	hud = nil,
+	night
 }
 
 Game.__index = Game;
@@ -9,6 +10,7 @@ Game.__index = Game;
 local Player = require 'player'
 local Level = require 'level'
 local Hud = require 'hud'
+
 require('camera')
 
 function Game.new() 
@@ -17,6 +19,7 @@ function Game.new()
 	self.level = Level.new(0,self.player)
 	self.hud = Hud.new(self.level)
 	camera:addLayer(1,self.level)
+
 
 	return self
 end
@@ -27,6 +30,7 @@ end
 
 function Game:draw()
 	camera:simpleDraw()
+
 	self.hud:draw()
 end
 

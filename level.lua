@@ -22,7 +22,8 @@ local Level = {
 	refresh = true,
 	bonusAmmo = {},
 	bonusHeal = {},
-	items = {}
+	items = {},
+	night
 }
 
 Level.__index = Level
@@ -36,6 +37,7 @@ LevelEnemies = require 'levelEnemies'
 BonusHeal = require 'bonusHeal'
 BonusAmmo = require 'bonusAmmo'
 Item = require 'item'
+Night = require 'night'
 
 
 function Level.new(n,player)
@@ -43,6 +45,7 @@ function Level.new(n,player)
 	self.levelBase = LevelBase[2*n+1]
 	self.levelEnemies = LevelEnemies[2*n+1]
 	self.player = player
+	self.night = Night.new({100,100,100,100})
 
 	earth_batch:clear()
 	grass_batch:clear()
@@ -70,12 +73,10 @@ function Level.new(n,player)
 
 
 	self.sprites =SpritesBatch.new(earth_batch,grass_batch,rock_batch)
-
 	camera:addLayer(1,self.sprites)
-
 	self:loadEnemies()
-
 	camera:addLayer(1,self.player)
+	camera:addAmbient(self.night)
 
 	return self
 end
@@ -170,6 +171,7 @@ end
 
 
 function Level:update(dt)
+	self.night:update(dt)
 	self.time = self.time +dt
 	self.player:update(dt,self)
 
