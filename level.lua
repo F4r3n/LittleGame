@@ -46,8 +46,7 @@ function Level.new(n,player)
 	self.levelBase = LevelBase[2*n+1]
 	self.levelEnemies = LevelEnemies[2*n+1]
 	self.player = player
-	self.night = Night.new({100,100,100,255})
-	table.insert(self.light,Torch.new({200,200,200,10}))	
+	self.night = Night.new({200,200,200,200},Torch.new({200,200,200,200}))	
 
 	earth_batch:clear()
 	grass_batch:clear()
@@ -79,9 +78,6 @@ function Level.new(n,player)
 	self:loadEnemies()
 	camera:addLayer(1,self.player)
 	camera:addAmbient(self.night)
-	for _,v in ipairs(self.light) do
-		camera:addLight(v)
-	end
 
 	return self
 end
@@ -176,13 +172,10 @@ end
 
 
 function Level:update(dt)
-	self.night:update(dt)
+	self.night:update(dt,400,400)
 	self.time = self.time +dt
 	self.player:update(dt,self)
 
-	for _,v in ipairs(self.light) do
-		v:update(dt,self.player.offsetCamerax,self.player.offsetCameray)
-	end
 	p:update(dt)
 	local x = -self.player.vx 
 	local y = -self.player.vy
