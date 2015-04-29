@@ -47,7 +47,7 @@ function Level.new(n,player)
 	self.levelEnemies = LevelEnemies[2*n+1]
 	self.player = player
 	self.night = Night.new({100,100,100,100})
-	table.insert(self.light,Torch.new({100,100,100,50}))	
+	table.insert(self.light,Torch.new({10,10,10,255}))	
 
 	earth_batch:clear()
 	grass_batch:clear()
