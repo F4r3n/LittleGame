@@ -13,7 +13,7 @@ end
 
 function Night:update(dt)
 	self.time = self.time+dt/100
-	local c = math.abs(math.sin(self.time)*200)+50
+	local c = math.abs(math.sin(self.time)*200)+10
 	self.color = {c,c,c,100}
 end
 
@@ -23,6 +23,7 @@ function Night:draw()
 	love.graphics.setColor(self.color)
 	love.graphics.rectangle("fill",0,0,width,height)
 	love.graphics.setBlendMode("alpha")
+
 end
 
 return Night

@@ -23,7 +23,8 @@ local Level = {
 	bonusAmmo = {},
 	bonusHeal = {},
 	items = {},
-	night
+	night = nil,
+	light = {}
 }
 
 Level.__index = Level
@@ -38,7 +39,7 @@ BonusHeal = require 'bonusHeal'
 BonusAmmo = require 'bonusAmmo'
 Item = require 'item'
 Night = require 'night'
-
+Torch = require 'torch'
 
 function Level.new(n,player)
 	local self = setmetatable({},Level)
@@ -46,6 +47,7 @@ function Level.new(n,player)
 	self.levelEnemies = LevelEnemies[2*n+1]
 	self.player = player
 	self.night = Night.new({100,100,100,100})
+	table.insert(self.light,Torch.new({100,100,100,50}))	
 
 	earth_batch:clear()
 	grass_batch:clear()
@@ -77,6 +79,9 @@ function Level.new(n,player)
 	self:loadEnemies()
 	camera:addLayer(1,self.player)
 	camera:addAmbient(self.night)
+	for _,v in ipairs(self.light) do
+		camera:addLight(v)
+	end
 
 	return self
 end
@@ -175,6 +180,9 @@ function Level:update(dt)
 	self.time = self.time +dt
 	self.player:update(dt,self)
 
+	for _,v in ipairs(self.light) do
+		v:update(dt,self.player.offsetCamerax,self.player.offsetCameray)
+	end
 	p:update(dt)
 	local x = -self.player.vx 
 	local y = -self.player.vy

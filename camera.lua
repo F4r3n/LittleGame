@@ -8,6 +8,7 @@ camera.scaleY = 1
 camera.rotation = 0
 camera.index = 0
 camera.ambient = {}
+camera.light = {}
 
 function camera:set()
 	love.graphics.push()
@@ -34,6 +35,9 @@ function camera:addAmbient(object)
 	table.insert(self.ambient, { object = object})
 end
 
+function camera:addLight(object)
+	table.insert(self.ambient, { object = object})
+end
 function camera:newLayer(scale, func)
 	table.insert(self.layers, { draw = func, scale = scale })
 	table.sort(self.layers, function(a, b) return a.scale < b.scale end)
@@ -63,10 +67,16 @@ function camera:simpleDraw()
 	end
 
 	for _,v in ipairs(self.ambient) do
+		v.object:draw()
+	end
 
-			v.object:draw()
-		end
+	for _,v in ipairs(self.light) do
 
+		self.x,self.y = bx,by
+		camera:set()
+		v.object:draw()
+		camera:unset()
+	end
 end
 
 function camera:draw()
