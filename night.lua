@@ -24,9 +24,6 @@ end
 
 function Night:update(dt,x,y)
 	self.torch:update(dt,x,y)
-	self.time = self.time+dt/100
-	local c = math.abs(math.sin(self.time)*200)+50
-	self.color = {c,c,c,c}
 end
 
 function Night:draw()
@@ -36,11 +33,14 @@ function Night:draw()
 	love.graphics.setBlendMode("multiplicative")
 	love.graphics.setCanvas()
 
-	love.graphics.setColor(self.color)
 
+	love.graphics.setColor(self.torch.color)
 	love.graphics.draw(self.torch.canvas)
+
 	love.graphics.setBlendMode("additive")
+	love.graphics.setColor(self.color)
 	love.graphics.draw(self.canvas)
+
 	love.graphics.setBlendMode("alpha")
 
 end

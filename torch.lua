@@ -4,7 +4,9 @@ local Torch = {
 	x = 0,
 	y = 0,
 	canvas = nil,
-	shader
+	shader,
+	time = 0,
+	lightColor = {}
 }
 
 Torch.__index = Torch
@@ -26,6 +28,8 @@ function Torch.new(color)
 	love.graphics.setCanvas(self.canvas)
 
 	love.graphics.setColor(self.color)
+	love.graphics.rectangle("fill",0,0,width,height)
+	love.graphics.setColor(self.color)
 	love.graphics.circle("fill",self.x,self.y,100,100)
 
 	love.graphics.setCanvas()
@@ -35,10 +39,17 @@ end
 function Torch:update(dt,x,y)
 	self.x = x
 	self.y = y
+	self.time = self.time +dt/100
+	local c = math.abs(math.sin(self.time)*175) + 50
+	self.lightColor = {c,c,c,c}
 
 	self.canvas:clear()
 	love.graphics.setCanvas(self.canvas)
 	love.graphics.setShader(self.shader)
+
+	love.graphics.setColor(self.lightColor)
+	love.graphics.rectangle("fill",0,0,width,height)
+
 	love.graphics.setColor(self.color)
 	love.graphics.circle("fill",self.x,self.y,100,100)
 
