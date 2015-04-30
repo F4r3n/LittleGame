@@ -37,9 +37,10 @@ function Night:draw()
 	love.graphics.setCanvas()
 
 	love.graphics.setColor(self.color)
-	love.graphics.draw(self.canvas)
-	love.graphics.setBlendMode("additive")
+
 	love.graphics.draw(self.torch.canvas)
+	love.graphics.setBlendMode("additive")
+	love.graphics.draw(self.canvas)
 	love.graphics.setBlendMode("alpha")
 
 end
