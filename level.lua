@@ -319,6 +319,10 @@ function Level:update(dt)
 		v:update(dt,self)
 		for bullet,b in ipairs(self.bullets) do
 			if b.box:AABB(v.boxY) and v.owner ~= b.owner.owner then
+
+				p:start()
+
+				p:setPosition(b.x-5,b.y-5)
 				v:dommaged(b.dmg)
 				b.dead = true
 				table.remove(self.bullets,bullet)

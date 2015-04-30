@@ -72,16 +72,8 @@ function love.load()
 	love.window.setTitle("Little Game");
 	love.graphics.setBackgroundColor(blue);
 
-	local img = love.graphics.newImage('assets/blood.png');
 
-	p = love.graphics.newParticleSystem(img, 100);
-	p:setParticleLifetime(0.1,0.2); -- Particles live at least 2s and at most 5s.
-	p:setSizeVariation(1);
-	p:setEmissionRate(100);
-	p:setEmitterLifetime(1)
-	p:setLinearAcceleration(-100, -100, 100, 100); -- Random movement in all directions.
-	p:setColors(255, 255, 255, 255, 255, 255, 255, 0); -- Fade to black.
-	p:stop()
+	loadParticles()
 	love.mouse.setCursor(cursor_white_cross)
 	game = Game.new();
 	menu = Menu.new(game)
@@ -93,6 +85,29 @@ function love.load()
 	end
 
 
+end
+
+function loadParticles()
+
+	local img = love.graphics.newImage('assets/blood.png');
+	p = love.graphics.newParticleSystem(img, 1000);
+	p:setParticleLifetime(0.05,0.1); -- Particles live at least 2s and at most 5s.
+	p:setSizeVariation(1);
+	p:setEmissionRate(1000);
+	p:setEmitterLifetime(1)
+	p:setLinearAcceleration(-1000, -1000, 1000, 1000); -- Random movement in all directions.
+	p:setColors(255, 255, 255, 255, 255, 255, 255, 0); -- Fade to black.
+	p:stop()
+
+
+	particleExplosion = love.graphics.newParticleSystem(img, 100);
+	particleExplosion:setParticleLifetime(0.1,0.2); -- Particles live at least 2s and at most 5s.
+	particleExplosion:setSizeVariation(1);
+	particleExplosion:setEmissionRate(100);
+	particleExplosion:setEmitterLifetime(1)
+	particleExplosion:setLinearAcceleration(-100, -10, 100, 100); -- Random movement in all directions.
+	particleExplosion:setColors(255, 255, 255, 255, 255, 255, 255, 0); -- Fade to black.
+	particleExplosion:stop()
 end
 
 function love.update(dt)
