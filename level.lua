@@ -24,7 +24,8 @@ local Level = {
 	bonusHeal = {},
 	items = {},
 	night = nil,
-	light = {}
+	light = {},
+	exploParticle = {}
 }
 
 Level.__index = Level
@@ -40,6 +41,7 @@ BonusAmmo = require 'bonusAmmo'
 Item = require 'item'
 Night = require 'night'
 Torch = require 'torch'
+ExplosionParticle = require 'explosionParticle'
 
 function Level.new(n,player)
 	local self = setmetatable({},Level)
@@ -109,9 +111,9 @@ function Level:shake(dt)
 		self.shakeTime = self.shakeTime + dt
 		self.intervalTime = self.intervalTime + dt
 		if self.intervalTime <0.02 then
-			if camera.rotation == 0.01 then
-				camera.rotation =-0.01
-			else camera.rotation = 0.01
+			if camera.rotation == 0.008 then
+				camera.rotation =-0.008
+			else camera.rotation = 0.008
 			end
 			self.intervalTime = 0
 		end
@@ -168,38 +170,7 @@ function Level:chooseCursor()
 
 end
 
-
-
-
-function Level:update(dt)
-	self.night:update(dt,400,400)
-	self.time = self.time +dt
-	self.player:update(dt,self)
-
-	p:update(dt)
-	local x = -self.player.vx 
-	local y = -self.player.vy
-
-	local distanceEnemy=0
-	for _,v in ipairs(self.enemies) do
-		local d = math.abs(self.player.boxX.x-v.boxX.x)
-		if  distanceEnemy<d then
-			distanceEnemy = d
-		end
-	end
-
-	if (distanceEnemy < 500 and distanceEnemy~=0) and self.constructMode == true then self.constructMode=false end
-
-	if keyBoardInputRelease["c"] then
-		if (distanceEnemy > 500 or distanceEnemy==0)  and math.floor((self.player.boxX.y+(1)*self.h)/self.h) >2 then
-			if self.constructMode == false then
-				self.constructMode = true
-			else 
-				self.constructMode =false
-			end
-		end
-		keyBoardInputRelease["c"] = false
-	end
+function Level:contruction()
 
 	if self.constructMode then
 		if math.floor((self.player.boxX.y+(-3)*self.h)/self.h) <2
@@ -234,7 +205,47 @@ function Level:update(dt)
 			end
 		end
 	end
+end
 
+
+function Level:update(dt)
+	self.night:update(dt,400,400)
+	self.time = self.time +dt
+	self.player:update(dt,self)
+
+	p:update(dt)
+
+	for _,v in ipairs(self.exploParticle) do
+		v:update(dt)
+		if v.dead == true then
+			table.remove(self.exploParticle,_)
+		end
+	end
+	local x = -self.player.vx 
+	local y = -self.player.vy
+
+	local distanceEnemy=0
+	for _,v in ipairs(self.enemies) do
+		local d = math.abs(self.player.boxX.x-v.boxX.x)
+		if  distanceEnemy<d then
+			distanceEnemy = d
+		end
+	end
+
+	if (distanceEnemy < 500 and distanceEnemy~=0) and self.constructMode == true then self.constructMode=false end
+
+	if keyBoardInputRelease["c"] then
+		if (distanceEnemy > 500 or distanceEnemy==0)  and math.floor((self.player.boxX.y+(1)*self.h)/self.h) >2 then
+			if self.constructMode == false then
+				self.constructMode = true
+			else 
+				self.constructMode =false
+			end
+		end
+		keyBoardInputRelease["c"] = false
+	end
+
+	self:contruction()
 
 
 
@@ -330,6 +341,11 @@ function Level:update(dt)
 					local i = Item.new(v.boxX.x,v.boxX.y)
 					table.insert(self.items,i)
 					camera:addLayer(1,i)
+					local particle = ExplosionParticle.new()
+					
+					camera:addLayer(1,particle)
+					particle:launch(v.boxX.x,v.boxX.y)
+					table.insert(self.exploParticle,particle)
 				end
 
 			end

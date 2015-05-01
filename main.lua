@@ -100,15 +100,9 @@ function loadParticles()
 	p:stop()
 
 
-	particleExplosion = love.graphics.newParticleSystem(img, 100);
-	particleExplosion:setParticleLifetime(0.1,0.2); -- Particles live at least 2s and at most 5s.
-	particleExplosion:setSizeVariation(1);
-	particleExplosion:setEmissionRate(100);
-	particleExplosion:setEmitterLifetime(1)
-	particleExplosion:setLinearAcceleration(-100, -10, 100, 100); -- Random movement in all directions.
-	particleExplosion:setColors(255, 255, 255, 255, 255, 255, 255, 0); -- Fade to black.
-	particleExplosion:stop()
 end
+
+
 
 function love.update(dt)
 
