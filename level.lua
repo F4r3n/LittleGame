@@ -42,13 +42,17 @@ Item = require 'item'
 Night = require 'night'
 Torch = require 'torch'
 ExplosionParticle = require 'explosionParticle'
+MapGenerator = require 'mapGenerator'
 
 function Level.new(n,player)
 	local self = setmetatable({},Level)
 	self.levelBase = LevelBase[2*n+1]
 	self.levelEnemies = LevelEnemies[2*n+1]
 	self.player = player
-	self.night = Night.new({100,100,100,100},Torch.new({200,200,200,200}))	
+	self.night = Night.new({100,100,100,100},Torch.new({200,200,200,200}))
+	local map = MapGenerator.new(50,25,5,10)
+	map:initMap()
+	map:displayMap()
 
 	earth_batch:clear()
 	grass_batch:clear()
