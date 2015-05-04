@@ -46,14 +46,14 @@ MapGenerator = require 'mapGenerator'
 
 function Level.new(n,player)
 	local self = setmetatable({},Level)
-	self.levelBase = LevelBase[2*n+1]
-	self.levelEnemies = LevelEnemies[2*n+1]
+--	self.levelEnemies = LevelEnemies[2*n+1]
 	self.player = player
 	self.night = Night.new({100,100,100,100},Torch.new({200,200,200,200}))
-	local map = MapGenerator.new(50,25,5,10)
+	local map = MapGenerator.new(150,20,10,15,3)
 	map:initMap()
-	map:displayMap()
-
+	local m = map:getLevel2D()
+--	map:display2D(m)
+	self.levelBase = m
 	earth_batch:clear()
 	grass_batch:clear()
 	rock_batch:clear()
@@ -81,7 +81,7 @@ function Level.new(n,player)
 
 	self.sprites =SpritesBatch.new(earth_batch,grass_batch,rock_batch)
 	camera:addLayer(1,self.sprites)
-	self:loadEnemies()
+--	self:loadEnemies()
 	camera:addLayer(1,self.player)
 	camera:addAmbient(self.night)
 

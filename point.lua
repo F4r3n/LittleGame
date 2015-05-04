@@ -1,15 +1,15 @@
 local Point = {
-	x,
-	y,
-	t,
-	radius
+	box,
+	t
 }
 
 Point.__index = Point
+Box = require 'box'
 
-function Point.new(x,y,t,radius)
+function Point.new(x,y,t,w,h)
 	local self = setmetatable({},Point)
-	self.x,self.y,self.t,self.radius = x,y,t,radius
+	self.box = Box.new(x,y,w,h)
+	self.t = t
 	return self
 end
 
