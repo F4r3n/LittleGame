@@ -69,9 +69,9 @@ end
 function Player:draw()
   
 	love.graphics.setColor(white)
-	love.graphics.rectangle("fill", self.boxY.x-10, self.boxY.y+10, self.w+20, self.h-20)
+	love.graphics.rectangle("fill", self.boxY.x - 10, self.boxY.y + 10, self.w + 20, self.h - 20)
 	love.graphics.rectangle("fill", self.boxY.x, self.boxY.y, self.w, self.h)
-	if (self.degree>270 and self.degree <360) or (self.degree > 0 and self.degree<90) then
+	if (self.degree > 270 and self.degree < 360) or (self.degree > 0 and self.degree < 90) then
 		self.weapon:draw(0,self.boxX.x,self.boxX.y)
 	else
 		self.weapon:draw(180,self.boxX.x,self.boxX.y)
@@ -134,22 +134,22 @@ function Player:update(dt,level)
 		end
 	end
 
+	--print(keyBoardInput[" "])
 
-
-	if keyBoardInput[" "] and self.jumping == false then
+	if keyBoardInput["space"] and self.jumping == false then
 		self.hasMoved = true
 		self.vy = -self.speed*(2/3)
 		self.jumping = true
 	end
 
-	local left =math.floor(self.boxX.x/level.w)-5
-	local right =math.floor(self.boxX.x/level.w)+5
+	local left = math.floor(self.boxX.x/level.w)-5
+	local right = math.floor(self.boxX.x/level.w)+5
 	local up = math.floor(self.boxX.y/level.h)-5
 	local down = math.floor(self.boxX.y/level.h)+5
-	if left <=1 then left = 1 end
-	if right >#level.cases[1] then right = #level.cases[1] end
-	if up <=1 then up=1 end
-	if down>#level.cases then down = #level.cases end
+	if left <= 1 then left = 1 end
+	if right > #level.cases[1] then right = #level.cases[1] end
+	if up <= 1 then up = 1 end
+	if down > #level.cases then down = #level.cases end
 
 	for i=up,down do
 		for j=left,right do

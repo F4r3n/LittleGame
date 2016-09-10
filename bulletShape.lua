@@ -15,6 +15,7 @@ function BulletShape.new(w,h)
 end
 
 function BulletShape:draw(x,y)
+	--print(white)
 	love.graphics.setColor(white)
 	love.graphics.draw(ball_image,x,y)
 end

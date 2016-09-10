@@ -105,6 +105,7 @@ end
 
 
 function love.update(dt)
+	--love.graphics.setBackgroundColor(blue);
 
 	mx,my = love.mouse.getPosition()
 
@@ -120,14 +121,14 @@ function love.update(dt)
 		else menu:update(dt)
 		end
 	end
-mouseLeftReleased = false
+	mouseLeftReleased = false
 
 
 end
 
 
 function love.draw()
-	love.graphics.clear()
+	--love.graphics.clear()
 
 	if play ==  true then
 		game:draw()
@@ -136,9 +137,8 @@ function love.draw()
 	end
 end
 
-function love.keypressed(key,isrepeat)
+function love.keypressed(key,scancode,isrepeat)
 	keyBoardInput[key] = true
-
 	if key == "p" then
 		if play==false then
 			play = true
@@ -147,8 +147,10 @@ function love.keypressed(key,isrepeat)
 	end
 end
 
-function love.mousepressed(x,y,button)
-	if button == "l" then
+function love.mousepressed(x, y, button, istouch)
+	--print(button)
+	if button == 1 then
+		--print("test")
 		mousePressedLeft = true
 	end
 end
@@ -167,8 +169,8 @@ function love.quit()
 end
 
 
-function love.mousereleased(x,y,button)
-	if button == "l" then
+function love.mousereleased(x,y,button,istouch)
+	if button == 1 then
 		mousePressedLeft = false
 		mouseLeftReleased = true
 	end

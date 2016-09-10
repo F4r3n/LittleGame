@@ -39,16 +39,16 @@ LevelEnemies = require 'levelEnemies'
 BonusHeal = require 'bonusHeal'
 BonusAmmo = require 'bonusAmmo'
 Item = require 'item'
-Night = require 'night'
-Torch = require 'torch'
+--Night = require 'night'
+--Torch = require 'torch'
 ExplosionParticle = require 'explosionParticle'
 MapGenerator = require 'mapGenerator'
 
 function Level.new(n,player)
 	local self = setmetatable({},Level)
---	self.levelEnemies = LevelEnemies[2*n+1]
+	self.levelEnemies = LevelEnemies[2*n+1]
 	self.player = player
-	self.night = Night.new({100,100,100,100},Torch.new({200,200,200,200}))
+	--self.night = Night.new({100,100,100,100},Torch.new({200,200,200,200}))
 	local map = MapGenerator.new(150,20,10,15,3)
 	map:initMap()
 	local m = map:getLevel2D()
@@ -79,11 +79,11 @@ function Level.new(n,player)
 	end
 
 
-	self.sprites =SpritesBatch.new(earth_batch,grass_batch,rock_batch)
+	self.sprites = SpritesBatch.new(earth_batch,grass_batch,rock_batch)
 	camera:addLayer(1,self.sprites)
 --	self:loadEnemies()
 	camera:addLayer(1,self.player)
-	camera:addAmbient(self.night)
+	--camera:addAmbient(self.night)
 
 	return self
 end
@@ -213,8 +213,8 @@ end
 
 
 function Level:update(dt)
-	self.night:update(dt,400,400)
-	self.time = self.time +dt
+	--self.night:update(dt,400,400)
+	self.time = self.time + dt
 	self.player:update(dt,self)
 
 	p:update(dt)
@@ -458,7 +458,7 @@ function Level:refreshMap()
 end
 
 function Level:draw()
-
+	love.graphics.setBackgroundColor(blue)
 	love.graphics.setColor(white)
 	love.graphics.draw(p);
 	if self.constructMode then
